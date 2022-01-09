@@ -57,9 +57,9 @@ Page {
             SidebarItem {
                 id: btnHome
                 text: qsTr("Home")
-                iconPath: "../images/icons/home.svg"
+                iconPath: "../../images/icons/home.svg"
                 isActiveMenu: true
-                onClicked: { internal.setPage(btnHome, "pages/homePage.qml") }
+                onClicked: { internal.setPage(btnHome, "../pages/homePage.qml") }
 
                 width: column.width
             }
@@ -67,9 +67,9 @@ Page {
             SidebarItem {
                 id: btnModpacks
                 text: qsTr("Modpacks")
-                iconPath: "../images/icons/box.svg"
+                iconPath: "../../images/icons/box.svg"
                 isActiveMenu: false
-                onClicked: { internal.setPage(btnModpacks, "pages/homePage.qml") }
+                onClicked: { internal.setPage(btnModpacks, "../pages/homePage.qml") }
 
                 width: column.width
             }
@@ -93,9 +93,9 @@ Page {
             SidebarItem {
                 id: btnSettings
                 text: qsTr("Settings")
-                iconPath: "../images/icons/cog.svg"
+                iconPath: "../../images/icons/cog.svg"
                 isActiveMenu: false
-                onClicked: { internal.setPage(btnSettings, "pages/homePage.qml") }
+                onClicked: { internal.setPage(btnSettings, "../pages/homePage.qml") }
 
                 width: bottomColumn.width
 
@@ -122,7 +122,7 @@ Page {
         StackView {
             id: stackView
             anchors.fill: parent
-            initialItem: Qt.resolvedUrl("pages/homePage.qml")
+            initialItem: Qt.resolvedUrl("../pages/homePage.qml")
         }
     }
 }

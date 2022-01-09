@@ -8,7 +8,7 @@ Window {
     visible: isVisible
     title: qsTr("Hello World")
 
-    property bool isVisible: false
+    property bool isVisible: true
 
     Rectangle {
         id: bg
@@ -24,15 +24,8 @@ Window {
 
         StackView {
             id: stack
-            initialItem: Qt.resolvedUrl("views/Login.qml")
+            initialItem: Qt.resolvedUrl("views/Main.qml")
             anchors.fill: parent
         }
-    }
-
-
-
-    Connections {
-        id: backend
-
     }
 }
