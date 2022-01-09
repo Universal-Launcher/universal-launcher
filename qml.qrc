@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/components/navigation/SidebarItem.qml</file>
+        <file>qml/pages/homePage.qml</file>
+        <file>qml/components/navigation/Sidebar.qml</file>
+        <file>images/icons/box.svg</file>
+        <file>images/icons/cog.svg</file>
+        <file>images/icons/home.svg</file>
+        <file>qml/views/Login.qml</file>
+        <file>qml/views/Main.qml</file>
+    </qresource>
+</RCC>
