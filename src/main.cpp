@@ -3,12 +3,27 @@
 
 #include <QLocale>
 #include <QTranslator>
+#include <QQmlContext>
+
+#include <QDebug>
+
+#include "auth/authentication.h"
+
+static QObject* authSingletonTypeProvider(QQmlEngine* engine, QJSEngine* script) {
+    Q_UNUSED(engine);
+    Q_UNUSED(script);
+
+    return Authentication::instance();
+}
+
+void register_types(QQmlEngine *engine) {
+    qmlRegisterSingletonType<Authentication>("Authentication", 1, 0, "Authentication", authSingletonTypeProvider);
+}
 
 int main(int argc, char *argv[])
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
+    QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+
     // Create the application instance
     QGuiApplication app(argc, argv);
 
@@ -35,6 +50,10 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
+
+    // Init types for further usage
+    register_types(&engine);
+
     engine.load(url);
 
     // Show the application

@@ -9,7 +9,12 @@ Button {
     // CUSTOM PROPERTIES
     property bool isActiveMenu: false
 
-    property url iconPath: ""
+    required property bool authenticated;
+    property string accountName
+    property url imgUrl
+    property int imgWidth: 8
+    property int imgHeight: 8
+
     property int iconWidth: 18
     property int iconHeight: 18
 
@@ -22,12 +27,10 @@ Button {
     property color bgColorActive: "#4b5563"
     property color textColorActive: "#f3f4f6"
 
-    property int notifCount: -1
-
     QtObject {
         id: internal
 
-        property var dynamicBgColor: if (isActiveMenu) {
+        property var dynamicBgColor: if (isActiveMenu){
                                        bgColorActive
                                    } else if (sidebarItem.hovered){
                                        bgColorHover
@@ -67,24 +70,49 @@ Button {
         anchors.fill: parent
         id: content
 
-        Image {
-            id: icon
-            source: iconPath
+        Rectangle {
+            id: mask
+            visible: authenticated
+            color: "white"
             anchors {
                 leftMargin: 10
                 left: parent.left
                 verticalCenter: parent.verticalCenter
             }
+            width: 24
+            height: 24
+            radius: 15
+
+            Image {
+                id: avatarHead
+                source: sidebarItem.imgUrl
+                sourceSize.width: imgWidth
+                sourceSize.height: imgHeight
+                anchors.fill: parent
+                fillMode: Image.Stretch
+                width: 24
+                height: 24
+                smooth: false
+                mipmap: false
+            }
+        }
+
+        Image {
+            id: icon
+            visible: false
+            source: "/images/icons/sign-in-alt.svg"
             sourceSize.width: iconWidth
             sourceSize.height: iconHeight
-            width: iconWidth
-            height: iconHeight
             fillMode: Image.PreserveAspectFit
-            visible: false
-            antialiasing: true
+            anchors {
+                leftMargin: 10
+                left: parent.left
+                verticalCenter: parent.verticalCenter
+            }
         }
 
         ColorOverlay {
+            visible: !authenticated
             anchors.fill: icon
             source: icon
             color: internal.dynamicTextColor
@@ -95,38 +123,13 @@ Button {
 
         Text {
             color: internal.dynamicTextColor
-            text: sidebarItem.text
-            font: sidebarItem.font
+            text: authenticated ? sidebarItem.accountName : qsTr("Log In")
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 40
             anchors.right: parent.right
         }
-
-        Rectangle {
-            id: notifBubble
-            visible: notifCount >= 0
-            radius: 20
-            color: "red"
-
-            width: 20
-            height: 20
-
-            anchors {
-                rightMargin: 10
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-            }
-
-            Text {
-                id: notifNumber
-                color: "white"
-                text: notifCount
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-
-                anchors.fill: parent
-            }
-        }
     }
+
+
 }

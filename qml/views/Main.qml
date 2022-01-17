@@ -2,10 +2,13 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import "../components/navigation"
 
+import Authentication 1.0
+
 Page {
     id: main
 
-    property SidebarItem currentMenu: btnHome
+    property var currentMenu: null
+    signal onViewChange(string action, string viewUrl)
 
     QtObject {
         id: internal
@@ -13,7 +16,9 @@ Page {
         function setPage(page, url) {
             if (currentMenu !== page) {
                 page.isActiveMenu = true
-                currentMenu.isActiveMenu = false
+                if (currentMenu !== null) {
+                    currentMenu.isActiveMenu = false
+                }
                 currentMenu = page
 
                 stackView.push(Qt.resolvedUrl(url))
@@ -57,7 +62,7 @@ Page {
             SidebarItem {
                 id: btnHome
                 text: qsTr("Home")
-                iconPath: "../../images/icons/home.svg"
+                iconPath: "/images/icons/home.svg"
                 isActiveMenu: true
                 onClicked: { internal.setPage(btnHome, "../pages/homePage.qml") }
 
@@ -67,9 +72,9 @@ Page {
             SidebarItem {
                 id: btnModpacks
                 text: qsTr("Modpacks")
-                iconPath: "../../images/icons/box.svg"
+                iconPath: "/images/icons/box.svg"
                 isActiveMenu: false
-                onClicked: { internal.setPage(btnModpacks, "../pages/homePage.qml") }
+                onClicked: { internal.setPage(btnModpacks, "../pages/modpacksPage.qml") }
 
                 width: column.width
             }
@@ -90,12 +95,28 @@ Page {
                 bottom: parent.bottom
             }
 
+            SidebarUserAccount {
+                id: btnAccount
+
+                onClicked: function () {
+                    if (Authentication.isAuthenticated) {
+                        internal.setPage(btnAccount, "../pages/accountPage.qml")
+                    } else {
+                        main.onViewChange("push", "/qml/views/Login.qml")
+                    }
+                }
+
+                width: bottomColumn.width
+
+                authenticated: Authentication.isAuthenticated
+            }
+
             SidebarItem {
                 id: btnSettings
                 text: qsTr("Settings")
-                iconPath: "../../images/icons/cog.svg"
+                iconPath: "/images/icons/cog.svg"
                 isActiveMenu: false
-                onClicked: { internal.setPage(btnSettings, "../pages/homePage.qml") }
+                onClicked: { internal.setPage(btnSettings, "../pages/settingsPage.qml") }
 
                 width: bottomColumn.width
 
@@ -106,7 +127,7 @@ Page {
 
     Rectangle {
         id: contentPage
-        color: "#00000000"
+        color: "#0F172A"
         anchors {
             left: leftMenu.right
             right: parent.right
@@ -114,15 +135,53 @@ Page {
             bottom: parent.bottom
             rightMargin: 0
             leftMargin: 0
-            bottomMargin: 25
+            bottomMargin: 0
             topMargin: 0
         }
         clip: true
 
         StackView {
             id: stackView
-            anchors.fill: parent
-            initialItem: Qt.resolvedUrl("../pages/homePage.qml")
+            anchors {
+                fill: parent
+                leftMargin: 20
+                rightMargin: 20
+                topMargin: 20
+                bottomMargin: 20
+            }
+
+            pushEnter: Transition {
+                PropertyAnimation {
+                    property: "opacity"
+                    from: 0
+                    to:1
+                    duration: 200
+                }
+            }
+            pushExit: Transition {
+                PropertyAnimation {
+                    property: "opacity"
+                    from: 1
+                    to:0
+                    duration: 200
+                }
+            }
+
+            Component.onCompleted: {
+                internal.setPage(btnHome, "../pages/homePage.qml")
+            }
+        }
+    }
+
+    Connections {
+        target: Authentication
+
+        function onAuthChanged (authenticated) {
+            if (Authentication.isAuthenticated) {
+                var account = Authentication.getMinecraftProfile();
+                btnAccount.accountName = account.username;
+                btnAccount.imgUrl = account.avatar;
+            }
         }
     }
 }

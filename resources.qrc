@@ -9,5 +9,12 @@
         <file>images/icons/home.svg</file>
         <file>qml/views/Login.qml</file>
         <file>qml/views/Main.qml</file>
+        <file>qml/components/navigation/SidebarUserAccount.qml</file>
+        <file>qml/pages/settingsPage.qml</file>
+        <file>qml/pages/accountPage.qml</file>
+        <file>qml/pages/modpacksPage.qml</file>
+        <file>qml/components/CustomPage.qml</file>
+        <file>qml/components/modpack/ModpackVignette.qml</file>
+        <file>images/icons/sign-in-alt.svg</file>
     </qresource>
 </RCC>
