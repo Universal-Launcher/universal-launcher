@@ -27,6 +27,9 @@ class Authentication : public QObject {
                 m_isAuthenticated = isAuthenticated;
                 emit authChanged(isAuthenticated);
             }
+
+            this->m_is_refreshing = false;
+            emit refreshFinished();
         }
 
         bool isAuthenticated() const {
@@ -41,6 +44,7 @@ public slots:
 
 signals:
         void authChanged(bool authenticated);
+        void refreshFinished();
 
 private:
         static Authentication* m_instance;
@@ -49,6 +53,8 @@ private:
         QOAuth2AuthorizationCodeFlow m_oauth2;
         bool m_isAuthenticated;
         QString m_authorization_code;
+
+        bool m_is_refreshing = false;
 
         void processAuthentication();
 

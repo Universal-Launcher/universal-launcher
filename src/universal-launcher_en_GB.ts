@@ -72,7 +72,7 @@
 <context>
     <name>main</name>
     <message>
-        <location filename="../qml/main.qml" line="10"/>
+        <location filename="../qml/main.qml" line="12"/>
         <source>Hello World</source>
         <translation type="unfinished"></translation>
     </message>

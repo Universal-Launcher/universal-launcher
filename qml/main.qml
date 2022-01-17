@@ -3,6 +3,8 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import "views"
 
+import Authentication 1.0
+
 Window {
     width: 960
     height: 640
@@ -10,7 +12,7 @@ Window {
     title: qsTr("Hello World")
     id: window
 
-    property bool isVisible: true
+    property bool isVisible: false
 
     Rectangle {
         id: bg
@@ -56,6 +58,17 @@ Window {
                 window.x = screen.width / 2 - 640 / 2
                 window.y = screen.height / 2 - 480 / 2
             }
+        }
+    }
+
+    Component.onCompleted: {
+        Authentication.refresh();
+    }
+
+    Connections {
+        target: Authentication
+        function onRefreshFinished() {
+            isVisible = true;
         }
     }
 }

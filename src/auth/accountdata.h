@@ -35,7 +35,6 @@ public:
 
     void fetchAvatar();
 
-private:
     QString username() const {
         return name;
     }

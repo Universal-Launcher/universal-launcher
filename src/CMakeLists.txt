@@ -11,6 +11,7 @@ set(SRC
     main.cpp
     auth/authentication.h auth/authentication.cpp
     auth/accountdata.h auth/accountdata.cpp
+    settings.h settings.cpp
     )
 
 set(PROJECT_SOURCES

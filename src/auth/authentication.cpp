@@ -3,6 +3,7 @@
 #include <QtGui>
 #include <QUrlQuery>
 #include <QtNetworkAuth>
+#include "../settings.h"
 
 Authentication* Authentication::m_instance = nullptr;
 
@@ -88,6 +89,11 @@ void Authentication::processAuthentication() {
 
     this->m_profile = std::unique_ptr<MinecraftProfile>(profile);
     this->m_profile->fetchAvatar();
+
+    auto settings = Settings::instance();
+
+    settings->saveProfile(&m_oauth2, &account, this->m_profile.get());
+
     setAuthenticated(true);
 }
 
@@ -269,5 +275,13 @@ MinecraftProfile* Authentication::getMinecraftProfile() {
 }
 
 void Authentication::refresh() {
+    auto settings = Settings::instance();
+    settings->loadProfile(&m_oauth2);
 
+    if (m_oauth2.token().size() > 0 && m_oauth2.refreshToken().size() > 0) {
+        this->m_is_refreshing = true;
+        m_oauth2.refreshAccessToken();
+    } else {
+        emit refreshFinished();
+    }
 }
