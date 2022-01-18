@@ -285,3 +285,10 @@ void Authentication::refresh() {
         emit refreshFinished();
     }
 }
+
+void Authentication::signout() {
+    auto settings = Settings::instance();
+    settings->deleteProfile();
+
+    setAuthenticated(false);
+}

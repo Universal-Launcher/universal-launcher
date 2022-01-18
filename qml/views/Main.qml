@@ -181,6 +181,8 @@ Page {
                 var account = Authentication.getMinecraftProfile();
                 btnAccount.accountName = account.username;
                 btnAccount.imgUrl = account.avatar;
+            } else {
+                internal.setPage(btnHome, "../pages/homePage.qml")
             }
         }
     }

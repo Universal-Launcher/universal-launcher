@@ -41,6 +41,7 @@ public slots:
         void authorize();
         void refresh();
         MinecraftProfile* getMinecraftProfile();
+        void signout();
 
 signals:
         void authChanged(bool authenticated);

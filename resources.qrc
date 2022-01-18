@@ -16,5 +16,7 @@
         <file>qml/components/CustomPage.qml</file>
         <file>qml/components/modpack/ModpackVignette.qml</file>
         <file>images/icons/sign-in-alt.svg</file>
+        <file>qml/components/ui/UButton.qml</file>
+        <file>images/icons/sign-out-alt.svg</file>
     </qresource>
 </RCC>

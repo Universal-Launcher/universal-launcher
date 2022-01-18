@@ -11,6 +11,7 @@ public:
 
     void saveProfile(QOAuth2AuthorizationCodeFlow* oauth2, MCAccountInfo* account, MinecraftProfile* profile);
     void loadProfile(QOAuth2AuthorizationCodeFlow* oauth2);
+    void deleteProfile();
 
 private:
     static Settings* m_instance;

@@ -56,8 +56,13 @@
 <context>
     <name>accountPage</name>
     <message>
-        <location filename="../qml/pages/accountPage.qml" line="6"/>
+        <location filename="../qml/pages/accountPage.qml" line="9"/>
         <source>Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/accountPage.qml" line="17"/>
+        <source>Sign out</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
