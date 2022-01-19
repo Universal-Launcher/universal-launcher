@@ -1,85 +1,63 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtWebView 1.1
+import "../components/ui"
 
-import Authentication 1.0
-
-Page {
+Popup {
     id: login
 
-    signal onViewChange(string action, string viewUrl)
+    parent: Overlay.overlay
+    x: Math.round((parent.width - width) / 2)
+    y: Math.round((parent.height - height) / 2)
+    width: 400
+    height: 250
+
+    modal: true
+    focus: true
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
     background: Rectangle {
-        color: "#00000000"
+        color: "#1F2937"
+        anchors.fill: parent
     }
 
     Rectangle {
-        id: topbar
-        color: "#1f2937"
-        anchors {
-            left: parent.left
-            top: parent.top
-            right: parent.right
-            topMargin: 0
-            leftMargin: 0
-            rightMargin: 0
-        }
+        color: "#00000000"
+        anchors.fill: parent
+        anchors.margins: 20
 
-        height: 50
 
         Text {
+            id: title
             font.pixelSize: 20
             color: "white"
-            text: qsTr("Login with Microsoft")
-
-            anchors.left: parent.left
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.leftMargin: 20
-            anchors.verticalCenter: parent.verticalCenter
+            text: qsTr("Authenticating with Microsoft")
         }
 
-        Button {
-            id: button
-            anchors.right: parent.right
-            anchors.rightMargin: 20
-            anchors.verticalCenter: parent.verticalCenter
-            width: 70
+        UBusyIndicator {
+            id: indicator
+            width: 40
+            height: 40
 
-            background: Rectangle {
-                color: "#FFFFFF03"
-                radius: 5
-            }
-
-            text: qsTr("Cancel")
-            onClicked: {
-                login.onViewChange("pop", "")
+            anchors {
+                top: title.bottom
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                margins: 20
+                bottomMargin: 0
             }
         }
-    }
-
-    BusyIndicator {
-        id: indicator
-        anchors {
-            top: topbar.bottom
-            bottom: parent.bottom
-            left: parent.left
-            right: parent.right
-        }
-    }
-
-    function openUrl(u) {
-        webview.url = u
     }
 
     Connections {
         target: Authentication
 
         function onAuthChanged (authenticated) {
-            login.onViewChange("pop", "")
+
         }
     }
 
     Component.onCompleted: {
-        Authentication.authorize()
+        //Authentication.authorize()
     }
 }

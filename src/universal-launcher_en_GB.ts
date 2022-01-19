@@ -5,29 +5,24 @@
     <name>Login</name>
     <message>
         <location filename="../qml/views/Login.qml" line="33"/>
-        <source>Login with Microsoft</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/views/Login.qml" line="53"/>
-        <source>Cancel</source>
+        <source>Authenticating with Microsoft</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>Main</name>
+    <name>Sidebar</name>
     <message>
-        <location filename="../qml/views/Main.qml" line="64"/>
+        <location filename="../qml/components/navigation/Sidebar.qml" line="61"/>
         <source>Home</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/views/Main.qml" line="74"/>
+        <location filename="../qml/components/navigation/Sidebar.qml" line="71"/>
         <source>Modpacks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/views/Main.qml" line="116"/>
+        <location filename="../qml/components/navigation/Sidebar.qml" line="103"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -49,20 +44,28 @@
     </message>
     <message>
         <location filename="../qml/components/navigation/SidebarUserAccount.qml" line="126"/>
-        <source>Log In</source>
+        <source>Accounts</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>accountPage</name>
     <message>
-        <location filename="../qml/pages/accountPage.qml" line="9"/>
+        <location filename="../qml/pages/accountPage.qml" line="7"/>
         <source>Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/accountPage.qml" line="17"/>
+        <location filename="../qml/pages/accountPage.qml" line="15"/>
         <source>Sign out</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>app</name>
+    <message>
+        <location filename="../qml/app.qml" line="10"/>
+        <source>Hello World</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -71,14 +74,6 @@
     <message>
         <location filename="../qml/pages/homePage.qml" line="6"/>
         <source>Home</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>main</name>
-    <message>
-        <location filename="../qml/main.qml" line="12"/>
-        <source>Hello World</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

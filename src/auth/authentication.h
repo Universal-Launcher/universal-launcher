@@ -9,7 +9,7 @@
 #include <QtNetwork>
 #include <QtQml/qqml.h>
 #include <QOAuth2AuthorizationCodeFlow>
-
+#include <QQmlEngine>
 
 #include "accountdata.h"
 
@@ -20,7 +20,7 @@ class Authentication : public QObject {
     Q_PROPERTY(bool isAuthenticated READ isAuthenticated WRITE setAuthenticated NOTIFY authChanged)
 
 	public:
-        static Authentication* instance();
+        static void registerSingleton(QQmlEngine* engine);
 
         void setAuthenticated(bool isAuthenticated) {
             if (m_isAuthenticated != isAuthenticated) {

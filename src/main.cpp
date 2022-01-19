@@ -9,17 +9,6 @@
 
 #include "auth/authentication.h"
 
-static QObject* authSingletonTypeProvider(QQmlEngine* engine, QJSEngine* script) {
-    Q_UNUSED(engine);
-    Q_UNUSED(script);
-
-    return Authentication::instance();
-}
-
-void register_types(QQmlEngine *engine) {
-    qmlRegisterSingletonType<Authentication>("Authentication", 1, 0, "Authentication", authSingletonTypeProvider);
-}
-
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
@@ -44,7 +33,7 @@ int main(int argc, char *argv[])
      * Load the view engine and the main view
      */
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/qml/main.qml"));
+    const QUrl url(QStringLiteral("qrc:/qml/app.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
@@ -52,7 +41,7 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
 
     // Init types for further usage
-    register_types(&engine);
+    Authentication::registerSingleton(&engine);
 
     engine.load(url);
 

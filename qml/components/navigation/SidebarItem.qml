@@ -20,7 +20,7 @@ Button {
     property color textColorHover: "#f3f4f6"
 
     property color bgColorActive: "#4b5563"
-    property color textColorActive: "#f3f4f6"
+    property color textColorActive: "#F97316"
 
     property int notifCount: -1
 

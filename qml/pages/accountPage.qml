@@ -2,8 +2,6 @@ import QtQuick 2.0
 import "../components"
 import "../components/ui"
 
-import Authentication 1.0
-
 CustomPage {
     id: accountPage
     pageTitle: qsTr("Account")

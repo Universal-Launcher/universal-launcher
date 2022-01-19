@@ -3,15 +3,17 @@
 #include <QtGui>
 #include <QUrlQuery>
 #include <QtNetworkAuth>
+#include <QQmlContext>
 #include "../settings.h"
 
 Authentication* Authentication::m_instance = nullptr;
 
-Authentication* Authentication::instance() {
+void Authentication::registerSingleton(QQmlEngine *engine) {
     if (!m_instance) {
         m_instance = new Authentication();
     }
-    return m_instance;
+    QQmlContext *context = engine->rootContext();
+    context->setContextProperty("Authentication", m_instance);
 }
 
 Authentication::Authentication(QObject* parent) : QObject(parent), m_isAuthenticated(false)

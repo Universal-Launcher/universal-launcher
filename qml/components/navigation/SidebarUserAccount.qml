@@ -25,7 +25,7 @@ Button {
     property color textColorHover: "#f3f4f6"
 
     property color bgColorActive: "#4b5563"
-    property color textColorActive: "#f3f4f6"
+    property color textColorActive: "#F97316"
 
     QtObject {
         id: internal
@@ -100,7 +100,7 @@ Button {
         Image {
             id: icon
             visible: false
-            source: "/images/icons/sign-in-alt.svg"
+            source: "/images/icons/user-circle.svg"
             sourceSize.width: iconWidth
             sourceSize.height: iconHeight
             fillMode: Image.PreserveAspectFit
@@ -123,7 +123,7 @@ Button {
 
         Text {
             color: internal.dynamicTextColor
-            text: authenticated ? sidebarItem.accountName : qsTr("Log In")
+            text: authenticated ? sidebarItem.accountName : qsTr("Accounts")
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 40
