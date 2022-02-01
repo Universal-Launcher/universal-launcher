@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import "../components"
 import "../components/ui"
+import UniversalLauncher 1.0
 
 CustomPage {
     id: settings
@@ -29,7 +30,7 @@ CustomPage {
                     top: openFolderTxt.bottom
                     topMargin: 10
                 }
-                onClicked: console.log("Open launcher folder")
+                onClicked: AppGlobal.folderSystem.openLauncherFolder()
             }
         }
     }

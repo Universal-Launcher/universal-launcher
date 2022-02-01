@@ -6,6 +6,10 @@
 
 #include <QQmlDebuggingEnabler>
 
+#include "AppGlobal.h"
+
+void register_singletons() { AppGlobal::registerType(); }
+
 int main(int argc, char *argv[]) {
   QQmlDebuggingEnabler enabler;
 
@@ -31,16 +35,12 @@ int main(int argc, char *argv[]) {
    * Load the view engine and the main view
    */
   QQmlApplicationEngine engine;
-  const QUrl url(QStringLiteral("qrc:/qml/main/app.qml"));
-  QObject::connect(
-      &engine, &QQmlApplicationEngine::objectCreated, &app,
-      [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-          QCoreApplication::exit(-1);
-      },
-      Qt::QueuedConnection);
 
-  engine.load(url);
+  register_singletons();
+
+  engine.load(QUrl(QStringLiteral("qrc:/qml/main/app.qml")));
+  if (engine.rootObjects().isEmpty())
+    QCoreApplication::exit(-1);
 
   // Show the application
   return app.exec();
