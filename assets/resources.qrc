@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main/app.qml</file>
+        <file>qml/main/Main.qml</file>
+
+        <file>qml/main/components/CustomPage.qml</file>
+        <file>qml/main/components/navigation/Sidebar.qml</file>
+        <file>qml/main/components/navigation/SidebarItem.qml</file>
+
+        <file>qml/main/pages/HomePage.qml</file>
+        <file>qml/main/pages/ModpacksPage.qml</file>
+        <file>qml/main/pages/AccountsPage.qml</file>
+        <file>qml/main/pages/SettingsPage.qml</file>
+
+        <file>images/icons/home.svg</file>
+        <file>images/icons/cog.svg</file>
+        <file>images/icons/box.svg</file>
+    </qresource>
+</RCC>

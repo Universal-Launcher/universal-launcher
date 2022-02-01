@@ -1,31 +1,46 @@
 import QtQuick 2.15
+import "."
 
 Rectangle {
     id: sidebar
-    color: "#1f2937"
+    color: "white"
     width: 200
 
     anchors {
         left: parent.left
-        bottom: parent.bottom
         top: parent.top
+        bottom: parent.bottom
         topMargin: 0
-        bottomMargin: 0
         leftMargin: 0
+        bottomMargin: 0
     }
 
     z: 1
+
+    Rectangle {
+        id: borderRight
+        width: 1
+        height: parent.height * 0.9
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        color: "#D1D5D8"
+
+        radius: 4
+    }
 
     default property string currentRoute
 
     signal routeChanged(string routeName)
 
-    function changeRoute(route) {
-        if (currentRoute !== route) {
+    function changeRoute(route)
+    {
+        if (currentRoute != route)
+        {
             currentRoute = route
             routeChanged(route)
         }
     }
+
 
     Column {
         id: topColumn
@@ -36,17 +51,17 @@ Rectangle {
             bottomMargin: 0
 
             left: parent.left
-            top: parent.top
             right: parent.right
+            top: parent.top
         }
 
         Text {
             id: title
-            text: "Universal\nLauncher"
+            text: qsTr("Universal\nLauncher")
             font.pixelSize: 16
             font.capitalization: Font.AllUppercase
             font.bold: Font.Bold
-            color: "#d1d5db"
+            color: "#1F2937"
 
             height: 100
 
@@ -60,9 +75,8 @@ Rectangle {
             id: btnHome
             text: qsTr("Home")
             iconPath: "/images/icons/home.svg"
-            isActiveMenu: currentRoute === "home"
+            isActive: currentRoute === "home"
             onClicked: changeRoute("home")
-
             width: parent.width
         }
 
@@ -70,9 +84,8 @@ Rectangle {
             id: btnModpacks
             text: qsTr("Modpacks")
             iconPath: "/images/icons/box.svg"
-            isActiveMenu: currentRoute === "modpacks"
+            isActive: currentRoute === "modpacks"
             onClicked: changeRoute("modpacks")
-
             width: parent.width
         }
     }
@@ -86,42 +99,18 @@ Rectangle {
             topMargin: 0
 
             left: parent.left
-            bottom: parent.bottom
             right: parent.right
-        }
-
-        SidebarUserAccount {
-            id: btnAccount
-            width: parent.width
-            isActiveMenu: currentRoute === "account"
-            authenticated: Authentication.isAuthenticated
-            onClicked: changeRoute("account")
+            bottom: parent.bottom
         }
 
         SidebarItem {
             id: btnSettings
             text: qsTr("Settings")
             iconPath: "/images/icons/cog.svg"
+            isActive: currentRoute === "settings"
             onClicked: changeRoute("settings")
-            isActiveMenu: currentRoute === "settings"
-
             width: parent.width
-
             notifCount: 2
-        }
-    }
-
-    Connections {
-        target: Authentication
-
-        function onAuthChanged() {
-            if (Authentication.isAuthenticated) {
-                var account = Authentication.getMinecraftProfile();
-               btnAccount.accountName = account.username;
-               btnAccount.imgUrl = account.avatar;
-            } else {
-                changeRoute("home")
-            }
         }
     }
 }

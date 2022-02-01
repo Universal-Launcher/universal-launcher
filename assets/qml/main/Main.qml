@@ -6,18 +6,10 @@ Page {
     id: main
 
     background: Rectangle {
-        color: "#374151"
+        color: "white"
         anchors.fill: parent
     }
 
-    function showPage(route) {
-        switch(sidebar.currentRoute) {
-            case "home": stackView.replace(Qt.resolvedUrl("/qml/pages/homePage.qml")); break;
-            case "modpacks": stackView.replace(Qt.resolvedUrl("/qml/pages/modpacksPage.qml")); break;
-            case "account": stackView.replace(Qt.resolvedUrl("/qml/pages/accountPage.qml")); break;
-            case "settings": stackView.replace(Qt.resolvedUrl("/qml/pages/settingsPage.qml")); break;
-        }
-    }
 
     Sidebar {
         id: sidebar
@@ -25,9 +17,18 @@ Page {
         onRouteChanged: showPage(sidebar.currentRoute)
     }
 
+    function showPage(route) {
+        switch(sidebar.currentRoute) {
+            case "home": stackView.replace(Qt.resolvedUrl("/qml/main/pages/HomePage.qml")); break;
+            case "modpacks": stackView.replace(Qt.resolvedUrl("/qml/main/pages/ModpacksPage.qml")); break;
+            case "account": stackView.replace(Qt.resolvedUrl("/qml/main/pages/AccountPage.qml")); break;
+            case "settings": stackView.replace(Qt.resolvedUrl("/qml/main/pages/SettingsPage.qml")); break;
+        }
+    }
+
     Rectangle {
-        id: contentPage
-        color: "#0F172A"
+        id: contentPane
+        color: "transparent"
         anchors {
             top: parent.top
             bottom: parent.bottom
@@ -35,28 +36,29 @@ Page {
             left: sidebar.right
             margins: 0
         }
-        clip: true
-
+    
         StackView {
             id: stackView
             anchors {
                 fill: parent
                 margins: 20
             }
-
+            clip: true
+            
             replaceEnter: Transition {
                 PropertyAnimation {
-                    property: "opacity"
+                    properties: "opacity"
                     from: 0
-                    to:1
+                    to: 1
                     duration: 200
                 }
             }
+
             replaceExit: Transition {
                 PropertyAnimation {
-                    property: "opacity"
+                    properties: "opacity"
                     from: 1
-                    to:0
+                    to: 0
                     duration: 200
                 }
             }

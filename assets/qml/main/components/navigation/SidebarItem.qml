@@ -1,46 +1,41 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import Qt5Compat.GraphicalEffects
+import QtGraphicalEffects 1.15
 
 Button {
     id: sidebarItem
-    text: qsTr("Left Menu Text")
-
+    
     // CUSTOM PROPERTIES
-    property bool isActiveMenu: false
-
+    property bool isActive: false
+    
     property url iconPath: ""
     property int iconWidth: 18
     property int iconHeight: 18
 
     property color bgColorDefault: "#00000000"
-    property color textColorDefault: "#9ca3af"
+    property color textColorDefault: "#374151"
 
-    property color bgColorHover: "#4b5563"
-    property color textColorHover: "#f3f4f6"
+    property color bgColorHover: "#E5E7EB"
+    property color textColorHover: "#111827"
 
-    property color bgColorActive: "#4b5563"
+    property color bgColorActive: "#E5E7EB"
     property color textColorActive: "#F97316"
 
     property int notifCount: -1
 
-    QtObject {
-        id: internal
-
-        property var dynamicBgColor: if (isActiveMenu) {
-                                       bgColorActive
-                                   } else if (sidebarItem.hovered){
-                                       bgColorHover
-                                   } else {
-                                       bgColorDefault
-                                   }
-        property var dynamicTextColor: if (isActiveMenu) {
-                                           textColorActive
-                                       } else if(sidebarItem.hovered) {
-                                           textColorHover
-                                       } else {
-                                           textColorDefault
-                                       }
+    property var dynamicBgColor: if (isActive) {
+        bgColorActive
+    } else if (sidebarItem.hovered) {
+        bgColorHover
+    } else {
+        bgColorDefault
+    }
+    property var dynamicTextColor: if (isActive) {
+        textColorActive
+    } else if (sidebarItem.hovered) {
+        textColorHover
+    } else {
+        textColorDefault
     }
 
     implicitHeight: 37
@@ -54,7 +49,7 @@ Button {
 
     background: Rectangle {
         id: bgBtn
-        color: internal.dynamicBgColor
+        color: dynamicBgColor
         radius: 10
 
         anchors {
@@ -83,24 +78,25 @@ Button {
             visible: false
             antialiasing: true
         }
-
         ColorOverlay {
             anchors.fill: icon
             source: icon
-            color: internal.dynamicTextColor
-            antialiasing: true
+            color: dynamicTextColor
+            antialiasing: MultiPointTouchArea
             width: iconWidth
             height: iconHeight
         }
 
         Text {
-            color: internal.dynamicTextColor
+            color: dynamicTextColor
             text: sidebarItem.text
             font: sidebarItem.font
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            anchors.leftMargin: 40
-            anchors.right: parent.right
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left: parent.left
+                leftMargin: 40
+                right: parent.right
+            }
         }
 
         Rectangle {
@@ -115,7 +111,7 @@ Button {
             anchors {
                 rightMargin: 10
                 right: parent.right
-                verticalCenter: parent.verticalCenter
+                verticalCenter: icon.verticalCenter
             }
 
             Text {
@@ -124,7 +120,6 @@ Button {
                 text: notifCount
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-
                 anchors.fill: parent
             }
         }
