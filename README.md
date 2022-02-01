@@ -14,3 +14,9 @@ This is the goal of this project, unify all minecraft launcher into one.
 
 > :warning: **This project is still at an experimental state.** You will have to compile it by yourself if you want
 > try it.
+
+## Resources
+
+**Project board:** https://github.com/Bricklou/universal-launcher/projects/1
+
+**Design**: https://www.figma.com/file/kTlOa07SzaBD5KDLAiWpD1/Universal-Launcher
