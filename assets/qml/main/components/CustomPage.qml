@@ -1,15 +1,11 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-Page {
+Item {
     id: page
 
-    property alias children: content.children
+    property alias content: content.children
     required property string pageTitle
-
-    background: Rectangle {
-        color: "transparent"
-    }
 
     Text {
         id: title
@@ -21,7 +17,11 @@ Page {
 
     Item {
         id: content
-        anchors.fill: parent
-        anchors.top: title.bottom
+        anchors{
+            top: title.bottom
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
+        }
     }
 }
