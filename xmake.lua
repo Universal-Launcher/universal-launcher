@@ -9,7 +9,7 @@ rule_end()
 add_rules("mode.debug", "mode.release")
 
 set_policy("package.requires_lock", true)
-includes("xmake/rules.lua")
+includes("xmake/scripts/rules.lua")
 
 set_allowedmodes("debug", "release")
 set_allowedplats("windows", "mingw", "linux", "macosx")
