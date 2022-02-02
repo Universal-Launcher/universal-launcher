@@ -8,22 +8,22 @@
 class Router : public QObject {
   Q_OBJECT
 
-  Q_PROPERTY(QUrl currentRoute READ currentRoute CONSTANT);
+  Q_PROPERTY(QUrl currentRoute READ currentRoute NOTIFY routeChanged);
 
 public:
   Router();
   ~Router();
 
+  QUrl currentRoute();
 signals:
-  void onRouteChanged(QString route);
+  void routeChanged(const QString &route);
 
 public slots:
-  void goTo(QString route);
-  void registerRoute(QString route, QUrl *url);
+  void goTo(const QString &route);
+  void registerRoute(const QString &route, const QUrl &url);
+  bool isCurrentRoute(const QString &route) { return m_current_route == route; }
 
 private:
   QString m_current_route;
-  QMap<QString, QUrl> m_routes;
-
-  QUrl currentRoute() { return QUrl{""}; }
+  QMap<QString, QUrl> m_routes{};
 };

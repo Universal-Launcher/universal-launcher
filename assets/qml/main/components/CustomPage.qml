@@ -17,7 +17,7 @@ Item {
 
     Item {
         id: content
-        anchors{
+        anchors {
             top: title.bottom
             bottom: parent.bottom
             left: parent.left

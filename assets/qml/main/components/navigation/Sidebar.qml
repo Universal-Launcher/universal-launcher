@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import "."
+import UniversalLauncher 1.0
 
 Rectangle {
     id: sidebar
@@ -27,20 +28,6 @@ Rectangle {
 
         radius: 4
     }
-
-    default property string currentRoute
-
-    signal routeChanged(string routeName)
-
-    function changeRoute(route)
-    {
-        if (currentRoute != route)
-        {
-            currentRoute = route
-            routeChanged(route)
-        }
-    }
-
 
     Column {
         id: topColumn
@@ -75,8 +62,8 @@ Rectangle {
             id: btnHome
             text: qsTr("Home")
             iconPath: "/images/icons/home.svg"
-            isActive: currentRoute === "home"
-            onClicked: changeRoute("home")
+            isActive: AppGlobal.router.isCurrentRoute("home")
+            onClicked: AppGlobal.router.goTo("home")
             width: parent.width
         }
 
@@ -84,8 +71,8 @@ Rectangle {
             id: btnModpacks
             text: qsTr("Modpacks")
             iconPath: "/images/icons/box.svg"
-            isActive: currentRoute === "modpacks"
-            onClicked: changeRoute("modpacks")
+            isActive: AppGlobal.router.isCurrentRoute("modpacks")
+            onClicked: AppGlobal.router.goTo("modpacks")
             width: parent.width
         }
     }
@@ -107,8 +94,8 @@ Rectangle {
             id: btnSettings
             text: qsTr("Settings")
             iconPath: "/images/icons/cog.svg"
-            isActive: currentRoute === "settings"
-            onClicked: changeRoute("settings")
+            isActive: AppGlobal.router.isCurrentRoute("setting")
+            onClicked: AppGlobal.router.goTo("settings")
             width: parent.width
             notifCount: 2
         }

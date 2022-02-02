@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import "components/navigation"
+import UniversalLauncher 1.0
 
 Page {
     id: main
@@ -10,20 +11,8 @@ Page {
         anchors.fill: parent
     }
 
-
     Sidebar {
         id: sidebar
-        currentRoute: "home"
-        onRouteChanged: showPage(sidebar.currentRoute)
-    }
-
-    function showPage(route) {
-        switch(sidebar.currentRoute) {
-            case "home": stackView.replace(Qt.resolvedUrl("/qml/main/pages/HomePage.qml")); break;
-            case "modpacks": stackView.replace(Qt.resolvedUrl("/qml/main/pages/ModpacksPage.qml")); break;
-            case "account": stackView.replace(Qt.resolvedUrl("/qml/main/pages/AccountPage.qml")); break;
-            case "settings": stackView.replace(Qt.resolvedUrl("/qml/main/pages/SettingsPage.qml")); break;
-        }
     }
 
     Rectangle {
@@ -62,8 +51,24 @@ Page {
                     duration: 200
                 }
             }
-
-            Component.onCompleted: showPage("home")
         }
+    }
+
+    Connections {
+        target: AppGlobal.router
+
+        function onRouteChanged(router) {
+            console.log(AppGlobal.router.currentRoute)
+            stackView.replace(Qt.resolvedUrl(AppGlobal.router.currentRoute))
+        }
+    }
+
+    Component.onCompleted: function() {
+        AppGlobal.router.registerRoute("home", "/qml/main/pages/HomePage.qml")
+        AppGlobal.router.registerRoute("modpacks", "/qml/main/pages/ModpacksPage.qml")
+        AppGlobal.router.registerRoute("settings", "/qml/main/pages/SettingsPage.qml")
+        AppGlobal.router.registerRoute("accounts", "/qml/main/pages/AccountsPage.qml")
+
+        AppGlobal.router.goTo("home")
     }
 }
