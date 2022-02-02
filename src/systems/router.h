@@ -9,12 +9,14 @@ class Router : public QObject {
   Q_OBJECT
 
   Q_PROPERTY(QUrl currentRoute READ currentRoute NOTIFY routeChanged);
+  Q_PROPERTY(QUrl currentRouteName READ currentRouteName NOTIFY routeChanged);
 
 public:
   Router();
   ~Router();
 
   QUrl currentRoute();
+  QString currentRouteName();
 signals:
   void routeChanged(const QString &route);
 

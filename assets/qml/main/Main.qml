@@ -57,8 +57,7 @@ Page {
     Connections {
         target: AppGlobal.router
 
-        function onRouteChanged(router) {
-            console.log(AppGlobal.router.currentRoute)
+        function onRouteChanged(route) {
             stackView.replace(Qt.resolvedUrl(AppGlobal.router.currentRoute))
         }
     }

@@ -62,7 +62,7 @@ Rectangle {
             id: btnHome
             text: qsTr("Home")
             iconPath: "/images/icons/home.svg"
-            isActive: AppGlobal.router.isCurrentRoute("home")
+            isActive: AppGlobal.router.currentRouteName == "home"
             onClicked: AppGlobal.router.goTo("home")
             width: parent.width
         }
@@ -71,7 +71,7 @@ Rectangle {
             id: btnModpacks
             text: qsTr("Modpacks")
             iconPath: "/images/icons/box.svg"
-            isActive: AppGlobal.router.isCurrentRoute("modpacks")
+            isActive: AppGlobal.router.currentRouteName == "modpacks"
             onClicked: AppGlobal.router.goTo("modpacks")
             width: parent.width
         }
@@ -94,7 +94,7 @@ Rectangle {
             id: btnSettings
             text: qsTr("Settings")
             iconPath: "/images/icons/cog.svg"
-            isActive: AppGlobal.router.isCurrentRoute("setting")
+            isActive: AppGlobal.router.currentRouteName == "settings"
             onClicked: AppGlobal.router.goTo("settings")
             width: parent.width
             notifCount: 2

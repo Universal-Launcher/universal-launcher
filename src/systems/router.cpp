@@ -17,3 +17,7 @@ QUrl Router::currentRoute() {
   return m_routes.contains(m_current_route) ? m_routes[m_current_route]
                                             : QUrl{""};
 }
+
+QString Router::currentRouteName() {
+  return m_routes.contains(m_current_route) ? m_current_route : "";
+}
