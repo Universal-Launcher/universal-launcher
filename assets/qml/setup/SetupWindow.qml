@@ -1,21 +1,20 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import "."
 
 Window {
-    width: 960
-    height: 640
-    visible: isVisible
-    title: qsTr("Universal-Launcher")
+    title: qsTr("Universal-Launcher - Setup")
+    width: 480
+    height: 720
     id: window
+    visible: isVisible
 
     property bool isVisible: true
     property bool screenInit: false
 
-    Main {
-        id: main
-        anchors.fill: parent
+    Text {
+        id: txt
+        text: "salut"
     }
 
     Connections {

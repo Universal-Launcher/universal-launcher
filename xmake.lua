@@ -8,6 +8,8 @@ rule_end()
 
 add_rules("mode.debug", "mode.release")
 
+add_repositories("local-repo xmake/repos")
+
 set_policy("package.requires_lock", true)
 includes("xmake/scripts/rules.lua")
 
@@ -18,7 +20,7 @@ set_defaultmode("debug")
 
 add_rpathdirs("@executable_path")
 
-set_languages("c17", "cxx20")
+set_languages("cxx20")
 set_warnings("allextra")
 
 if is_mode("release") then
@@ -34,6 +36,12 @@ if is_plat("windows") then
     add_cxflags("/wd4251") -- Disable warning: class needs to have dll-interface to be used by clients of class blah blah blah
 end
 
+if is_plat("linux") then
+    set_toolchains("gcc")
+end
+
+add_requires("simdjson", { system = false })
+
 target("universal-launcher")
     add_rules("install_bin")
     add_rules("qt.quickapp")
@@ -48,6 +56,7 @@ target("universal-launcher")
     add_defines("QT_QML_DEBUG_NO_WARNING")
 
     add_frameworks("QtCore", "QtQml", "QtQuick", "QtNetworkAuth", "QtWebView")
+    add_packages("simdjson")
 
     on_load(function (target)
         import("detect.sdks.find_qt")

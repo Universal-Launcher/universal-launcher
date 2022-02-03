@@ -38,9 +38,26 @@ int main(int argc, char *argv[]) {
 
   register_singletons();
 
-  engine.load(QUrl(QStringLiteral("qrc:/qml/main/app.qml")));
-  if (engine.rootObjects().isEmpty())
+  auto settings = AppGlobal::instance()->settings();
+
+  settings->load();
+
+  bool alreadySetup;
+  auto err = settings->get()["configured"].get(alreadySetup);
+  if (err)
+    alreadySetup = false;
+
+  if (alreadySetup) {
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main/MainWindow.qml")));
+  } else {
+    engine.load(QUrl(QStringLiteral("qrc:/qml/setup/SetupWindow.qml")));
+  }
+  if (engine.rootObjects().isEmpty()) {
+    AppGlobal::destroy();
     QCoreApplication::exit(-1);
+  }
+
+  AppGlobal::destroy();
 
   // Show the application
   return app.exec();
