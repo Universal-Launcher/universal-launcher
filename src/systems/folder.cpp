@@ -1,8 +1,8 @@
 #include "folders.h"
 
-#include "qqmlengine.h"
 #include <QDesktopServices>
 #include <QDir>
+#include <QQmlEngine>
 #include <QStandardPaths>
 #include <QUrl>
 
@@ -11,7 +11,7 @@ void FolderSystem::registerType() {
                                            "FolderSystem", "");
 }
 
-FolderSystem::FolderSystem() : QObject() {
+FolderSystem::FolderSystem(QObject *parent) : QObject(parent) {
   m_launcher_folder_path =
       QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 

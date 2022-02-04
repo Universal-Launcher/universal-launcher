@@ -11,7 +11,8 @@ void SettingsSystem::registerType() {
                                              "SettingsSystem", "");
 }
 
-SettingsSystem::SettingsSystem(FolderSystem *folder_system) : QObject() {
+SettingsSystem::SettingsSystem(FolderSystem *folder_system, QObject *parent)
+    : QObject(parent) {
   auto dir = QDir{folder_system->getFolderPath()};
   m_config_path = dir.absoluteFilePath("launcher.json");
 

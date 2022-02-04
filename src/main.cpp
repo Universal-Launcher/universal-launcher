@@ -7,8 +7,7 @@
 #include <QQmlDebuggingEnabler>
 
 #include "AppGlobal.h"
-
-void register_singletons() { AppGlobal::registerType(); }
+#include <memory>
 
 int main(int argc, char *argv[]) {
   QQmlDebuggingEnabler enabler;
@@ -36,28 +35,27 @@ int main(int argc, char *argv[]) {
    */
   QQmlApplicationEngine engine;
 
-  register_singletons();
-
-  auto settings = AppGlobal::instance()->settings();
-
-  settings->load();
+  auto appGlobal = std::unique_ptr<AppGlobal>(AppGlobal::instance());
+  appGlobal->registerType();
+  appGlobal->settings()->load();
 
   bool alreadySetup;
-  auto err = settings->get()["configured"].get(alreadySetup);
+  auto err = appGlobal->settings()->get()["configured"].get(alreadySetup);
   if (err)
     alreadySetup = false;
+
+  alreadySetup = true;
 
   if (alreadySetup) {
     engine.load(QUrl(QStringLiteral("qrc:/qml/main/MainWindow.qml")));
   } else {
     engine.load(QUrl(QStringLiteral("qrc:/qml/setup/SetupWindow.qml")));
   }
+
   if (engine.rootObjects().isEmpty()) {
     AppGlobal::destroy();
     QCoreApplication::exit(-1);
   }
-
-  AppGlobal::destroy();
 
   // Show the application
   return app.exec();

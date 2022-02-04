@@ -6,6 +6,8 @@ class Themes : public QObject {
   Q_OBJECT
 
 public:
-  Themes();
+  Themes(QObject *parent = nullptr);
   ~Themes();
+
+  static void registerType();
 };

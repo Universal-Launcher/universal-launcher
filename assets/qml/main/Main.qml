@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import "components/navigation"
 import UniversalLauncher 1.0
+import "components/navigation"
 
 Page {
     id: main
@@ -53,6 +53,7 @@ Page {
             }
         }
     }
+
 
     Connections {
         target: AppGlobal.router
