@@ -6,7 +6,7 @@ Rectangle{
     id: background
 
     property color gray: "#C4C4C4"
-    property color darkGray: "#ADADAD"
+    property color select: "#F97316"
     property string pathName: ""
     property string javaName: ""
 
@@ -18,7 +18,7 @@ Rectangle{
     states: [
         State {
             name: "selected"
-            PropertyChanges { target: background; border.color: darkGray}
+            PropertyChanges { target: background; border.color: select}
         },
         State {
             name: "default"

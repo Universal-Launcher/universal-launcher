@@ -36,6 +36,7 @@ Page {
             font.pixelSize: 20
             font.capitalization: Font.AllUppercase
             wrapMode: Text.Wrap
+            
             x: 130
             y: 25
         }
@@ -55,32 +56,7 @@ Page {
             }
             clip: true
             
-            initialItem: language
-
-            SetupLanguage{
-                id: language
-                anchors.fill: parent
-            }
-
-            SetupTheme{
-                visible:false
-                id: theme
-                anchors.fill: parent
-                anchors.centerIn: parent;
-            }
-
-            SetupJava{
-                visible:false
-                id: java
-                anchors.fill: parent
-            }
-
-            SetupFinish{
-                visible:false
-                id: finish
-                anchors.fill: parent
-            }
-                
+            initialItem: "pages/SetupLanguage.qml"      
         }
     }
 }

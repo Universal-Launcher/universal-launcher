@@ -107,9 +107,9 @@ Rectangle{
                 btnText: qsTr("Suivant")
                 iconPath: "/images/icons/arrow-alt-circle-right.svg"
                 onClicked: {
-                                if(cardOne.state == "selected"){ stackView.replace(finish) }
-                                else if(cardTwo.state == "selected") { stackView.replace(finish) }
-                                else if(cardThree.state == "selected") { stackView.replace(finish) }
+                                if(cardOne.state == "selected"){ stackView.push("SetupFinish.qml") }
+                                else if(cardTwo.state == "selected") { stackView.push("SetupFinish.qml") }
+                                else if(cardThree.state == "selected") { stackView.push("SetupFinish.qml") }
                             }
                 x:800
                 y:490
@@ -118,7 +118,7 @@ Rectangle{
             UButton{
                 btnText: qsTr("Retour")
                 iconPath: "/images/icons/arrow-alt-circle-left.svg"
-                onClicked: stackView.replace(theme)
+                onClicked: stackView.pop("SetupTheme.qml")
                 x:20
                 y:490
             }            

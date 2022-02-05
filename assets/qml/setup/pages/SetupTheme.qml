@@ -10,12 +10,6 @@ Rectangle{
     id: home
 
     property StackView stack
-    anchors {
-        top: parent.top
-        bottom: parent.bottom
-        left: parent.left
-        right: parent.right
-    }
 
             Text{
                 id: setup
@@ -164,11 +158,11 @@ Rectangle{
                 iconPath: "/images/icons/arrow-alt-circle-right.svg"
                 onClicked: {
                             if(wt.selected == true){
-                                stackView.replace(java)
+                                stackView.push("SetupJava.qml")
                             } else if (dt.selected == true){
-                                stackView.replace(java) 
+                                stackView.push("SetupJava.qml") 
                             } else if (st.selected == true){
-                                stackView.replace(java) 
+                                stackView.push("SetupJava.qml") 
                             }
                         }
                 x:800
@@ -180,7 +174,7 @@ Rectangle{
                 btnText: qsTr("Retour")
                 iconPath: "/images/icons/arrow-alt-circle-left.svg"
                 onClicked: {
-                    stackView.replace(language)
+                    stackView.pop("SetupLanguage.qml");
                 }
                 x:20
                 y:490

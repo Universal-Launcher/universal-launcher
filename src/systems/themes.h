@@ -53,4 +53,6 @@ private:
   QMap<QString, QPointer<ThemeObject>> m_themes;
 
   void registerDefaultThemes();
+  void registerDarkThemes();
+  void registerSepiaThemes();
 };

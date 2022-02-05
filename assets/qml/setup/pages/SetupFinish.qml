@@ -30,9 +30,12 @@ Rectangle{
             }
 
             UButton{
+                id: btn
                 btnText: qsTr("Finish")
                 iconPath: "/images/icons/arrow-alt-circle-right.svg"
-                onClicked: console.log("finito pipo")
+                onClicked: {
+                    console.log("fin")
+                }
                 x:800
                 y:490
             }
@@ -41,7 +44,7 @@ Rectangle{
             UButton{
                 btnText: qsTr("Retour")
                 iconPath: "/images/icons/arrow-alt-circle-left.svg"
-                onClicked: stackView.replace(java)
+                onClicked: stackView.pop("SetupJava.qml")
                 x:20
                 y:490
             }

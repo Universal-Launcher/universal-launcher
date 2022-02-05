@@ -107,9 +107,9 @@ Rectangle{
         iconPath: "/images/icons/arrow-alt-circle-right.svg"
         onClicked: {
             if(fr_card.selected == true){
-                stackView.replace(theme)
+                stackView.push("SetupTheme.qml")
             } else if (en_card.selected == true){
-                stackView.replace(theme) 
+                stackView.push("SetupTheme.qml") 
             }
         }
         x:800

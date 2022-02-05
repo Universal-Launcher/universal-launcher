@@ -34,3 +34,24 @@ void Themes::registerDefaultThemes() {
 
   m_themes.insert("default", new ThemeObject(values));
 }
+
+void Themes::registerDarkThemes() {
+  ThemeObject::ThemeValues values{};
+  values.insert("background_color", "252525");
+  values.insert("background_color_2", "#444444");
+  values.insert("text_color", "E5E7EB");
+  values.insert("accent_color", "#F97316");
+
+  m_themes.insert("dark", new ThemeObject(values));
+}
+
+void Themes::registerSepiaThemes() {
+  ThemeObject::ThemeValues values{};
+  values.insert("background_color", "#EAD09E");
+  values.insert("background_color_2", "#D7A575");
+  values.insert("text_color", "#B59860");
+  values.insert("title_color", "#FFEBC6");
+  values.insert("accent_color", "#white");
+
+  m_themes.insert("sepia", new ThemeObject(values));
+}
