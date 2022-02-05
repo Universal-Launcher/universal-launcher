@@ -12,7 +12,7 @@ class SettingsSystem : public QObject {
   Q_OBJECT
 
 public:
-  SettingsSystem(FolderSystem *folder_system);
+  SettingsSystem(FolderSystem *folder_system, QObject *parent);
   ~SettingsSystem();
 
   static void registerType();

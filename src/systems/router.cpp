@@ -1,6 +1,12 @@
 #include "router.h"
 
-Router::Router() : QObject() {}
+#include <QQmlEngine>
+
+void Router::registerType() {
+  qmlRegisterUncreatableType<Router>("UniversalLauncher", 1, 0, "Router", "");
+}
+
+Router::Router(QObject *parent) : QObject(parent) {}
 
 Router::~Router() {}
 

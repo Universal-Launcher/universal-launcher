@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include <memory>
+#include <QPointer>
 
 #include "systems/folders.h"
 #include "systems/router.h"
@@ -13,31 +13,30 @@
 class AppGlobal : public QObject {
   Q_OBJECT
 
-  Q_PROPERTY(FolderSystem *folderSystem READ folderSystem);
+  Q_PROPERTY(FolderSystem *folderSystem READ folderSystem CONSTANT);
   Q_PROPERTY(Router *router READ router CONSTANT);
   Q_PROPERTY(Themes *themes READ themes CONSTANT);
   Q_PROPERTY(SettingsSystem *settings READ settings CONSTANT);
 
 public:
-  AppGlobal();
   ~AppGlobal();
 
-  static void registerType();
   static AppGlobal *instance();
   static void destroy();
+  void registerType();
 
-  FolderSystem *folderSystem() const;
-  Router *router() const;
-  Themes *themes() const;
-  SettingsSystem *settings() const;
+  Q_INVOKABLE FolderSystem *folderSystem();
+  Q_INVOKABLE Router *router();
+  Q_INVOKABLE Themes *themes();
+  Q_INVOKABLE SettingsSystem *settings();
 
 private:
-  std::unique_ptr<FolderSystem> m_folder_system;
-  std::unique_ptr<Router> m_router;
-  std::unique_ptr<Themes> m_themes;
-  std::unique_ptr<SettingsSystem> m_settings;
+  AppGlobal();
 
-  static QObject *singletonProvider(QQmlEngine *engine, QJSEngine *script);
+  QPointer<FolderSystem> m_folder_system;
+  QPointer<Router> m_router;
+  QPointer<Themes> m_themes;
+  QPointer<SettingsSystem> m_settings;
 
   static AppGlobal *s_instance;
 };

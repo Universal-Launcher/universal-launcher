@@ -1,6 +1,6 @@
 import QtQuick 2.15
-import "."
 import UniversalLauncher 1.0
+import "."
 
 Rectangle {
     id: sidebar
@@ -63,7 +63,7 @@ Rectangle {
             text: qsTr("Home")
             iconPath: "/images/icons/home.svg"
             isActive: AppGlobal.router.currentRouteName == "home"
-            onClicked: AppGlobal.router.goTo("home")
+            onClicked:  AppGlobal.router.goTo("home")
             width: parent.width
         }
 
