@@ -5,8 +5,8 @@ import QtGraphicalEffects 1.15
 Rectangle {
     id: background
 
-    width: 304
-    height: 250
+    width: 254
+    height: 220
     radius: 10
     color: gray
     border.color: gray
@@ -107,10 +107,10 @@ Rectangle {
         },
         State {
             name: "t_sepia"
-            PropertyChanges { target: background; color: white }
-            PropertyChanges { target: background; border.color: white }
+            PropertyChanges { target: background; color: gray }
+            PropertyChanges { target: background; border.color: gray }
 
-            PropertyChanges { target: bottom; color: white }
+            PropertyChanges { target: bottom; color: gray }
 
             PropertyChanges { target: header; color: darkPurple }
             PropertyChanges { target: titleFirst; color: lightGray }
@@ -163,7 +163,7 @@ Rectangle {
 
         Rectangle {
             id: header
-            width: 300
+            width: 250
             height: 200
             anchors.horizontalCenter: parent.horizontalCenter
             y: 2
@@ -310,54 +310,54 @@ Rectangle {
 
             Rectangle{
                 id: card1
-                width: 50
-                height: 35
+                width: 45
+                height: 30
                 radius: 10
-                x: 100
-                y: 35
+                x: 92
+                y: 45
             }
 
             Rectangle{
                 id: card2
-                width: 50
-                height: 35
+                width: 45
+                height: 30
                 radius: 10
-                x: 160
-                y: 35
+                x: 145
+                y: 45
             }
             Rectangle{
                 id: card3
-                width: 50
-                height: 35
+                width: 45
+                height: 30
                 radius: 10
-                x: 220
-                y: 35
+                x: 198
+                y: 45
             }
 
             Rectangle{
                 id: card4
-                width: 50
-                height: 35
+                width: 45
+                height: 30
                 radius: 10
-                x: 100
+                x: 92
                 y: 95
             }
 
             Rectangle{
                 id: card5
-                width: 50
-                height: 35
+                width: 45
+                height: 30
                 radius: 10
-                x: 160
+                x: 145
                 y: 95
             }
 
             Rectangle{
                 id: card6
-                width: 50
-                height: 35
+                width: 45
+                height: 30
                 radius: 10
-                x: 220
+                x: 198
                 y: 95
             }
         }
@@ -365,8 +365,8 @@ Rectangle {
 
         Rectangle {
             id: bottom
-            width: 300
-            height: 68
+            width: 250
+            height: 33
             anchors.horizontalCenter: parent.horizontalCenter
             y: 180
             Text{

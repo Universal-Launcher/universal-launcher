@@ -10,56 +10,46 @@ Rectangle{
     property StackView stack
 
     id: back
-    width: parent.width
-    Image{
-        id: logo
-        x: 17
-        y: 10
-        width: 96
-        height: 96
-        source: "/images/icons/logo.png"
-    }
-    Text{
-        id: title
-        text: "Universal Launcher"
-        width: 120
-        height: 100
-        font.bold: true
-        font.pixelSize: 20
-        font.capitalization: Font.AllUppercase
-        wrapMode: Text.Wrap
-        x: 130
-        y: 25
-    }
 
     Text{
         id: setup
-        text: "Langue"
+        text: "Setup"
         font.pixelSize: 35
         font.capitalization: Font.AllUppercase
         anchors.horizontalCenter: parent.horizontalCenter
         color: textBlueSpeColor
-        y: 170
+        y: 60
+    }
+
+    Text{
+        id: text
+        text: "Select Langue"
+        font.pixelSize: 18
+        font.capitalization: Font.AllUppercase
+        x: 225
+        color: "black"
+        y: 145
     }
 
     Row{
         spacing: 30
         anchors.horizontalCenter: parent.horizontalCenter
 
-        y: 250
+        y: 175
 
         Rectangle{
             id: back_fr_card
             width: 252
             height: 182
             radius: 5
-            color: "#E5E7EB"
+            color: "#F97316"
             ULanguage{
                 id: fr_card
                 backgroundPath: "/images/background/fr_flag.jpg"
                 mName: "Français"
                 x: 1
                 y: 1
+                selected: true
                 MouseArea {
                     id: fr_card_area
                     anchors.fill: parent
@@ -111,19 +101,18 @@ Rectangle{
         }
                 
     }
-    
+
     UButton{
         btnText: qsTr("Suivant")
         iconPath: "/images/icons/arrow-alt-circle-right.svg"
-        onClicked: stackView.replace(theme)
+        onClicked: {
+            if(fr_card.selected == true){
+                stackView.replace(theme)
+            } else if (en_card.selected == true){
+                stackView.replace(theme) 
+            }
+        }
         x:800
-        y:590
+        y:490
     }
-
-    SetupTheme{
-        visible:false
-        id: theme
-        anchors.fill: parent
-    }
-
 }

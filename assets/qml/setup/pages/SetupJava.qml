@@ -6,32 +6,10 @@ import "./components/"
 import "."
 import UniversalLauncher 1.0
 
-CustomPage{
-    id: home
+Rectangle{
+    id: s_java
     
     property StackView stack
-
-    pageTitle: ""
-            Image{
-                id: logo
-                x: 17
-                y: 10
-                width: 96
-                height: 96
-                source: "/images/icons/logo.png"
-            }
-            Text{
-                id: title
-                text: "Universal Launcher"
-                width: 120
-                height: 100
-                font.bold: true
-                font.pixelSize: 20
-                font.capitalization: Font.AllUppercase
-                wrapMode: Text.Wrap
-                x: 130
-                y: 25
-            }
 
             Text{
                 id: setup
@@ -40,7 +18,7 @@ CustomPage{
                 font.capitalization: Font.AllUppercase
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: textBlueSpeColor
-                y: 110
+                y: 60
             }
 
             Text{
@@ -50,15 +28,16 @@ CustomPage{
                 font.capitalization: Font.AllUppercase
                 x: 310
                 color: "black"
-                y: 190
+                y: 145
             }
 
             UCard{
                 id: cardOne
                 anchors.horizontalCenter: parent.horizontalCenter
-                y: 235
+                y: 175
                 pathName: "/usr/bin/java/"
                 javaName: "JAVA 17"
+                state: "selected"
                 MouseArea {
                     id: co_ma
                     anchors.fill: parent
@@ -71,9 +50,7 @@ CustomPage{
                         else if(cardThree.state == "selected") {
                             cardThree.state = "default"
                             cardOne.state = "selected"
-                        } else {
-                            cardOne.state = "selected"
-                        }
+                        }    
                     }
                 }
             }
@@ -82,7 +59,7 @@ CustomPage{
             UCard{
                 id: cardTwo
                 anchors.horizontalCenter: parent.horizontalCenter
-                y: 310
+                y: 250
                 pathName: "/usr/bin/java/"
                 javaName: "JAVA 11"
                 MouseArea { 
@@ -97,8 +74,6 @@ CustomPage{
                         else if(cardThree.state == "selected") {
                             cardThree.state = "default"
                             cardTwo.state = "selected"
-                        } else {
-                            cardTwo.state = "selected"
                         }
                     }
                 }
@@ -107,7 +82,7 @@ CustomPage{
             UCard{
                 id: cardThree
                 anchors.horizontalCenter: parent.horizontalCenter
-                y: 385
+                y: 325
                 pathName: "/usr/bin/java/"
                 javaName: "JAVA 8"
                 MouseArea { 
@@ -122,27 +97,31 @@ CustomPage{
                         else if(cardTwo.state == "selected") {
                             cardTwo.state = "default"
                             cardThree.state = "selected"
-                        } else {
-                            cardThree.state = "selected"
-                        }
+                        }    
                     }
                 }
             }
 
-            
+        
             UButton{
                 btnText: qsTr("Suivant")
                 iconPath: "/images/icons/arrow-alt-circle-right.svg"
-                onClicked: stackView.replace(finish)
+                onClicked: {
+                                if(cardOne.state == "selected"){ stackView.replace(finish) }
+                                else if(cardTwo.state == "selected") { stackView.replace(finish) }
+                                else if(cardThree.state == "selected") { stackView.replace(finish) }
+                            }
                 x:800
-                y:590
+                y:490
             }
 
-
-        SetupFinish{
-            visible:false
-            id: finish
-            anchors.fill: parent
-        }
+            UButton{
+                btnText: qsTr("Retour")
+                iconPath: "/images/icons/arrow-alt-circle-left.svg"
+                onClicked: stackView.replace(theme)
+                x:20
+                y:490
+            }            
+            
 }
 

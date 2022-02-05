@@ -25,10 +25,10 @@ Rectangle {
         id: forRadius
         width: 240
         height: 170
-        x: 5
-        y: 5
         color: borderColor
         radius: 5
+        x:5
+        y:5
         Item{
             id: base
             anchors.fill: forRadius
@@ -54,15 +54,16 @@ Rectangle {
                 id: bottom
                 width: 240
                 y: 130
-                height: 40
+                height: 50
                 
                 color: borderColor
 
                 Text{
                     id: nameM
-                    y: 10
+                    y: 12
                     x: 68
                     text: mName
+                    anchors.horizontalCenter: bottom.horizontalCenter
                     font.pixelSize: 15
                 }
             }   

@@ -18,40 +18,69 @@ Page {
             left: parent.left
             margins: 0
         }
+
+        Image{
+            id: logo
+            x: 17
+            y: 10
+            width: 96
+            height: 96
+            source: "/images/icons/logo.png"
+        }
+        Text{
+            id: title
+            text: "Universal Launcher"
+            width: 120
+            height: 100
+            font.bold: true
+            font.pixelSize: 20
+            font.capitalization: Font.AllUppercase
+            wrapMode: Text.Wrap
+            x: 130
+            y: 25
+        }
+
+        Rectangle{
+            id: stack
+            width: 960
+            height: 540
+            y: 100
+        }
     
         StackView {
             id: stackView
             anchors {
-                fill: parent
+                fill: stack
                 margins: 0
             }
             clip: true
             
             initialItem: language
 
-            replaceEnter: Transition {
-                PropertyAnimation {
-                    properties: "opacity"
-                    from: 0
-                    to: 1
-                    duration: 400
-                }
-            }
-
-            replaceExit: Transition {
-                PropertyAnimation {
-                    properties: "opacity"
-                    from: 1
-                    to: 0
-                    duration: 400
-                }
-            }
-
             SetupLanguage{
                 id: language
                 anchors.fill: parent
             }
-            
+
+            SetupTheme{
+                visible:false
+                id: theme
+                anchors.fill: parent
+                anchors.centerIn: parent;
+            }
+
+            SetupJava{
+                visible:false
+                id: java
+                anchors.fill: parent
+            }
+
+            SetupFinish{
+                visible:false
+                id: finish
+                anchors.fill: parent
+            }
+                
         }
     }
 }

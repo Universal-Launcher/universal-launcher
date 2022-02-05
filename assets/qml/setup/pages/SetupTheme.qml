@@ -6,57 +6,52 @@ import "./components/"
 import "."
 import UniversalLauncher 1.0
 
-CustomPage{
+Rectangle{
     id: home
 
     property StackView stack
-
-    pageTitle: ""
-            Image{
-                id: logo
-                x: 17
-                y: 10
-                width: 96
-                height: 96
-                source: "/images/icons/logo.png"
-            }
-            Text{
-                id: title
-                text: "Universal Launcher"
-                width: 120
-                height: 100
-                font.bold: true
-                font.pixelSize: 20
-                font.capitalization: Font.AllUppercase
-                wrapMode: Text.Wrap
-                x: 130
-                y: 25
-            }
+    anchors {
+        top: parent.top
+        bottom: parent.bottom
+        left: parent.left
+        right: parent.right
+    }
 
             Text{
                 id: setup
-                text: "Theme"
+                text: "Setup"
                 font.pixelSize: 35
                 font.capitalization: Font.AllUppercase
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: textBlueSpeColor
-                y: 170
+                y: 60
+            }
+
+            Text{
+                id: text
+                text: "Select Theme"
+                font.pixelSize: 18
+                font.capitalization: Font.AllUppercase
+                x: 95
+                color: "black"
+                y: 145
             }
 
             Row{
                 id: rowTheme
                 anchors.horizontalCenter: parent.horizontalCenter
                 spacing: 10
-                y: 240
+                y: 175
 
                 Rectangle{
                     id: border_wt;
-                    width: 308
-                    height: 254
-                    radius: 5
-                    color: "transparent"
+                    width: 256
+                    height: 222
+                    radius: 10
+                    color: "#F97316"
                     UTheme{
                         id: wt   
+                        selected: true
                         anchors.horizontalCenter: border_wt.horizontalCenter
                         anchors.verticalCenter: border_wt.verticalCenter              
                         MouseArea {
@@ -69,17 +64,17 @@ CustomPage{
                                     dt.selected = false;
                                     wt.selected = true;
                                     border_dt.color = "transparent";
-                                    border_wt.color = "red";
+                                    border_wt.color = "#F97316";
                                 }
                                 else if(st.selected == true) {
                                     st.selected = false;
                                     wt.selected = true;
                                     border_st.color = "transparent";
-                                    border_wt.color = "red";
+                                    border_wt.color = "#F97316";
                                 }
                                 else{
                                     wt.selected = true;
-                                    border_wt.color = "red";
+                                    border_wt.color = "#F97316";
                                 }
                             }
                         }
@@ -90,9 +85,9 @@ CustomPage{
 
                 Rectangle{
                     id: border_dt;
-                    width: 308
-                    height: 254
-                    radius: 5
+                    width: 256
+                    height: 222
+                    radius: 10
                     color: "transparent"
                     UTheme{
                         id: dt
@@ -108,17 +103,17 @@ CustomPage{
                                     wt.selected = false;
                                     dt.selected = true;
                                     border_wt.color = "transparent";                                    
-                                    border_dt.color = "red";
+                                    border_dt.color = "#F97316";
                                 }
                                 else if(st.selected == true) {
                                     st.selected = false;
                                     dt.selected = true;
                                     border_st.color = "transparent";
-                                    border_dt.color = "red";
+                                    border_dt.color = "#F97316";
                                 }
                                 else{
                                     dt.selected = true;
-                                    border_dt.color = "red";
+                                    border_dt.color = "#F97316";
                                 }
                             }
                         }
@@ -128,9 +123,9 @@ CustomPage{
                 }
                 Rectangle{
                     id: border_st;
-                    width: 308
-                    height: 254
-                    radius: 5
+                    width: 256
+                    height: 222
+                    radius: 10
                     color: "transparent"
                     UTheme{
                         id: st
@@ -148,12 +143,12 @@ CustomPage{
                                     wt.selected = false;
                                     st.selected = true;
                                     border_wt.color = "transparent";
-                                    border_st.color = "red";
+                                    border_st.color = "#F97316";
                                 } else if(dt.selected == true) {
                                     dt.selected = false;
                                     st.selected = true;
                                     border_dt.color = "transparent";
-                                    border_st.color = "red";
+                                    border_st.color = "#F97316";
                                 } else {
                                     st.selected = true;
                                     border_st.color = "red";
@@ -167,15 +162,28 @@ CustomPage{
             UButton{
                 btnText: qsTr("Suivant")
                 iconPath: "/images/icons/arrow-alt-circle-right.svg"
-                onClicked: stackView.replace(java)
+                onClicked: {
+                            if(wt.selected == true){
+                                stackView.replace(java)
+                            } else if (dt.selected == true){
+                                stackView.replace(java) 
+                            } else if (st.selected == true){
+                                stackView.replace(java) 
+                            }
+                        }
                 x:800
-                y:590
+                y:490
             }
 
-            SetupJava{
-                visible:false
-                id: java
-                anchors.fill: parent
+
+            UButton{
+                btnText: qsTr("Retour")
+                iconPath: "/images/icons/arrow-alt-circle-left.svg"
+                onClicked: {
+                    stackView.replace(language)
+                }
+                x:20
+                y:490
             }
 
 }

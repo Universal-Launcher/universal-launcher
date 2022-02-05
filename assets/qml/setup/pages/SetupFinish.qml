@@ -4,30 +4,8 @@ import "qrc:/qml/main/components/"
 import "qrc:/qml/main/components/ui/"
 import UniversalLauncher 1.0
 
-CustomPage{
+Rectangle{
     id: finish
-
-    pageTitle: ""
-            Image{
-                id: logo
-                x: 17
-                y: 10
-                width: 96
-                height: 96
-                source: "/images/icons/logo.png"
-            }
-            Text{
-                id: title
-                text: "Universal Launcher"
-                width: 120
-                height: 100
-                font.bold: true
-                font.pixelSize: 20
-                font.capitalization: Font.AllUppercase
-                wrapMode: Text.Wrap
-                x: 130
-                y: 25
-            }
 
             Text{
                 id: setup
@@ -56,7 +34,15 @@ CustomPage{
                 iconPath: "/images/icons/arrow-alt-circle-right.svg"
                 onClicked: console.log("finito pipo")
                 x:800
-                y:590
+                y:490
             }
 
+
+            UButton{
+                btnText: qsTr("Retour")
+                iconPath: "/images/icons/arrow-alt-circle-left.svg"
+                onClicked: stackView.replace(java)
+                x:20
+                y:490
+            }
 }
