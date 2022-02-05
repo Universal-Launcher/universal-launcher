@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
   if (err)
     alreadySetup = false;
 
-  alreadySetup = true;
+  alreadySetup = false;
 
   if (alreadySetup) {
     engine.load(QUrl(QStringLiteral("qrc:/qml/main/MainWindow.qml")));
