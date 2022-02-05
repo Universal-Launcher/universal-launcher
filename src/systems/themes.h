@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPointer>
 #include <QString>
+#include <QVariant>
 #include <memory>
 
 class ThemeObject : public QObject {
@@ -16,7 +17,7 @@ class ThemeObject : public QObject {
   Q_PROPERTY(QString accentColor READ accentColor CONSTANT);
 
 public:
-  using ThemeValues = QMap<QString, QString>;
+  using ThemeValues = QMap<QString, QVariant>;
 
   QString backgroundColor();
   QString backgroundColor2();
@@ -28,7 +29,7 @@ public:
   ThemeObject(ThemeValues values);
 
 private:
-  QMap<QString, QString> m_values{};
+  ThemeValues m_values{};
 };
 
 class Themes : public QObject {
@@ -55,6 +56,4 @@ private:
   QMap<QString, QPointer<ThemeObject>> m_themes;
 
   void registerDefaultThemes();
-  void registerDarkThemes();
-  void registerSepiaThemes();
 };
