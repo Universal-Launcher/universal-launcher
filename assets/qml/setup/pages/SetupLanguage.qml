@@ -8,7 +8,7 @@ import UniversalLauncher 1.0
 
 Rectangle{
     property StackView stack
-
+    color: AppGlobal.themes.current.backgroundColor
     id: back
 
     Text{
@@ -17,7 +17,7 @@ Rectangle{
         font.pixelSize: 35
         font.capitalization: Font.AllUppercase
         anchors.horizontalCenter: parent.horizontalCenter
-        color: textBlueSpeColor
+        color: AppGlobal.themes.current.textColor
         y: 60
     }
 
@@ -27,22 +27,21 @@ Rectangle{
         font.pixelSize: 18
         font.capitalization: Font.AllUppercase
         x: 225
-        color: "black"
+        color: AppGlobal.themes.current.textColor
         y: 145
     }
 
     Row{
         spacing: 30
         anchors.horizontalCenter: parent.horizontalCenter
-
-        y: 175
+        y: 185
 
         Rectangle{
             id: back_fr_card
             width: 252
             height: 182
             radius: 5
-            color: "#F97316"
+            color: AppGlobal.themes.current.accentColor
             ULanguage{
                 id: fr_card
                 backgroundPath: "/images/background/fr_flag.jpg"
@@ -55,15 +54,10 @@ Rectangle{
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        if(en_card.selected == true){
-                            back_en_card.color = '#E5E7EB'
-                            back_fr_card.color = '#F97316'
+                            back_en_card.color = 'transparent'
+                            back_fr_card.color = AppGlobal.themes.current.accentColor
                             en_card.selected = false;
                             fr_card.selected = true;
-                        } else {
-                            back_fr_card.color = '#F97316'
-                            fr_card.selected = true;
-                        }
                     }
                 }
             }
@@ -74,7 +68,7 @@ Rectangle{
             width: 252
             height: 182
             radius: 5
-            color: "#E5E7EB"
+            color: "transparent"
             ULanguage{
                 id: en_card
                 backgroundPath: "/images/background/en_flag.png"
@@ -86,15 +80,10 @@ Rectangle{
                     anchors.fill: parent
                     cursorShape: Qt.PointingHandCursor
                     onClicked: {
-                        if(fr_card.selected == true){
-                            back_en_card.color = '#F97316'
-                            back_fr_card.color = '#E5E7EB'
+                            back_en_card.color = AppGlobal.themes.current.accentColor
+                            back_fr_card.color = 'transparent'
                             en_card.selected = true;
                             fr_card.selected = false;
-                        } else {
-                            back_en_card.color = '#F97316'
-                            en_card.selected = true;
-                        }
                     }
                 }
             }

@@ -12,6 +12,7 @@ class ThemeObject : public QObject {
   Q_PROPERTY(QString backgroundColor READ backgroundColor CONSTANT);
   Q_PROPERTY(QString backgroundColor2 READ backgroundColor2 CONSTANT);
   Q_PROPERTY(QString textColor READ textColor CONSTANT);
+  Q_PROPERTY(QString titleColor READ accentColor CONSTANT);
   Q_PROPERTY(QString accentColor READ accentColor CONSTANT);
 
 public:
@@ -20,6 +21,7 @@ public:
   QString backgroundColor();
   QString backgroundColor2();
   QString textColor();
+  QString titleColor();
   QString accentColor();
 
   ThemeObject();

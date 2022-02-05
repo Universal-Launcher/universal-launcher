@@ -1,14 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
-
+import UniversalLauncher 1.0
 Rectangle {
     id: back
-
-    property color bgColor: "#fff"
-    property color textTitleColor: "#000"
-    property color textBlueSpeColor: "#374151"
-    property color borderColor: "#E5E7EB"
 
     property bool selected: false
 
@@ -19,13 +14,13 @@ Rectangle {
     width: 250
     height: 180
     radius: 5
-    color: "#E5E7EB"
+    color: AppGlobal.themes.current.backgroundColor2
 
     Rectangle{
         id: forRadius
         width: 240
         height: 170
-        color: borderColor
+        color: AppGlobal.themes.current.backgroundColor2
         radius: 5
         x:5
         y:5
@@ -56,13 +51,14 @@ Rectangle {
                 y: 130
                 height: 50
                 
-                color: borderColor
+                color: AppGlobal.themes.current.backgroundColor2
 
                 Text{
                     id: nameM
                     y: 12
                     x: 68
                     text: mName
+                    color: AppGlobal.themes.current.textColor
                     anchors.horizontalCenter: bottom.horizontalCenter
                     font.pixelSize: 15
                 }

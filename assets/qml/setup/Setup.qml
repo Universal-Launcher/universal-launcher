@@ -5,12 +5,10 @@ import UniversalLauncher 1.0
 
 Page {
     id: lang
-    property color textBlueSpeColor: "#374151"
-
     Rectangle {
         id: contentPane
         anchors.fill: parent
-        color: "white"
+        color: AppGlobal.themes.current.backgroundColor
         anchors {
             top: parent.top
             bottom: parent.bottom
@@ -18,7 +16,6 @@ Page {
             left: parent.left
             margins: 0
         }
-
         Image{
             id: logo
             x: 17
@@ -36,7 +33,7 @@ Page {
             font.pixelSize: 20
             font.capitalization: Font.AllUppercase
             wrapMode: Text.Wrap
-            
+            color: AppGlobal.themes.current.textColor
             x: 130
             y: 25
         }

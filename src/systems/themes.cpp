@@ -10,6 +10,9 @@ void Themes::registerType() {
 
 Themes::Themes(QObject *parent) : QObject(parent) {
   registerDefaultThemes();
+  registerDarkThemes();
+  registerSepiaThemes();
+
   changeTheme("default");
 }
 Themes::~Themes() {}
@@ -30,6 +33,7 @@ void Themes::registerDefaultThemes() {
   values.insert("background_color", "white");
   values.insert("background_color_2", "#E5E7EB");
   values.insert("text_color", "black");
+  values.insert("title_color", "#ffffff");
   values.insert("accent_color", "#F97316");
 
   m_themes.insert("default", new ThemeObject(values));
@@ -37,9 +41,10 @@ void Themes::registerDefaultThemes() {
 
 void Themes::registerDarkThemes() {
   ThemeObject::ThemeValues values{};
-  values.insert("background_color", "252525");
+  values.insert("background_color", "#252525");
   values.insert("background_color_2", "#444444");
-  values.insert("text_color", "E5E7EB");
+  values.insert("text_color", "#E5E7EB");
+  values.insert("title_color", "#E5E7EB");
   values.insert("accent_color", "#F97316");
 
   m_themes.insert("dark", new ThemeObject(values));

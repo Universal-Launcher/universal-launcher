@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
+import UniversalLauncher 1.0
 
 Rectangle {
     id: background
@@ -8,8 +9,8 @@ Rectangle {
     width: 254
     height: 220
     radius: 10
-    color: gray
-    border.color: gray
+    color: AppGlobal.themes.current.backgroundColor2
+    border.color: AppGlobal.themes.current.backgroundColor2
 
     //white theme
     property bool whiteTheme: false
@@ -21,10 +22,11 @@ Rectangle {
     property color black: "#252525"
     property color dark: "#444444"
 
-    property color darkPurple: "#411E6C"
-    property color purple: "#5900CA"
-    property color purpleTwo: "#270059"
-    
+    property color sepia_background: "#EAD09E"
+    property color sepia_background2: "#D7A575"
+    property color sepia_accent: "#B59860"
+    property color sepia_text: "#FFEBC9"
+
     property color lightGray: "#BABABA"
     property string themeText: ""
 
@@ -39,10 +41,10 @@ Rectangle {
     states: [
         State {
             name: "t_white"
-            PropertyChanges { target: background; color: gray }
-            PropertyChanges { target: background; border.color: gray }
+            PropertyChanges { target: background; color: AppGlobal.themes.current.backgroundColor2 }
+            PropertyChanges { target: background; border.color: AppGlobal.themes.current.backgroundColor2 }
 
-            PropertyChanges { target: bottom; color: gray }
+            PropertyChanges { target: bottom; color: AppGlobal.themes.current.backgroundColor2 }
 
             PropertyChanges { target: header; color: white }
             PropertyChanges { target: titleFirst; color: specialBlue }
@@ -69,14 +71,14 @@ Rectangle {
             PropertyChanges { target: card5; color: gray }
             PropertyChanges { target: card6; color: gray }
 
-            PropertyChanges { target: bottomText; color: specialBlue }            
+            PropertyChanges { target: bottomText; color: AppGlobal.themes.current.textColor }            
         },
         State {
             name: "t_dark"
-            PropertyChanges { target: background; color: gray }
-            PropertyChanges { target: background; border.color: gray }
+            PropertyChanges { target: background; color: AppGlobal.themes.current.backgroundColor2 }
+            PropertyChanges { target: background; border.color: AppGlobal.themes.current.backgroundColor2 }
 
-            PropertyChanges { target: bottom; color: gray }
+            PropertyChanges { target: bottom; color: AppGlobal.themes.current.backgroundColor2 }
 
             PropertyChanges { target: header; color: black }
             PropertyChanges { target: titleFirst; color: gray }
@@ -103,41 +105,41 @@ Rectangle {
             PropertyChanges { target: card5; color: gray }
             PropertyChanges { target: card6; color: gray }
 
-            PropertyChanges { target: bottomText; color: specialBlue }
+            PropertyChanges { target: bottomText; color: AppGlobal.themes.current.textColor }
         },
         State {
             name: "t_sepia"
-            PropertyChanges { target: background; color: gray }
-            PropertyChanges { target: background; border.color: gray }
+            PropertyChanges { target: background; color: AppGlobal.themes.current.backgroundColor2 }
+            PropertyChanges { target: background; border.color: AppGlobal.themes.current.backgroundColor2 }
 
-            PropertyChanges { target: bottom; color: gray }
+            PropertyChanges { target: bottom; color: AppGlobal.themes.current.backgroundColor2 }
 
-            PropertyChanges { target: header; color: darkPurple }
-            PropertyChanges { target: titleFirst; color: lightGray }
-            PropertyChanges { target: titleSecond; color: lightGray }
-            PropertyChanges { target: separator; color: purple }
-            PropertyChanges { target: homeSelect; color: darkPurple }
-            PropertyChanges { target: iconHome; color: lightGray }
-            PropertyChanges { target: textHome; color: lightGray }
-            PropertyChanges { target: modpack; color: purple }
-            PropertyChanges { target: iconModpack; color: purpleTwo }
-            PropertyChanges { target: textModpack; color: purpleTwo }
-            PropertyChanges { target: account; color: darkPurple }
-            PropertyChanges { target: iconAccount; color: lightGray }
-            PropertyChanges { target: textAccount; color: lightGray }
-            PropertyChanges { target: settings; color: darkPurple }
-            PropertyChanges { target: iconSettings; color: lightGray }
-            PropertyChanges { target: textSettings; color: lightGray }
+            PropertyChanges { target: header; color: sepia_background }
+            PropertyChanges { target: titleFirst; color: sepia_text }
+            PropertyChanges { target: titleSecond; color: sepia_text }
+            PropertyChanges { target: separator; color: sepia_background }
+            PropertyChanges { target: homeSelect; color: sepia_background }
+            PropertyChanges { target: iconHome; color: sepia_text }
+            PropertyChanges { target: textHome; color: sepia_text }
+            PropertyChanges { target: modpack; color: sepia_background2 }
+            PropertyChanges { target: iconModpack; color: sepia_accent }
+            PropertyChanges { target: textModpack; color: sepia_accent }
+            PropertyChanges { target: account; color: sepia_background }
+            PropertyChanges { target: iconAccount; color: sepia_text }
+            PropertyChanges { target: textAccount; color: sepia_text }
+            PropertyChanges { target: settings; color: sepia_background }
+            PropertyChanges { target: iconSettings; color: sepia_text }
+            PropertyChanges { target: textSettings; color: sepia_text }
 
-            PropertyChanges { target: titlePage; color: lightGray }
-            PropertyChanges { target: card1; color: lightGray }
-            PropertyChanges { target: card2; color: lightGray }
-            PropertyChanges { target: card3; color: lightGray }
-            PropertyChanges { target: card4; color: lightGray }
-            PropertyChanges { target: card5; color: lightGray }
-            PropertyChanges { target: card6; color: lightGray }
+            PropertyChanges { target: titlePage; color: sepia_text }
+            PropertyChanges { target: card1; color: sepia_background2 }
+            PropertyChanges { target: card2; color: sepia_background2 }
+            PropertyChanges { target: card3; color: sepia_background2 }
+            PropertyChanges { target: card4; color: sepia_background2 }
+            PropertyChanges { target: card5; color: sepia_background2 }
+            PropertyChanges { target: card6; color: sepia_background2 }
 
-            PropertyChanges { target: bottomText; color: specialBlue }
+            PropertyChanges { target: bottomText; color: AppGlobal.themes.current.textColor }   
         }             
     ]
 

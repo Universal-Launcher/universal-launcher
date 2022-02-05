@@ -8,7 +8,7 @@ import UniversalLauncher 1.0
 
 Rectangle{
     id: s_java
-    
+    color: AppGlobal.themes.current.backgroundColor
     property StackView stack
 
             Text{
@@ -17,7 +17,7 @@ Rectangle{
                 font.pixelSize: 35
                 font.capitalization: Font.AllUppercase
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: textBlueSpeColor
+                color: AppGlobal.themes.current.textColor
                 y: 60
             }
 
@@ -27,7 +27,7 @@ Rectangle{
                 font.pixelSize: 18
                 font.capitalization: Font.AllUppercase
                 x: 310
-                color: "black"
+                color: AppGlobal.themes.current.textColor
                 y: 145
             }
 
@@ -54,7 +54,6 @@ Rectangle{
                     }
                 }
             }
-
 
             UCard{
                 id: cardTwo
@@ -100,6 +99,15 @@ Rectangle{
                         }    
                     }
                 }
+            }
+
+
+            UButton{
+                btnText: qsTr("Ajouter")
+                iconPath: "/images/icons/plus-square.svg"
+                onClicked: {}
+                x:510
+                y:400
             }
 
         

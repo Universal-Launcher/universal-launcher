@@ -8,16 +8,17 @@ import UniversalLauncher 1.0
 
 Rectangle{
     id: home
-
+    color: AppGlobal.themes.current.backgroundColor
     property StackView stack
-
+    Component.onCompleted: AppGlobal.themes.changeTheme("default")
+    
             Text{
                 id: setup
                 text: "Setup"
                 font.pixelSize: 35
                 font.capitalization: Font.AllUppercase
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: textBlueSpeColor
+                color: AppGlobal.themes.current.textColor
                 y: 60
             }
 
@@ -27,7 +28,7 @@ Rectangle{
                 font.pixelSize: 18
                 font.capitalization: Font.AllUppercase
                 x: 95
-                color: "black"
+                color: AppGlobal.themes.current.textColor
                 y: 145
             }
 
@@ -42,7 +43,7 @@ Rectangle{
                     width: 256
                     height: 222
                     radius: 10
-                    color: "#F97316"
+                    color: AppGlobal.themes.current.accentColor
                     UTheme{
                         id: wt   
                         selected: true
@@ -57,18 +58,16 @@ Rectangle{
                                 else if(dt.selected == true) {
                                     dt.selected = false;
                                     wt.selected = true;
-                                    border_dt.color = "transparent";
-                                    border_wt.color = "#F97316";
+                                    border_dt.color = "transparent";                                    
+                                    AppGlobal.themes.changeTheme("default")
+                                    border_wt.color = AppGlobal.themes.current.accentColor;
                                 }
                                 else if(st.selected == true) {
                                     st.selected = false;
                                     wt.selected = true;
                                     border_st.color = "transparent";
-                                    border_wt.color = "#F97316";
-                                }
-                                else{
-                                    wt.selected = true;
-                                    border_wt.color = "#F97316";
+                                    AppGlobal.themes.changeTheme("default")
+                                    border_wt.color = AppGlobal.themes.current.accentColor;
                                 }
                             }
                         }
@@ -97,17 +96,15 @@ Rectangle{
                                     wt.selected = false;
                                     dt.selected = true;
                                     border_wt.color = "transparent";                                    
-                                    border_dt.color = "#F97316";
+                                    AppGlobal.themes.changeTheme("dark")
+                                    border_dt.color = AppGlobal.themes.current.accentColor;
                                 }
                                 else if(st.selected == true) {
                                     st.selected = false;
                                     dt.selected = true;
                                     border_st.color = "transparent";
-                                    border_dt.color = "#F97316";
-                                }
-                                else{
-                                    dt.selected = true;
-                                    border_dt.color = "#F97316";
+                                    AppGlobal.themes.changeTheme("dark")     
+                                    border_dt.color = AppGlobal.themes.current.accentColor;                               
                                 }
                             }
                         }
@@ -137,15 +134,14 @@ Rectangle{
                                     wt.selected = false;
                                     st.selected = true;
                                     border_wt.color = "transparent";
-                                    border_st.color = "#F97316";
+                                    AppGlobal.themes.changeTheme("sepia")           
+                                    border_st.color = AppGlobal.themes.current.textColor;                                                             
                                 } else if(dt.selected == true) {
                                     dt.selected = false;
                                     st.selected = true;
                                     border_dt.color = "transparent";
-                                    border_st.color = "#F97316";
-                                } else {
-                                    st.selected = true;
-                                    border_st.color = "red";
+                                    AppGlobal.themes.changeTheme("sepia")
+                                    border_st.color = AppGlobal.themes.current.textColor;                                    
                                 }
                             }
                         }

@@ -6,14 +6,14 @@ import UniversalLauncher 1.0
 
 Rectangle{
     id: finish
-
+    color: AppGlobal.themes.current.backgroundColor
             Text{
                 id: setup
                 text: "Setup"
                 font.pixelSize: 35
                 font.capitalization: Font.AllUppercase
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: textBlueSpeColor
+                color: AppGlobal.themes.current.textColor
                 y: 140
             }
 
@@ -25,7 +25,7 @@ Rectangle{
                 font.pixelSize: 25
                 font.capitalization: Font.AllUppercase
                 anchors.horizontalCenter: parent.horizontalCenter
-                color: "#B5B7BE"
+                color: AppGlobal.themes.current.textColor
                 y: 220
             }
 
