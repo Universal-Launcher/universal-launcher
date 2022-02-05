@@ -7,7 +7,7 @@ Page {
     id: main
 
     background: Rectangle {
-        color: "white"
+        color: AppGlobal.themes.current.backgroundColor
         anchors.fill: parent
     }
 

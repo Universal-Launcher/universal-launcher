@@ -30,18 +30,16 @@ void AppGlobal::registerType() {
 }
 
 AppGlobal::AppGlobal()
-    : QObject(), m_folder_system(std::make_unique<FolderSystem>(this)),
-      m_router(std::make_unique<Router>(this)),
-      m_themes(std::make_unique<Themes>(this)),
-      m_settings(
-          std::make_unique<SettingsSystem>(m_folder_system.get(), this)) {}
+    : QObject(), m_folder_system(new FolderSystem(this)),
+      m_router(new Router(this)), m_themes(new Themes(this)),
+      m_settings(new SettingsSystem(m_folder_system.data(), this)) {}
 
 AppGlobal::~AppGlobal() {}
 
-FolderSystem *AppGlobal::folderSystem() { return m_folder_system.get(); }
+FolderSystem *AppGlobal::folderSystem() { return m_folder_system.data(); }
 
-Router *AppGlobal::router() { return m_router.get(); }
+Router *AppGlobal::router() { return m_router.data(); }
 
-Themes *AppGlobal::themes() { return m_themes.get(); }
+Themes *AppGlobal::themes() { return m_themes.data(); }
 
-SettingsSystem *AppGlobal::settings() { return m_settings.get(); }
+SettingsSystem *AppGlobal::settings() { return m_settings.data(); }

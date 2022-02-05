@@ -7,7 +7,7 @@
 #include <QQmlDebuggingEnabler>
 
 #include "AppGlobal.h"
-#include <memory>
+#include <QPointer>
 
 int main(int argc, char *argv[]) {
   QQmlDebuggingEnabler enabler;
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
    */
   QQmlApplicationEngine engine;
 
-  auto appGlobal = std::unique_ptr<AppGlobal>(AppGlobal::instance());
+  QPointer<AppGlobal> appGlobal = AppGlobal::instance();
   appGlobal->registerType();
   appGlobal->settings()->load();
 

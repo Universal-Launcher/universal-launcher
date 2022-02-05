@@ -3,7 +3,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include <memory>
+#include <QPointer>
 
 #include "systems/folders.h"
 #include "systems/router.h"
@@ -33,10 +33,10 @@ public:
 private:
   AppGlobal();
 
-  std::unique_ptr<FolderSystem> m_folder_system;
-  std::unique_ptr<Router> m_router;
-  std::unique_ptr<Themes> m_themes;
-  std::unique_ptr<SettingsSystem> m_settings;
+  QPointer<FolderSystem> m_folder_system;
+  QPointer<Router> m_router;
+  QPointer<Themes> m_themes;
+  QPointer<SettingsSystem> m_settings;
 
   static AppGlobal *s_instance;
 };
