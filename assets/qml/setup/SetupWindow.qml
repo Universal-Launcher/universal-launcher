@@ -1,16 +1,15 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import "./"
+import "."
 
 Window {
     title: qsTr("Universal-Launcher - Setup")
     width: 960
     height: 640
     id: window
-    visible: isVisible
+    visible: true
 
-    property bool isVisible: true
     property bool screenInit: false
 
     Setup {

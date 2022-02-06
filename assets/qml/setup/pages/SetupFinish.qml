@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import "qrc:/qml/main/components/"
-import "qrc:/qml/main/components/ui/"
+import "../components"
+import "qrc:/qml/common/ui"
 import UniversalLauncher 1.0
 
 Rectangle{

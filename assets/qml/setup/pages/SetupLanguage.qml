@@ -1,107 +1,116 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import "qrc:/qml/main/components/"
-import "qrc:/qml/main/components/ui/"
-import "./components/"
+import "../components"
+import "qrc:/qml/common/ui"
 import "."
 import UniversalLauncher 1.0
 
-Rectangle{
-    property StackView stack
-    color: AppGlobal.themes.current.backgroundColor
-    id: back
-
-    Text{
-        id: setup
-        text: "Setup"
-        font.pixelSize: 35
-        font.capitalization: Font.AllUppercase
-        anchors.horizontalCenter: parent.horizontalCenter
-        color: AppGlobal.themes.current.textColor
-        y: 60
-    }
+Item {
+    signal next()
 
     Text{
         id: text
-        text: "Select Langue"
+        text: qsTr("Select Language")
         font.pixelSize: 18
         font.capitalization: Font.AllUppercase
-        x: 225
         color: AppGlobal.themes.current.textColor
-        y: 145
+
+        anchors {
+            top: parent.top
+            topMargin: 30
+            horizontalCenter: parent.horizontalCenter
+        }
     }
 
-    Row{
-        spacing: 30
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: 185
 
-        Rectangle{
-            id: back_fr_card
-            width: 252
-            height: 182
-            radius: 5
-            color: AppGlobal.themes.current.accentColor
-            ULanguage{
-                id: fr_card
-                backgroundPath: "/images/background/fr_flag.jpg"
-                mName: "Français"
-                x: 1
-                y: 1
-                selected: true
-                MouseArea {
-                    id: fr_card_area
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                            back_en_card.color = 'transparent'
-                            back_fr_card.color = AppGlobal.themes.current.accentColor
-                            en_card.selected = false;
-                            fr_card.selected = true;
+    ListView {
+        id: list
+        spacing: 15
+        clip: true
+
+        width: 400
+        highlightFollowsCurrentItem: true
+        highlightMoveDuration: -1
+        highlightMoveVelocity: -1
+
+        anchors {
+            top: text.bottom
+            horizontalCenter: parent.horizontalCenter
+            topMargin: 20
+            bottomMargin: 20
+            bottom: btnContainer.top
+        }
+
+        ListModel {
+            id: languages_model
+            ListElement { name: "Français" }
+            ListElement { name: "English" }
+        }
+
+        ScrollBar.vertical: UScrollBar {}
+
+        Component {
+            id: card
+            Button {
+                width: list.width
+                height: 50
+
+                background: Rectangle {
+                    color: if (card.hovered && index != list.currentIndex) {
+                        AppGlobal.themes.current.backgroundColor2
+                    } else {
+                        "transparent"
+                    }
+
+                    radius: 10
+                }
+
+                onClicked: list.currentIndex = index
+
+                contentItem: Text {
+                    text: name
+                    color: list.currentIndex == index ? "white" : "black"
+
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    anchors {
+                        fill: parent
+                        horizontalCenter: parent.horizontalCenter
+                        verticalCenter: parent.verticalCenter
                     }
                 }
             }
         }
 
-        Rectangle{
-            id: back_en_card
-            width: 252
-            height: 182
-            radius: 5
-            color: "transparent"
-            ULanguage{
-                id: en_card
-                backgroundPath: "/images/background/en_flag.png"
-                mName: "Anglais"
-                x: 1
-                y: 1
-                MouseArea {
-                    id: en_card_area
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                            back_en_card.color = AppGlobal.themes.current.accentColor
-                            back_fr_card.color = 'transparent'
-                            en_card.selected = true;
-                            fr_card.selected = false;
-                    }
-                }
-            }
+        model: languages_model
+        delegate: card
+        highlight: Rectangle {
+            width: card.width; height: card.height
+            color: AppGlobal.themes.current.accentColor;
+            radius: 10
         }
-                
     }
 
-    UButton{
-        btnText: qsTr("Suivant")
-        iconPath: "/images/icons/arrow-alt-circle-right.svg"
-        onClicked: {
-            if(fr_card.selected == true){
-                stackView.push("SetupTheme.qml")
-            } else if (en_card.selected == true){
-                stackView.push("SetupTheme.qml") 
+    Item {
+        id: btnContainer
+        height: btnNext.height
+        width: parent.width
+
+        anchors {
+            bottom: parent.bottom
+        }
+
+        UButton {
+            id: btnNext
+            btnText: qsTr("Next")
+            iconPath: "/images/icons/arrow-alt-circle-right.svg"
+            onClicked: next()
+
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
             }
         }
-        x:800
-        y:490
     }
 }

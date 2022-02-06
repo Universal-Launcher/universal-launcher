@@ -10,15 +10,17 @@
         <file>qml/setup/pages/SetupJava.qml</file>
         <file>qml/setup/pages/SetupFinish.qml</file>
 
-        <file>qml/setup/pages/components/ULanguage.qml</file>
-        <file>qml/setup/pages/components/UTheme.qml</file>
-        <file>qml/setup/pages/components/UCard.qml</file>
+        <file>qml/setup/components/ULanguage.qml</file>
+        <file>qml/setup/components/UCard.qml</file>
 
         <file>qml/main/components/CustomPage.qml</file>
         <file>qml/main/components/ModpackCard.qml</file>
         <file>qml/main/components/navigation/Sidebar.qml</file>
         <file>qml/main/components/navigation/SidebarItem.qml</file>
-        <file>qml/main/components/ui/UButton.qml</file>
+
+        <file>qml/common/ui/UButton.qml</file>
+        <file>qml/common/ui/UScrollBar.qml</file>
+        <file>qml/common/ui/UTheme.qml</file>
 
         <file>qml/main/pages/HomePage.qml</file>
         <file>qml/main/pages/ModpacksPage.qml</file>
@@ -30,10 +32,10 @@
         <file>images/icons/box.svg</file>
         <file>images/icons/arrow-alt-circle-right.svg</file>
         <file>images/icons/arrow-alt-circle-left.svg</file>
-        <file>images/icons/logo.png</file>
+
+        <file>images/logo.png</file>
+
         <file>images/icons/plus-square.svg</file>
         <file>images/background/mCard.jpg</file>
-        <file>images/background/en_flag.png</file>
-        <file>images/background/fr_flag.jpg</file>
     </qresource>
 </RCC>

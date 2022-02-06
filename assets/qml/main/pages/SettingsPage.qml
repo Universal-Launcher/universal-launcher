@@ -3,8 +3,6 @@ import QtQuick.Controls 2.15
 import "../components"
 import "../components/ui"
 import UniversalLauncher 1.0
-import "qrc:/qml/main/components"
-import "qrc:/qml/main/components/ui"
 
 CustomPage {
     id: settings

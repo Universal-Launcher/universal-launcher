@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPointer>
 #include <QString>
+#include <QStringList>
 #include <QVariant>
 #include <memory>
 
@@ -36,6 +37,7 @@ class Themes : public QObject {
   Q_OBJECT
 
   Q_PROPERTY(ThemeObject *current READ currentTheme NOTIFY themeChanged)
+  Q_PROPERTY(QStringList themesList READ themesList NOTIFY themesListUpdated)
 
 public:
   Themes(QObject *parent = nullptr);
@@ -44,12 +46,15 @@ public:
   static void registerType();
 
   ThemeObject *currentTheme();
+  QStringList themesList();
 
 public slots:
   void changeTheme(const QString &themeName);
+  ThemeObject *getTheme(QString name);
 
 signals:
   void themeChanged();
+  void themesListUpdated();
 
 private:
   ThemeObject *m_current = nullptr;

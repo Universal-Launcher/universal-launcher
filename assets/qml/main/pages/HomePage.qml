@@ -1,7 +1,6 @@
 import QtQuick.Controls 2.15
 import "../components"
-import "qrc:/qml/main/components"
-import "qrc:/qml/main/components/navigation"
+import "../components/navigation"
 
 CustomPage {
     id: home

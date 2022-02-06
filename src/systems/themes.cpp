@@ -26,6 +26,14 @@ void Themes::changeTheme(const QString &themeName) {
 
 ThemeObject *Themes::currentTheme() { return m_current; }
 
+QStringList Themes::themesList() { return m_themes.keys(); }
+
+ThemeObject *Themes::getTheme(QString name) {
+  if (!m_themes.contains(name))
+    return nullptr;
+  return m_themes[name];
+}
+
 void Themes::registerDefaultThemes() {
   ThemeObject::ThemeValues values{};
 
@@ -49,4 +57,6 @@ void Themes::registerDefaultThemes() {
   values["title_color"] = QVariant::fromValue<QString>("#FFEBC6");
   values["accent_color"] = QVariant::fromValue<QString>("white");
   m_themes.insert("sepia", new ThemeObject(values));
+
+  emit themesListUpdated();
 }
