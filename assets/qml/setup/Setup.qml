@@ -95,12 +95,16 @@ Page {
             Component {
                 id: setupJava
                 SetupJava {
+                    onPrevious: stackView.pop()
+                    onNext: stackView.push(setupFinish)
                 }
             }
 
             Component {
                 id: setupFinish
                 SetupFinish {
+                    onPrevious: stackView.pop()
+                    onNext: console.log("finito")
                 }
             }
         }

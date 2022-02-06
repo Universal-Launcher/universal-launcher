@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.14
 import QtGraphicalEffects 1.15
 import UniversalLauncher 1.0
 
@@ -8,243 +9,348 @@ Rectangle {
 
     width: 200
     height: 134
-    radius: 10
+    radius: AppGlobal.themes.current.radius
     color: AppGlobal.themes.current.backgroundColor2
     border.color: AppGlobal.themes.current.backgroundColor2
 
     required property string name
-    signal clicked()
-
 
     Item {
         id: group
-        anchors.fill: background
+        anchors{
+            fill: background
+        }
         layer.enabled: true
         layer.effect: OpacityMask {
             maskSource: background
         }
 
         Rectangle {
+            anchors{
+                horizontalCenter: parent.horizontalCenter
+                top: parent.top
+                topMargin: 2
+            }
             id: header
-            width: 250
-            height: 200
-            anchors.horizontalCenter: parent.horizontalCenter
-            y: 2
-            radius: 10
+            width: 196
+            height: 110
+            radius: AppGlobal.themes.current.radius
+            color: AppGlobal.themes.getTheme(name).backgroundColor
+        }
 
-            Rectangle{
-                id: titleFirst
-                width: 40
-                height: 7
-                radius: 10
-                x: 10
-                y: 10
+        Rectangle{
+            id: titleFirst
+            anchors {
+                top: header.top
+                topMargin: 7
+                left: header.left
+                leftMargin: 8
             }
+            width: 25
+            height: 6
+            radius: AppGlobal.themes.getTheme(name).radius
+            color: AppGlobal.themes.getTheme(name).textColor
+        }
 
-            Rectangle{
-                id: titleSecond
-                width: 40
-                height: 7
-                radius: 10
-                x: 10
-                y: 20
+        Rectangle{
+            anchors {
+                top: header.top
+                topMargin: 15
+                left: header.left
+                leftMargin: 8
             }
+            id: titleSecond
+            width: 25
+            height: 6
+            radius: AppGlobal.themes.getTheme(name).radius
+            color: AppGlobal.themes.getTheme(name).textColor
+        }
 
+        Column{
+            id: buttonHM
+            width: 55
+            anchors {
+                top: titleSecond.bottom
+                topMargin: 10
+                left: header.left
+                leftMargin: 8
+            }
+            spacing: 2
             Rectangle{
                 id: homeSelect
-                width: 60
-                height: 20
-                radius: 5
-                x: 12
-                y: 50
+                width: 35
+                height: 10
+                radius: AppGlobal.themes.getTheme(name).minRadius
+                color: AppGlobal.themes.getTheme(name).backgroundColor2
                 Rectangle {
                     id: iconHome
-                    width: 10
-                    height: 10
+                    width: 5
+                    height: 5
                     radius: 5
-                    x: 5
-                    anchors.verticalCenter: homeSelect.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).accentColor
+                    anchors {
+                        left: homeSelect.left
+                        leftMargin: 5
+                        verticalCenter: homeSelect.verticalCenter
+                    }
                 }
 
                 Rectangle {
                     id: textHome
-                    width: 20
-                    height: 7
+                    width: 14
+                    height: 5
                     radius: 5
-                    x: 20
-                    anchors.verticalCenter: homeSelect.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).accentColor
+                    anchors {
+                        left: homeSelect.left
+                        leftMargin: 13
+                        verticalCenter: homeSelect.verticalCenter
+                    }
                 }
             }
 
             Rectangle{
                 id: modpack
-                width: 60
-                height: 20
-                radius: 5
-                x: 12
-                y: 70
+                width: 35
+                height: 10
+                radius: AppGlobal.themes.getTheme(name).minRadius
+                color: AppGlobal.themes.getTheme(name).backgroundColor
                 Rectangle {
                     id: iconModpack
-                    width: 10
-                    height: 10
+                    width: 5
+                    height: 5
                     radius: 5
-                    x: 5
-                    anchors.verticalCenter: modpack.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).textColor
+                    anchors {
+                        left: modpack.left
+                        leftMargin: 5
+                        verticalCenter: modpack.verticalCenter
+                    }
                 }
 
                 Rectangle {
                     id: textModpack
-                    width: 20
-                    height: 7
+                    width: 14
+                    height: 5
                     radius: 5
-                    x: 20
-                    anchors.verticalCenter: modpack.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).textColor
+                    anchors {
+                        left: modpack.left
+                        leftMargin: 13
+                        verticalCenter: modpack.verticalCenter
+                    }
                 }
+            }
+        }
+
+
+        Column{
+            id: buttonAS
+            width: 55            
+            anchors {
+                top: buttonHM.bottom
+                topMargin: 20
+                left: header.left
+                leftMargin: 8
             }
 
             Rectangle{
-                id: account
-                width: 60
-                height: 20
-                radius: 5
-                x: 12
-                y: 130
+                id: accounts
+                width: 35
+                height: 10
+                radius: AppGlobal.themes.getTheme(name).minRadius
+                color: AppGlobal.themes.getTheme(name).backgroundColor
                 Rectangle {
-                    id: iconAccount
-                    width: 10
-                    height: 10
+                    id: iconAccounts
+                    width: 5
+                    height: 5
                     radius: 5
-                    x: 5
-                    anchors.verticalCenter: account.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).textColor
+                    anchors {
+                        left: accounts.left
+                        leftMargin: 5
+                        verticalCenter: accounts.verticalCenter
+                    }
                 }
 
                 Rectangle {
-                    id: textAccount
-                    width: 20
-                    height: 7
+                    id: textAccounts
+                    width: 14
+                    height: 5
                     radius: 5
-                    x: 20
-                    anchors.verticalCenter: account.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).textColor
+                    anchors {
+                        left: accounts.left
+                        leftMargin: 13
+                        verticalCenter: accounts.verticalCenter
+                    }
                 }
             }
 
             Rectangle{
                 id: settings
-                width: 60
-                height: 20
-                radius: 5
-                x: 12
-                y: 145
+                width: 35
+                height: 10
+                radius: AppGlobal.themes.getTheme(name).minRadius
+                color: AppGlobal.themes.getTheme(name).backgroundColor
                 Rectangle {
                     id: iconSettings
-                    width: 10
-                    height: 10
+                    width: 5
+                    height: 5
                     radius: 5
-                    x: 5
-                    anchors.verticalCenter: settings.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).textColor
+                    anchors {
+                        left: settings.left
+                        leftMargin: 5
+                        verticalCenter: settings.verticalCenter
+                    }
                 }
 
                 Rectangle {
                     id: textSettings
-                    width: 20
-                    height: 7
+                    width: 14
+                    height: 5
                     radius: 5
-                    x: 20
-                    anchors.verticalCenter: settings.verticalCenter
+                    color: AppGlobal.themes.getTheme(name).textColor
+                    anchors {
+                        left: settings.left
+                        leftMargin: 13
+                        verticalCenter: settings.verticalCenter
+                    }
                 }
             }
+        }
 
-            Rectangle{
-                id: separator
-                width: 2
-                height: 160
-                x: 80
-                y: 10
+        Rectangle{
+            id: separator
+            width: 1
+            color: AppGlobal.themes.getTheme(name).backgroundColor2
+            anchors {
+                left: parent.left
+                leftMargin: 55
+                top: parent.top
+                topMargin: 9
+                bottom: parent.bottom
+                bottomMargin: 42
             }
+        }
 
-            Rectangle{
+        Rectangle{
                 id: titlePage
-                width: 40
+                anchors {
+                    top: parent.top
+                    topMargin: 12
+                    left: separator.left
+                    leftMargin: 10
+                }
+                width: 20
                 height: 7
-                radius: 10
-                x: 90
-                y: 15
-            }
-
-            Rectangle{
-                id: card1
-                width: 45
-                height: 30
-                radius: 10
-                x: 92
-                y: 45
-            }
-
-            Rectangle{
-                id: card2
-                width: 45
-                height: 30
-                radius: 10
-                x: 145
-                y: 45
-            }
-            Rectangle{
-                id: card3
-                width: 45
-                height: 30
-                radius: 10
-                x: 198
-                y: 45
-            }
-
-            Rectangle{
-                id: card4
-                width: 45
-                height: 30
-                radius: 10
-                x: 92
-                y: 95
-            }
-
-            Rectangle{
-                id: card5
-                width: 45
-                height: 30
-                radius: 10
-                x: 145
-                y: 95
-            }
-
-            Rectangle{
-                id: card6
-                width: 45
-                height: 30
-                radius: 10
-                x: 198
-                y: 95
-            }
+                color: AppGlobal.themes.getTheme(name).textColor
+                radius: AppGlobal.themes.getTheme(name).radius
         }
-    }
 
-    Rectangle {
-        id: bottom
-        width: 250
-        height: 33
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: 180
-        Text{
-            id: bottomText
-            anchors.horizontalCenter: bottom.horizontalCenter
-            anchors.verticalCenter: bottom.verticalCenter
-            text: name
-            font.pixelSize: 15
+        Rectangle{
+            id: c1
+            anchors {
+                top: parent.top
+                topMargin: 30
+                left: separator.right
+                leftMargin: 15
+            }
+            color: AppGlobal.themes.getTheme(name).backgroundColor2
+            width: 30
+            height: 20
+            radius: AppGlobal.themes.getTheme(name).minRadius
         }
-    }
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        onClicked: clicked()
-        cursorShape: Qt.PointingHandCursor
-    }
+        Rectangle{
+            id: c2
+            anchors {
+                top: parent.top
+                topMargin: 30
+                left: c1.right
+                leftMargin: 10
+            }
+            color: AppGlobal.themes.getTheme(name).backgroundColor2
+            width: 30
+            height: 20
+            radius: AppGlobal.themes.getTheme(name).minRadius
+        }
+
+        Rectangle{
+            id: c3
+            anchors {
+                top: parent.top
+                topMargin: 30
+                left: c2.right
+                leftMargin: 10
+            }
+            color: AppGlobal.themes.getTheme(name).backgroundColor2
+            width: 30
+            height: 20
+            radius: AppGlobal.themes.getTheme(name).minRadius
+        }
+
+        Rectangle{
+            id: c4
+            anchors {
+                top: c1.top
+                topMargin: 30
+                left: separator.right
+                leftMargin: 15
+            }
+            color: AppGlobal.themes.getTheme(name).backgroundColor2
+            width: 30
+            height: 20
+            radius: AppGlobal.themes.getTheme(name).minRadius
+        }
+
+        Rectangle{
+            id: c5
+            anchors {
+                top: c2.top
+                topMargin: 30
+                left: c4.right
+                leftMargin: 10
+            }
+            color: AppGlobal.themes.getTheme(name).backgroundColor2
+            width: 30
+            height: 20
+            radius: AppGlobal.themes.getTheme(name).minRadius
+        }
+
+        Rectangle{
+            id: c6
+            anchors {
+                top: c3.top
+                topMargin: 30
+                left: c5.right
+                leftMargin: 10
+            }
+            color: AppGlobal.themes.getTheme(name).backgroundColor2
+            width: 30
+            height: 20
+            radius: AppGlobal.themes.getTheme(name).minRadius
+        }
+
+
+        Rectangle {
+            id: bottom
+            width: 200
+            height: 35
+            anchors {
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
+            }
+            Text{
+                id: bottomText
+                anchors.horizontalCenter: bottom.horizontalCenter
+                anchors.verticalCenter: bottom.verticalCenter
+                text: name
+                font.capitalization: Font.Capitalize
+                font.pixelSize: 15
+            }
+            color: AppGlobal.themes.current.backgroundColor2
+        }
+    }    
 } 

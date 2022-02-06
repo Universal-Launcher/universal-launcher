@@ -1,7 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import "qrc:/qml/common/ui/"
-import "../components"
 import "."
 import UniversalLauncher 1.0
 
@@ -55,12 +54,19 @@ Item {
 
 
                 UTheme {
+                    id: themePreview
                     name: modelData
-                    onClicked: AppGlobal.themes.changeTheme(modelData)
                     anchors {
                         centerIn: parent
                         margins: 5
                     }
+                }
+
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: themePreview
+                    onClicked: AppGlobal.themes.changeTheme(modelData) 
+                    cursorShape: Qt.PointingHandCursor
                 }
             }
         }
@@ -80,18 +86,6 @@ Item {
         }
 
         UButton {
-            id: btnPrevious
-            btnText: qsTr("Previous")
-            iconPath: "/images/icons/arrow-alt-circle-left.svg"
-            onClicked: previous()
-
-            anchors {
-                right: parent.left
-                bottom: parent.bottom
-            }
-        }
-
-        UButton {
             id: btnNext
             btnText: qsTr("Next")
             iconPath: "/images/icons/arrow-alt-circle-right.svg"
@@ -102,6 +96,20 @@ Item {
                 bottom: parent.bottom
             }
         }
+
+        UButton {
+            id: btnPrevious
+            btnText: qsTr("Previous")
+            iconPath: "/images/icons/arrow-alt-circle-left.svg"
+            onClicked: previous()
+
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
+            }
+        }
+
+     
     }
 }
 

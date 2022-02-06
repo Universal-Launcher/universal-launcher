@@ -10,9 +10,6 @@
         <file>qml/setup/pages/SetupJava.qml</file>
         <file>qml/setup/pages/SetupFinish.qml</file>
 
-        <file>qml/setup/components/ULanguage.qml</file>
-        <file>qml/setup/components/UCard.qml</file>
-
         <file>qml/main/components/CustomPage.qml</file>
         <file>qml/main/components/ModpackCard.qml</file>
         <file>qml/main/components/navigation/Sidebar.qml</file>
