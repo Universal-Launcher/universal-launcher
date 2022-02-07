@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
   QPointer<AppGlobal> appGlobal = AppGlobal::instance();
   appGlobal->registerType();
-  appGlobal->translator()->registerLanguages(&app);
+  appGlobal->translator()->registerLanguages(&app, &engine);
   appGlobal->settings()->load();
 
   bool alreadySetup;

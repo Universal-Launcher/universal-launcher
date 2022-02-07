@@ -9,38 +9,50 @@ void Translator::registerType() {
 }
 
 Translator::Translator(QObject *parent) : QObject(parent) {
+  m_translator = new QTranslator();
   QLocale::setDefault(QLocale::English);
 }
 
-Translator::~Translator() {}
+Translator::~Translator() { delete m_translator; }
 
 void Translator::setLanguage(QString name) {
-  if (!m_languages.contains(name))
+  if (!m_languages.contains(name) || !m_translator)
     return;
 
-  QLocale::setDefault(m_languages.value(name));
-  qDebug() << name;
+  if (!m_translator->isEmpty())
+    m_app->removeTranslator(m_translator);
+  m_translator->load(m_languages.value(name));
+
+  m_app->installTranslator(m_translator);
+
   emit languageChanged();
+  m_engine->retranslate();
 }
 
 QString Translator::currentLanguage() { return m_translator->language(); }
 
 QStringList Translator::languages() {
   QStringList values{};
-  for (const QLocale &locale : m_languages.values()) {
-    values.append(locale.nativeLanguageName());
+  for (const QString &name : m_languages.keys()) {
+    values.append(name);
   }
   return values;
 }
 
-void Translator::registerLanguages(QGuiApplication *app) {
+void Translator::registerLanguages(QGuiApplication *app, QQmlEngine *engine) {
   QStringList uiLanguages = QDir{":/i18n"}.entryList();
+
+  m_app = app;
+  m_engine = engine;
+
   for (const QString &name : uiLanguages) {
-    m_translator->load(name, QLatin1String(":/i18n"));
-    qDebug() << m_translator->language();
-    qDebug() << m_translator->filePath();
-    m_languages.insert(name, QLocale(m_translator->language()));
+    m_translator->load(name, QStringLiteral(":/i18n"));
+    m_languages.insert(m_translator->language(), m_translator->filePath());
   }
 
-  app->installTranslator(m_translator.data());
+  this->setLanguage("en_GB");
+}
+
+QString Translator::getHumanName(QString name) {
+  return QLocale(name).nativeLanguageName();
 }

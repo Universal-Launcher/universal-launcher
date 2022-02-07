@@ -4,6 +4,7 @@
 #include <QLocale>
 #include <QObject>
 #include <QPointer>
+#include <QQmlEngine>
 #include <QTranslator>
 
 class Translator : public QObject {
@@ -21,16 +22,18 @@ public:
   QString currentLanguage();
   QStringList languages();
 
-  void registerLanguages(QGuiApplication *app);
+  void registerLanguages(QGuiApplication *app, QQmlEngine *engine);
 
 signals:
   void languageChanged();
 
 public slots:
   void setLanguage(QString name);
+  QString getHumanName(QString name);
 
 private:
-  QApplication *m_app;
-  QPointer<QTranslator> m_translator{new QTranslator()};
-  QMap<QString, QLocale> m_languages;
+  QGuiApplication *m_app;
+  QQmlEngine *m_engine;
+  QTranslator *m_translator;
+  QMap<QString, QString> m_languages;
 };

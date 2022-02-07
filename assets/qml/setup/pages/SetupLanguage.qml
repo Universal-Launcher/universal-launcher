@@ -68,13 +68,12 @@ Item {
                 }
 
                 onClicked: function() {
-                    list.currentIndex = index
-                    console.log(modelData)
                     AppGlobal.translator.setLanguage(modelData)
+                    list.currentIndex = index
                 }
 
                 contentItem: Text {
-                    text: modelData
+                    text: AppGlobal.translator.getHumanName(modelData)
                     color: list.currentIndex == index ? AppGlobal.themes.current.accentColor : AppGlobal.themes.current.textColor
 
                     horizontalAlignment: Text.AlignHCenter
@@ -85,10 +84,6 @@ Item {
                         horizontalCenter: parent.horizontalCenter
                         verticalCenter: parent.verticalCenter
                     }
-                }
-
-                Component.onCompleted:function() {
-                    console.log(AppGlobal.translator.languages)
                 }
             }
         }
