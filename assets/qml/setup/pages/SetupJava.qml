@@ -93,18 +93,6 @@ Item{
     delegate: card   
     }
 
-    UButton{
-        btnText: qsTr("Ajouter")
-        iconPath: "/images/icons/plus-square.svg"
-        anchors{
-            bottom: list.bottom
-            left: list.right
-            leftMargin: 5
-        }
-        onClicked: {}
-    }
-
-        
     Item {
         id: btnContainer
         height: btnNext.height
@@ -112,6 +100,18 @@ Item{
 
         anchors {
             bottom: parent.bottom
+        }
+
+
+        UButton{
+            btnText: qsTr("Ajouter")
+            iconPath: "/images/icons/plus-square.svg"
+            anchors{
+                bottom: list.bottom
+                horizontalCenter: btnContainer.horizontalCenter
+                verticalCenter: btnContainer.verticalCenter
+            }
+            onClicked: {}
         }
 
         UButton {
