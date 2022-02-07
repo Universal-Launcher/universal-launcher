@@ -11,7 +11,7 @@ void Themes::registerType() {
 Themes::Themes(QObject *parent) : QObject(parent) {
   registerDefaultThemes();
 
-  changeTheme("sepia");
+  changeTheme("default");
 }
 Themes::~Themes() {}
 
