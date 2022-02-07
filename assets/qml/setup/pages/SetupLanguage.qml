@@ -69,6 +69,7 @@ Item {
 
                 onClicked: function() {
                     list.currentIndex = index
+                    console.log(modelData)
                     AppGlobal.translator.setLanguage(modelData)
                 }
 

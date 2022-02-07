@@ -19,6 +19,7 @@ void Translator::setLanguage(QString name) {
     return;
 
   QLocale::setDefault(m_languages.value(name));
+  qDebug() << name;
   emit languageChanged();
 }
 
@@ -34,11 +35,11 @@ QStringList Translator::languages() {
 
 void Translator::registerLanguages(QGuiApplication *app) {
   QStringList uiLanguages = QDir{":/i18n"}.entryList();
-
   for (const QString &name : uiLanguages) {
-    m_translator->load(name);
+    m_translator->load(name, QLatin1String(":/i18n"));
     qDebug() << m_translator->language();
-    m_languages.insert(name, QLocale{name});
+    qDebug() << m_translator->filePath();
+    m_languages.insert(name, QLocale(m_translator->language()));
   }
 
   app->installTranslator(m_translator.data());
