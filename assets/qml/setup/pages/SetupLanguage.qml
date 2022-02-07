@@ -40,23 +40,23 @@ Item {
             bottom: btnContainer.top
         }
 
-        ListModel {
-            id: languages_model
-            ListElement { name: "Français" }
-            ListElement { name: "English" }
-        }
-
         ScrollBar.vertical: UScrollBar {}
 
         Component {
             id: card
+
             Button {
+                required property string modelData
+                required property int index
+
                 width: list.width
                 height: 50
+
                 HoverHandler{
-                    id: test
+                    id: hoverZone
                     cursorShape: Qt.PointingHandCursor
                 }
+
                 background: Rectangle {
                     color: if (card.hovered && index != list.currentIndex) {
                         AppGlobal.themes.current.backgroundColor2
@@ -67,10 +67,13 @@ Item {
                     radius: AppGlobal.themes.current.radius
                 }
 
-                onClicked: list.currentIndex = index
+                onClicked: function() {
+                    list.currentIndex = index
+                    AppGlobal.translator.setLanguage(modelData)
+                }
 
                 contentItem: Text {
-                    text: name
+                    text: modelData
                     color: list.currentIndex == index ? AppGlobal.themes.current.accentColor : AppGlobal.themes.current.textColor
 
                     horizontalAlignment: Text.AlignHCenter
@@ -82,10 +85,14 @@ Item {
                         verticalCenter: parent.verticalCenter
                     }
                 }
+
+                Component.onCompleted:function() {
+                    console.log(AppGlobal.translator.languages)
+                }
             }
         }
 
-        model: languages_model
+        model: AppGlobal.translator.languages
         delegate: card
         highlight: Rectangle {
             width: card.width; height: card.height

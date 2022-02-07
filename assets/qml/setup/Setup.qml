@@ -59,7 +59,7 @@ Page {
             height: setup.height
             Text{
                 id: setup
-                text: "Setup"
+                text: qsTr("Setup")
                 font.pixelSize: 35
                 anchors.horizontalCenter: setupTitle.horizontalCenter
                 font.capitalization: Font.AllUppercase

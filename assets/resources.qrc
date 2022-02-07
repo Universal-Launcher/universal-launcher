@@ -34,5 +34,8 @@
 
         <file>images/icons/plus-square.svg</file>
         <file>images/background/mCard.jpg</file>
+
+        <file>i18n/universal-launcher_en_GB.qm</file>
+        <file>i18n/universal-launcher_fr_FR.qm</file>
     </qresource>
 </RCC>

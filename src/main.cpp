@@ -1,13 +1,12 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include <QLocale>
-#include <QTranslator>
-
 #include <QQmlDebuggingEnabler>
 
 #include "AppGlobal.h"
 #include <QPointer>
+
+#include <QDir>
 
 int main(int argc, char *argv[]) {
   QQmlDebuggingEnabler enabler;
@@ -18,25 +17,13 @@ int main(int argc, char *argv[]) {
   QGuiApplication app(argc, argv);
 
   /*
-   * Enabling translations
-   */
-  QTranslator translator;
-  const QStringList uiLanguages = QLocale::system().uiLanguages();
-  for (const QString &locale : uiLanguages) {
-    const QString baseName = "universal-launcher_" + QLocale(locale).name();
-    if (translator.load(":/i18n/" + baseName)) {
-      app.installTranslator(&translator);
-      break;
-    }
-  }
-
-  /*
    * Load the view engine and the main view
    */
   QQmlApplicationEngine engine;
 
   QPointer<AppGlobal> appGlobal = AppGlobal::instance();
   appGlobal->registerType();
+  appGlobal->translator()->registerLanguages(&app);
   appGlobal->settings()->load();
 
   bool alreadySetup;

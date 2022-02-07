@@ -9,6 +9,7 @@
 #include "systems/router.h"
 #include "systems/settings.h"
 #include "systems/themes.h"
+#include "systems/translator.h"
 
 class AppGlobal : public QObject {
   Q_OBJECT
@@ -17,6 +18,7 @@ class AppGlobal : public QObject {
   Q_PROPERTY(Router *router READ router CONSTANT);
   Q_PROPERTY(Themes *themes READ themes CONSTANT);
   Q_PROPERTY(SettingsSystem *settings READ settings CONSTANT);
+  Q_PROPERTY(Translator *translator READ translator CONSTANT);
 
 public:
   ~AppGlobal();
@@ -25,10 +27,11 @@ public:
   static void destroy();
   void registerType();
 
-  Q_INVOKABLE FolderSystem *folderSystem();
-  Q_INVOKABLE Router *router();
-  Q_INVOKABLE Themes *themes();
-  Q_INVOKABLE SettingsSystem *settings();
+  FolderSystem *folderSystem();
+  Router *router();
+  Themes *themes();
+  SettingsSystem *settings();
+  Translator *translator();
 
 private:
   AppGlobal();
@@ -37,6 +40,7 @@ private:
   QPointer<Router> m_router;
   QPointer<Themes> m_themes;
   QPointer<SettingsSystem> m_settings;
+  QPointer<Translator> m_translator;
 
   static AppGlobal *s_instance;
 };

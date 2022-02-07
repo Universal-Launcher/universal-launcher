@@ -10,7 +10,7 @@ Item{
     
             Text{
                 id: text
-                text: "Configuration terminée... Bon jeu !"
+                text: qsTr("Configuration finished... Enjoy the game !")
                 font.pixelSize: 25
                 font.capitalization: Font.AllUppercase
                 color: AppGlobal.themes.current.textColor
@@ -33,7 +33,7 @@ Item{
 
         UButton {
             id: btnNext
-            btnText: qsTr("finish")
+            btnText: qsTr("Finish")
             iconPath: "/images/icons/arrow-alt-circle-right.svg"
             onClicked: next()
 

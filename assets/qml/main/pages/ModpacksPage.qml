@@ -3,5 +3,5 @@ import "../components"
 
 CustomPage {
     id: modpack
-    pageTitle: qsTr("Modpack")
+    pageTitle: qsTr("Modpacks")
 }

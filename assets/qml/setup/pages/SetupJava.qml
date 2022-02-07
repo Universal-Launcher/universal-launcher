@@ -15,7 +15,7 @@ Item{
                     horizontalCenter: parent.horizontalCenter
                 }
                 id: jvd
-                text: "Java Version Detected"
+                text: qsTr("Java Version Detected")
                 font.pixelSize: 18
                 font.capitalization: Font.AllUppercase
                 color: AppGlobal.themes.current.textColor
@@ -102,14 +102,12 @@ Item{
             bottom: parent.bottom
         }
 
-
         UButton{
-            btnText: qsTr("Ajouter")
+            btnText: qsTr("Add")
             iconPath: "/images/icons/plus-square.svg"
             anchors{
                 bottom: list.bottom
                 horizontalCenter: btnContainer.horizontalCenter
-                verticalCenter: btnContainer.verticalCenter
             }
             onClicked: {}
         }
