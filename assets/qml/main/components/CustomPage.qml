@@ -3,7 +3,6 @@ import QtQuick.Controls 2.15
 
 Item {
     id: page
-
     property alias content: content.children
     required property string pageTitle
 

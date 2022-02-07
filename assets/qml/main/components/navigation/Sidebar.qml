@@ -4,7 +4,7 @@ import "."
 
 Rectangle {
     id: sidebar
-    color: "white"
+    color: AppGlobal.themes.current.backgroundColor
     width: 200
 
     anchors {
@@ -24,7 +24,7 @@ Rectangle {
         height: parent.height * 0.9
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        color: "#D1D5D8"
+        color: AppGlobal.themes.current.backgroundColor2
 
         radius: 4
     }
@@ -48,7 +48,7 @@ Rectangle {
             font.pixelSize: 16
             font.capitalization: Font.AllUppercase
             font.bold: Font.Bold
-            color: "#1F2937"
+            color: AppGlobal.themes.current.textColor
 
             height: 100
 

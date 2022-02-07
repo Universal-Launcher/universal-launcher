@@ -16,6 +16,8 @@ class ThemeObject : public QObject {
   Q_PROPERTY(QString textColor READ textColor CONSTANT);
   Q_PROPERTY(QString titleColor READ accentColor CONSTANT);
   Q_PROPERTY(QString accentColor READ accentColor CONSTANT);
+  Q_PROPERTY(int radius READ radius CONSTANT);
+  Q_PROPERTY(int minRadius READ minRadius CONSTANT);
 
 public:
   using ThemeValues = QMap<QString, QVariant>;
@@ -25,6 +27,8 @@ public:
   QString textColor();
   QString titleColor();
   QString accentColor();
+  uint16_t radius();
+  uint16_t minRadius();
 
   ThemeObject();
   ThemeObject(ThemeValues values);

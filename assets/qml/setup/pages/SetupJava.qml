@@ -1,134 +1,144 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import "qrc:/qml/common/ui/"
-import "../components"
 import "."
 import UniversalLauncher 1.0
 
-Rectangle{
-    id: s_java
-    color: AppGlobal.themes.current.backgroundColor
-    property StackView stack
+Item{
+    signal next()
+    signal previous()
 
             Text{
-                id: setup
-                text: "Setup"
-                font.pixelSize: 35
-                font.capitalization: Font.AllUppercase
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: AppGlobal.themes.current.textColor
-                y: 60
-            }
-
-            Text{
+                anchors {
+                    top: parent.top
+                    topMargin: 30
+                    horizontalCenter: parent.horizontalCenter
+                }
                 id: jvd
                 text: "Java Version Detected"
                 font.pixelSize: 18
                 font.capitalization: Font.AllUppercase
-                x: 310
                 color: AppGlobal.themes.current.textColor
-                y: 145
             }
 
-            UCard{
-                id: cardOne
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: 175
-                pathName: "/usr/bin/java/"
-                javaName: "JAVA 17"
-                state: "selected"
-                MouseArea {
-                    id: co_ma
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if(cardTwo.state == "selected") {
-                            cardTwo.state = "default"
-                            cardOne.state = "selected"
-                        }
-                        else if(cardThree.state == "selected") {
-                            cardThree.state = "default"
-                            cardOne.state = "selected"
-                        }    
+    ListView {
+        id: list
+        spacing: 15
+        clip: true
+
+        width: 340
+
+        anchors {
+            top: jvd.bottom
+            horizontalCenter: parent.horizontalCenter
+            topMargin: 20
+            bottomMargin: 20
+            bottom: btnContainer.top
+        }
+
+        ListModel {
+            id: java_model
+            ListElement { name: "Java 17"; path: "/usr/bin/java/" }
+            ListElement { name: "Java 11"; path: "/usr/bin/java/" }
+            ListElement { name: "Java 8";  path: "/usr/bin/java/" }
+            ListElement { name: "Java 6(mdrrr)";  path: "/usr/bin/java/" }            
+            ListElement { name: "Java 4(Shallah sa existe)";  path: "/usr/bin/java/" }            
+        }
+
+        ScrollBar.vertical: UScrollBar {}
+
+        Component {
+            id: card
+            Button {
+                width: list.width
+                height: 70
+                background: Rectangle {
+                    color: AppGlobal.themes.current.backgroundColor2
+                    radius: 10
+                }
+
+                onClicked: list.currentIndex = index
+
+                Text {
+                    id: nameJava
+                    text: name
+                    color: AppGlobal.themes.current.accentColor
+                    font.pixelSize: 15
+                    anchors {
+                        fill: parent
+                        top: parent.top
+                        topMargin: 10
+                        left: parent.left
+                        leftMargin: 30
+                    }
+                }
+
+                Text {
+                    id: pathJava
+                    text: path
+                    color: AppGlobal.themes.current.backgroundColor        
+                    font.pixelSize: 11
+                    font.italic: true
+                    anchors {
+                        fill: parent
+                        top: nameJava.bottom
+                        topMargin: 35
+                        left: parent.left
+                        leftMargin: 30
                     }
                 }
             }
+        }
+    model: java_model
+    delegate: card   
+    }
 
-            UCard{
-                id: cardTwo
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: 250
-                pathName: "/usr/bin/java/"
-                javaName: "JAVA 11"
-                MouseArea { 
-                    id: ctw_ma
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if(cardOne.state == "selected") {
-                            cardOne.state = "default"
-                            cardTwo.state = "selected"
-                        }
-                        else if(cardThree.state == "selected") {
-                            cardThree.state = "default"
-                            cardTwo.state = "selected"
-                        }
-                    }
-                }
+    Item {
+        id: btnContainer
+        height: btnNext.height
+        width: parent.width
+
+        anchors {
+            bottom: parent.bottom
+        }
+
+
+        UButton{
+            btnText: qsTr("Ajouter")
+            iconPath: "/images/icons/plus-square.svg"
+            anchors{
+                bottom: list.bottom
+                horizontalCenter: btnContainer.horizontalCenter
+                verticalCenter: btnContainer.verticalCenter
             }
+            onClicked: {}
+        }
 
-            UCard{
-                id: cardThree
-                anchors.horizontalCenter: parent.horizontalCenter
-                y: 325
-                pathName: "/usr/bin/java/"
-                javaName: "JAVA 8"
-                MouseArea { 
-                    id: cth_ma
-                    anchors.fill: parent
-                    cursorShape: Qt.PointingHandCursor
-                    onClicked: {
-                        if(cardOne.state == "selected") {
-                            cardOne.state = "default"
-                            cardThree.state = "selected"
-                        }
-                        else if(cardTwo.state == "selected") {
-                            cardTwo.state = "default"
-                            cardThree.state = "selected"
-                        }    
-                    }
-                }
+        UButton {
+            id: btnNext
+            btnText: qsTr("Next")
+            iconPath: "/images/icons/arrow-alt-circle-right.svg"
+            onClicked: next()
+
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
             }
+        }
 
+        UButton {
+            id: btnPrevious
+            btnText: qsTr("Previous")
+            iconPath: "/images/icons/arrow-alt-circle-left.svg"
+            onClicked: previous()
 
-            UButton{
-                btnText: qsTr("Ajouter")
-                iconPath: "/images/icons/plus-square.svg"
-                onClicked: {}
-                x:510
-                y:400
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
             }
+        }
 
-        
-            UButton{
-                btnText: qsTr("Suivant")
-                iconPath: "/images/icons/arrow-alt-circle-right.svg"
-                onClicked: {
-                                if(cardOne.state == "selected"){ stackView.push("SetupFinish.qml") }
-                                else if(cardTwo.state == "selected") { stackView.push("SetupFinish.qml") }
-                                else if(cardThree.state == "selected") { stackView.push("SetupFinish.qml") }
-                            }
-                x:800
-                y:490
-            }
-
-            UButton{
-                btnText: qsTr("Retour")
-                iconPath: "/images/icons/arrow-alt-circle-left.svg"
-                onClicked: stackView.pop("SetupTheme.qml")
-                x:20
-                y:490
-            }            
-            
+     
+    }
 }
 

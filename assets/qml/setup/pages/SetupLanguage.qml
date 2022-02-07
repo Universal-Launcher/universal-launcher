@@ -1,6 +1,5 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import "../components"
 import "qrc:/qml/common/ui"
 import "."
 import UniversalLauncher 1.0
@@ -54,7 +53,10 @@ Item {
             Button {
                 width: list.width
                 height: 50
-
+                HoverHandler{
+                    id: test
+                    cursorShape: Qt.PointingHandCursor
+                }
                 background: Rectangle {
                     color: if (card.hovered && index != list.currentIndex) {
                         AppGlobal.themes.current.backgroundColor2
@@ -62,14 +64,14 @@ Item {
                         "transparent"
                     }
 
-                    radius: 10
+                    radius: AppGlobal.themes.current.radius
                 }
 
                 onClicked: list.currentIndex = index
 
                 contentItem: Text {
                     text: name
-                    color: list.currentIndex == index ? "white" : "black"
+                    color: list.currentIndex == index ? AppGlobal.themes.current.accentColor : AppGlobal.themes.current.textColor
 
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -87,8 +89,8 @@ Item {
         delegate: card
         highlight: Rectangle {
             width: card.width; height: card.height
-            color: AppGlobal.themes.current.accentColor;
-            radius: 10
+            color: AppGlobal.themes.current.backgroundColor2;
+            radius: AppGlobal.themes.current.radius
         }
     }
 

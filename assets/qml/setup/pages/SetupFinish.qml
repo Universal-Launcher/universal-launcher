@@ -1,51 +1,58 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import "../components"
 import "qrc:/qml/common/ui"
 import UniversalLauncher 1.0
 
-Rectangle{
+Item{
     id: finish
-    color: AppGlobal.themes.current.backgroundColor
-            Text{
-                id: setup
-                text: "Setup"
-                font.pixelSize: 35
-                font.capitalization: Font.AllUppercase
-                anchors.horizontalCenter: parent.horizontalCenter
-                color: AppGlobal.themes.current.textColor
-                y: 140
-            }
-
-            //Configuration terminée... Bon jeu !
-            
+    signal next()
+    signal previous()
+    
             Text{
                 id: text
                 text: "Configuration terminée... Bon jeu !"
                 font.pixelSize: 25
                 font.capitalization: Font.AllUppercase
-                anchors.horizontalCenter: parent.horizontalCenter
                 color: AppGlobal.themes.current.textColor
-                y: 220
-            }
-
-            UButton{
-                id: btn
-                btnText: qsTr("Finish")
-                iconPath: "/images/icons/arrow-alt-circle-right.svg"
-                onClicked: {
-                    console.log("fin")
+                anchors {
+                    top: parent.top
+                    topMargin: 80
+                    horizontalCenter: parent.horizontalCenter
                 }
-                x:800
-                y:490
             }
+            
 
+    Item {
+        id: btnContainer
+        height: btnNext.height
+        width: parent.width
 
-            UButton{
-                btnText: qsTr("Retour")
-                iconPath: "/images/icons/arrow-alt-circle-left.svg"
-                onClicked: stackView.pop("SetupJava.qml")
-                x:20
-                y:490
+        anchors {
+            bottom: parent.bottom
+        }
+
+        UButton {
+            id: btnNext
+            btnText: qsTr("finish")
+            iconPath: "/images/icons/arrow-alt-circle-right.svg"
+            onClicked: next()
+
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
             }
+        }
+
+        UButton {
+            id: btnPrevious
+            btnText: qsTr("Previous")
+            iconPath: "/images/icons/arrow-alt-circle-left.svg"
+            onClicked: previous()
+
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
+            }
+        }
+    }          
 }

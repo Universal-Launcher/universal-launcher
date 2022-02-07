@@ -39,9 +39,11 @@ void Themes::registerDefaultThemes() {
 
   values.insert("background_color", QVariant::fromValue<QString>("white"));
   values.insert("background_color_2", QVariant::fromValue<QString>("#E5E7EB"));
-  values.insert("text_color", QVariant::fromValue<QString>("black"));
+  values.insert("text_color", QVariant::fromValue<QString>("#374151"));
   values.insert("title_color", QVariant::fromValue<QString>("white"));
   values.insert("accent_color", QVariant::fromValue<QString>("#F97316"));
+  values.insert("radius", QVariant::fromValue<uint16_t>(10));
+  values.insert("minRadius", QVariant::fromValue<uint16_t>(5));
   m_themes.insert("default", new ThemeObject(values));
 
   values["background_color"] = QVariant::fromValue<QString>("#252525");
@@ -49,6 +51,8 @@ void Themes::registerDefaultThemes() {
   values["text_color"] = QVariant::fromValue<QString>("#E5E7EB");
   values["title_color"] = QVariant::fromValue<QString>("#E5E7EB");
   values["accent_color"] = QVariant::fromValue<QString>("#F97316");
+  values["radius"] = QVariant::fromValue<uint16_t>(10);  
+  values["minRadius"] = QVariant::fromValue<uint16_t>(5);  
   m_themes.insert("dark", new ThemeObject(values));
 
   values["background_color"] = QVariant::fromValue<QString>("#EAD09E");
@@ -56,6 +60,8 @@ void Themes::registerDefaultThemes() {
   values["text_color"] = QVariant::fromValue<QString>("#B59860");
   values["title_color"] = QVariant::fromValue<QString>("#FFEBC6");
   values["accent_color"] = QVariant::fromValue<QString>("white");
+  values["radius"] = QVariant::fromValue<uint16_t>(0);  
+  values["minRadius"] = QVariant::fromValue<uint16_t>(0);    
   m_themes.insert("sepia", new ThemeObject(values));
 
   emit themesListUpdated();
