@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
   QPointer<AppGlobal> appGlobal = AppGlobal::instance();
   appGlobal->registerType();
   appGlobal->translator()->registerLanguages(&app, &engine);
-  appGlobal->settings()->load();
 
   bool alreadySetup;
   auto err = appGlobal->settings()->get()["configured"].get(alreadySetup);
@@ -34,13 +33,12 @@ int main(int argc, char *argv[]) {
   alreadySetup = false;
 
   if (alreadySetup) {
-    engine.load(QUrl(QStringLiteral("qrc:/qml/main/MainWindow.qml")));
+    engine.load(QUrl("qrc:/qml/main/MainWindow.qml"));
   } else {
-    engine.load(QUrl(QStringLiteral("qrc:/qml/setup/SetupWindow.qml")));
+    engine.load(QUrl("qrc:/qml/setup/SetupWindow.qml"));
   }
 
   if (engine.rootObjects().isEmpty()) {
-    AppGlobal::destroy();
     QCoreApplication::exit(-1);
   }
 

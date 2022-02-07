@@ -349,6 +349,7 @@ Rectangle {
                 text: name
                 font.capitalization: Font.Capitalize
                 font.pixelSize: 15
+                color: AppGlobal.themes.current.textColor
             }
             color: AppGlobal.themes.current.backgroundColor2
         }

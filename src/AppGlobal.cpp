@@ -13,8 +13,6 @@ AppGlobal *AppGlobal::instance() {
   return s_instance;
 }
 
-void AppGlobal::destroy() { delete s_instance; }
-
 void AppGlobal::registerType() {
   qmlRegisterSingletonType<AppGlobal>(
       "UniversalLauncher", 1, 0, "AppGlobal",

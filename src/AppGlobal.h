@@ -24,7 +24,6 @@ public:
   ~AppGlobal();
 
   static AppGlobal *instance();
-  static void destroy();
   void registerType();
 
   FolderSystem *folderSystem();

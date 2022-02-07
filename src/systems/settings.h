@@ -25,6 +25,6 @@ public slots:
 
 private:
   QString m_config_path;
-  ondemand::parser m_parser;
-  ondemand::document m_doc;
+  ondemand::parser *m_parser;
+  ondemand::document m_doc{};
 };
