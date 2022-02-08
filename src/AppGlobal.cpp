@@ -48,10 +48,12 @@ Translator *AppGlobal::translator() { return m_translator.data(); }
 
 void AppGlobal::finishSetup() {
   auto settings = m_settings->get();
-  settings->emplace("configured", true);
-  settings->emplace("language", m_translator->currentLanguage().toStdString());
-  settings->emplace("theme", m_themes->currentThemeName().toStdString());
-  settings->emplace("java", nlohmann::json::array());
+  settings->update(nlohmann::json{
+      {"configured", true},
+      {"language", m_translator->currentLanguage().toStdString()},
+      {"theme", m_themes->currentThemeName().toStdString()},
+      {"java", nlohmann::json::array()}});
+
   m_settings->save();
   emit setupFinished();
 }

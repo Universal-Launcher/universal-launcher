@@ -26,21 +26,16 @@ int main(int argc, char *argv[]) {
   appGlobal->translator()->registerLanguages(&app, &engine);
 
   auto settings = appGlobal->settings()->get();
-  bool alreadySetup =
-      settings->contains("configured") && settings->at("configured").type() ==
-                                              nlohmann::json::value_t::boolean
-          ? settings->at("configured").get<bool>()
-          : false;
+  bool alreadySetup = settings->value("configured", false);
 
   if (alreadySetup) {
-    if (settings->contains("theme") &&
-        settings->at("theme").type() == nlohmann::json::value_t::string) {
+    if (settings->contains("theme") && settings->at("theme").is_string()) {
       appGlobal->themes()->changeTheme(
           settings->at("theme").get<std::string>());
     }
 
     if (settings->contains("language") &&
-        settings->at("language").type() == nlohmann::json::value_t::string) {
+        settings->at("language").is_string()) {
       appGlobal->translator()->setLanguage(
           settings->at("language").get<std::string>());
     }
