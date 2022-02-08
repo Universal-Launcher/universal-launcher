@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
+import UniversalLauncher 1.0
 
 Button {
     id: button
@@ -25,7 +26,7 @@ Button {
         color: "transparent"
 
         border {
-            color: "black"
+            color: AppGlobal.themes.current.textColor
             width: 1
         }
     }
@@ -34,14 +35,14 @@ Button {
         State {
             name: "NORMAL"
             PropertyChanges { target: bg; color: "transparent" }
-            PropertyChanges { target: label; color: "black" }
-            PropertyChanges { target: iconOverlay; color: "black" }
+            PropertyChanges { target: label; color: AppGlobal.themes.current.textColor }
+            PropertyChanges { target: iconOverlay; color: AppGlobal.themes.current.textColor }
         },
         State {
             name: "HOVER"
-            PropertyChanges { target: bg; color: "black" }
-            PropertyChanges { target: label; color: "white" }
-            PropertyChanges { target: iconOverlay; color: "white" }
+            PropertyChanges { target: bg; color: AppGlobal.themes.current.textColor }
+            PropertyChanges { target: label; color: AppGlobal.themes.current.backgroundColor2 }
+            PropertyChanges { target: iconOverlay; color: AppGlobal.themes.current.backgroundColor2 }
         }
     ]
 
@@ -97,7 +98,7 @@ Button {
             id: iconOverlay
             anchors.fill: icon
             source: icon
-            color: "black"
+            color: AppGlobal.themes.current.textColor
             antialiasing: true
             width: iconWidth
             height: iconHeight
@@ -105,7 +106,7 @@ Button {
 
         Text {
             id: label
-            color: "black"
+            color: AppGlobal.themes.current.textColor
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
             anchors {

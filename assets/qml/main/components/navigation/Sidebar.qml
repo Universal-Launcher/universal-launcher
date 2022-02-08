@@ -1,10 +1,10 @@
 import QtQuick 2.15
-import "."
 import UniversalLauncher 1.0
+import "."
 
 Rectangle {
     id: sidebar
-    color: "white"
+    color: AppGlobal.themes.current.backgroundColor
     width: 200
 
     anchors {
@@ -24,7 +24,7 @@ Rectangle {
         height: parent.height * 0.9
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
-        color: "#D1D5D8"
+        color: AppGlobal.themes.current.backgroundColor2
 
         radius: 4
     }
@@ -48,7 +48,7 @@ Rectangle {
             font.pixelSize: 16
             font.capitalization: Font.AllUppercase
             font.bold: Font.Bold
-            color: "#1F2937"
+            color: AppGlobal.themes.current.textColor
 
             height: 100
 
@@ -63,7 +63,7 @@ Rectangle {
             text: qsTr("Home")
             iconPath: "/images/icons/home.svg"
             isActive: AppGlobal.router.currentRouteName == "home"
-            onClicked: AppGlobal.router.goTo("home")
+            onClicked:  AppGlobal.router.goTo("home")
             width: parent.width
         }
 

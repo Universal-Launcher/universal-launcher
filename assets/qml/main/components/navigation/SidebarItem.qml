@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtGraphicalEffects 1.15
+import UniversalLauncher 1.0
 
 Button {
     id: sidebarItem
@@ -12,30 +13,21 @@ Button {
     property int iconWidth: 18
     property int iconHeight: 18
 
-    property color bgColorDefault: "#00000000"
-    property color textColorDefault: "#374151"
-
-    property color bgColorHover: "#E5E7EB"
-    property color textColorHover: "#111827"
-
-    property color bgColorActive: "#E5E7EB"
-    property color textColorActive: "#F97316"
-
     property int notifCount: -1
 
     property var dynamicBgColor: if (isActive) {
-        bgColorActive
+        AppGlobal.themes.current.backgroundColor2
     } else if (sidebarItem.hovered) {
-        bgColorHover
+        AppGlobal.themes.current.backgroundColor2
     } else {
-        bgColorDefault
+        AppGlobal.themes.current.backgroundColor
     }
     property var dynamicTextColor: if (isActive) {
-        textColorActive
+        AppGlobal.themes.current.accentColor
     } else if (sidebarItem.hovered) {
-        textColorHover
+        AppGlobal.themes.current.accentColor
     } else {
-        textColorDefault
+        AppGlobal.themes.current.textColor
     }
 
     implicitHeight: 37
@@ -50,7 +42,7 @@ Button {
     background: Rectangle {
         id: bgBtn
         color: dynamicBgColor
-        radius: 10
+        radius: AppGlobal.themes.current.radius
 
         anchors {
             left: parent.left

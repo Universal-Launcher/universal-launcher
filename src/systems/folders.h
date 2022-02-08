@@ -9,7 +9,7 @@ class FolderSystem : public QObject {
   Q_PROPERTY(QString launcherFolder READ getFolderPath CONSTANT);
 
 public:
-  FolderSystem();
+  FolderSystem(QObject *parent = nullptr);
   ~FolderSystem();
 
   static void registerType();
