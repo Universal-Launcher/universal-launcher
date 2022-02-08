@@ -26,7 +26,11 @@ int main(int argc, char *argv[]) {
   appGlobal->translator()->registerLanguages(&app, &engine);
 
   auto settings = appGlobal->settings()->get();
-  bool alreadySetup = settings->value("configured", false);
+  bool alreadySetup = false;
+  if (settings->contains("configured") &&
+      settings->at("configued").is_boolean()) {
+    alreadySetup = settings->at("configured").get<bool>();
+  }
 
   if (alreadySetup) {
     if (settings->contains("theme") && settings->at("theme").is_string()) {
