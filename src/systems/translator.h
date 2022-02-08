@@ -29,6 +29,7 @@ signals:
 
 public slots:
   void setLanguage(QString name);
+  void setLanguage(const std::string &name);
   QString getHumanName(QString name);
 
 private:

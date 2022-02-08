@@ -40,7 +40,7 @@ if is_plat("linux") then
     set_toolchains("gcc")
 end
 
-add_requires("simdjson", { system = false })
+add_requires("nlohmann_json")
 
 target("universal-launcher")
     add_rules("install_bin")
@@ -57,7 +57,7 @@ target("universal-launcher")
     add_defines("QT_QML_DEBUG_NO_WARNING")
 
     add_frameworks("QtCore", "QtQml", "QtQuick", "QtNetworkAuth", "QtWebView")
-    add_packages("simdjson")
+    add_packages("nlohmann_json")
 
     on_load(function (target)
         import("detect.sdks.find_qt")

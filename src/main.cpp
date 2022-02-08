@@ -25,16 +25,31 @@ int main(int argc, char *argv[]) {
   appGlobal->registerType();
   appGlobal->translator()->registerLanguages(&app, &engine);
 
-  bool alreadySetup;
-  auto err = appGlobal->settings()->get()["configured"].get(alreadySetup);
-  if (err)
-    alreadySetup = false;
-
-  alreadySetup = false;
+  auto settings = appGlobal->settings()->get();
+  bool alreadySetup =
+      settings->contains("configured") && settings->at("configured").type() ==
+                                              nlohmann::json::value_t::boolean
+          ? settings->at("configured").get<bool>()
+          : false;
 
   if (alreadySetup) {
+    if (settings->contains("theme") &&
+        settings->at("theme").type() == nlohmann::json::value_t::string) {
+      appGlobal->themes()->changeTheme(
+          settings->at("theme").get<std::string>());
+    }
+
+    if (settings->contains("language") &&
+        settings->at("language").type() == nlohmann::json::value_t::string) {
+      appGlobal->translator()->setLanguage(
+          settings->at("language").get<std::string>());
+    }
+
     engine.load(QUrl("qrc:/qml/main/MainWindow.qml"));
   } else {
+    app.connect(appGlobal.data(), &AppGlobal::setupFinished, &app, [&engine]() {
+      engine.load(QUrl("qrc:/qml/main/MainWindow.qml"));
+    });
     engine.load(QUrl("qrc:/qml/setup/SetupWindow.qml"));
   }
 

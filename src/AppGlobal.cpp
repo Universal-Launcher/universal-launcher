@@ -1,5 +1,6 @@
 #include "AppGlobal.h"
 
+#include <QJsonArray>
 #include <QQmlContext>
 #include <QQmlEngine>
 
@@ -44,3 +45,13 @@ Themes *AppGlobal::themes() { return m_themes.data(); }
 SettingsSystem *AppGlobal::settings() { return m_settings.data(); }
 
 Translator *AppGlobal::translator() { return m_translator.data(); }
+
+void AppGlobal::finishSetup() {
+  auto settings = m_settings->get();
+  settings->emplace("configured", true);
+  settings->emplace("language", m_translator->currentLanguage().toStdString());
+  settings->emplace("theme", m_themes->currentThemeName().toStdString());
+  settings->emplace("java", nlohmann::json::array());
+  m_settings->save();
+  emit setupFinished();
+}

@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import "."
+import UniversalLauncher 1.0
 
 Window {
     title: qsTr("Universal-Launcher - Setup")
@@ -26,6 +27,14 @@ Window {
                 window.x = screen.width / 2 - window.width / 2
                 window.y = screen.height / 2 - window.height / 2
             }
+        }
+    }
+
+    Connections {
+        target: AppGlobal
+
+        function onSetupFinished() {
+            window.close();
         }
     }
 }

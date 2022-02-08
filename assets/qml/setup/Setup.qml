@@ -104,7 +104,7 @@ Page {
                 id: setupFinish
                 SetupFinish {
                     onPrevious: stackView.pop()
-                    onNext: console.log("finito")
+                    onNext: AppGlobal.finishSetup()
                 }
             }
         }

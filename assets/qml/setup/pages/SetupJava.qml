@@ -106,8 +106,8 @@ Item{
             btnText: qsTr("Add")
             iconPath: "/images/icons/plus-square.svg"
             anchors{
-                bottom: list.bottom
-                horizontalCenter: btnContainer.horizontalCenter
+                bottom: parent.bottom
+                horizontalCenter: parent.horizontalCenter
             }
             onClicked: {}
         }

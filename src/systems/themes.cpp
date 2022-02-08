@@ -11,7 +11,7 @@ void Themes::registerType() {
 Themes::Themes(QObject *parent) : QObject(parent) {
   registerDefaultThemes();
 
-  changeTheme("default");
+  changeTheme(QString{"default"});
 }
 Themes::~Themes() {
   for (const ThemeObject *obj : m_themes.values()) {
@@ -23,12 +23,18 @@ void Themes::changeTheme(const QString &themeName) {
   if (!m_themes.contains(themeName))
     return;
 
-  m_current = m_themes[themeName].data();
+  m_current = themeName;
 
   emit themeChanged();
 }
 
-ThemeObject *Themes::currentTheme() { return m_current; }
+void Themes::changeTheme(const std::string &themeName) {
+  changeTheme(QString::fromStdString(themeName));
+}
+
+ThemeObject *Themes::currentTheme() { return m_themes[m_current]; }
+
+QString Themes::currentThemeName() { return m_current; }
 
 QStringList Themes::themesList() { return m_themes.keys(); }
 

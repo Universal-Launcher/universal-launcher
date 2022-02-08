@@ -7,6 +7,7 @@
 #include <QStringList>
 #include <QVariant>
 #include <memory>
+#include <string>
 
 class ThemeObject : public QObject {
   Q_OBJECT
@@ -50,10 +51,12 @@ public:
   static void registerType();
 
   ThemeObject *currentTheme();
+  QString currentThemeName();
   QStringList themesList();
 
 public slots:
   void changeTheme(const QString &themeName);
+  void changeTheme(const std::string &themeName);
   ThemeObject *getTheme(QString name);
 
 signals:
@@ -61,7 +64,7 @@ signals:
   void themesListUpdated();
 
 private:
-  ThemeObject *m_current = nullptr;
+  QString m_current = "default";
   QMap<QString, QPointer<ThemeObject>> m_themes;
 
   void registerDefaultThemes();

@@ -1,10 +1,12 @@
 {
     ["linux|x86_64"] = {
-        ["simdjson#31fecfc4"] = {
+        ["nlohmann_json#31fecfc4"] = {
             repo = {
-                url = "xmake/repos"
+                branch = "master",
+                commit = "b254ca3363bc7ba42616eb53c524c86e17f7bbef",
+                url = "https://github.com/xmake-io/xmake-repo.git"
             },
-            version = "v1.0.2"
+            version = "v3.10.0"
         }
     },
     __meta__ = {

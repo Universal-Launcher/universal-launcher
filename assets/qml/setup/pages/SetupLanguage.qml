@@ -68,8 +68,10 @@ Item {
                 }
 
                 onClicked: function() {
-                    AppGlobal.translator.setLanguage(modelData)
-                    list.currentIndex = index
+                    if (list.currentIndex != index) {
+                        AppGlobal.translator.setLanguage(modelData)
+                        list.currentIndex = index
+                    }
                 }
 
                 contentItem: Text {

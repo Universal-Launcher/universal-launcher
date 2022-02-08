@@ -32,6 +32,12 @@ public:
   SettingsSystem *settings();
   Translator *translator();
 
+public slots:
+  void finishSetup();
+
+signals:
+  void setupFinished();
+
 private:
   AppGlobal();
 

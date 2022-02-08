@@ -29,6 +29,10 @@ void Translator::setLanguage(QString name) {
   m_engine->retranslate();
 }
 
+void Translator::setLanguage(const std::string &name) {
+  setLanguage(QString::fromStdString(name));
+}
+
 QString Translator::currentLanguage() { return m_translator->language(); }
 
 QStringList Translator::languages() {
@@ -50,7 +54,7 @@ void Translator::registerLanguages(QGuiApplication *app, QQmlEngine *engine) {
     m_languages.insert(m_translator->language(), m_translator->filePath());
   }
 
-  this->setLanguage("en_GB");
+  this->setLanguage(QString{"en_GB"});
 }
 
 QString Translator::getHumanName(QString name) {

@@ -3,7 +3,6 @@
 #include "qqmlengine.h"
 #include <QDir>
 #include <QFile>
-#include <QTextStream>
 #include <string>
 
 void SettingsSystem::registerType() {
@@ -16,8 +15,6 @@ SettingsSystem::SettingsSystem(FolderSystem *folder_system, QObject *parent)
   auto dir = QDir{folder_system->getFolderPath()};
   m_config_path = dir.absoluteFilePath("launcher.json");
 
-  m_parser = new ondemand::parser();
-
   if (!dir.exists("launcher.json")) {
     this->saveDefault();
   } else {
@@ -25,42 +22,34 @@ SettingsSystem::SettingsSystem(FolderSystem *folder_system, QObject *parent)
   }
 }
 
-SettingsSystem::~SettingsSystem() { delete m_parser; }
+SettingsSystem::~SettingsSystem() {}
 
 void SettingsSystem::load() {
   qDebug() << "Loading config from " << m_config_path;
-  auto json = padded_string::load(m_config_path.toStdString());
 
-  auto result = m_parser->iterate(json).get(m_doc);
-  if (result != SUCCESS) {
-    throw std::runtime_error(QString{"unable to open %1: %2"}
-                                 .arg(m_config_path, result)
-                                 .toStdString());
+  QFile jsonFile(m_config_path);
+  if (jsonFile.open(QFile::ReadOnly) && jsonFile.size() > 0) {
+
+    m_doc =
+        nlohmann::json::parse(jsonFile.readAll().toStdString(), nullptr, false);
+    jsonFile.close();
+  } else {
+    qDebug() << "Could not open config file";
+    this->saveDefault();
   }
 }
 
 void SettingsSystem::save() {
   QFile file(m_config_path);
-  if (file.open(QIODevice::ReadWrite)) {
-    QTextStream stream(&file);
-
-    auto result = to_json_string(m_doc);
-
-    if (result.error() != SUCCESS) {
-      throw std::runtime_error(QString{"unable to save %1: %2"}
-                                   .arg(m_config_path, result.error())
-                                   .toStdString());
-    }
-    std::string output = result.value().data();
-    stream << QString::fromStdString(output) << Qt::endl;
+  if (file.open(QIODevice::ReadWrite) && !m_doc.empty()) {
+    file.write(QByteArray::fromStdString(nlohmann::to_string(m_doc)));
     file.close();
   }
 }
 
 void SettingsSystem::saveDefault() {
-  auto json = R"({})"_padded;
-  m_parser->iterate(json).get(m_doc);
+  m_doc = {};
   this->save();
 }
 
-ondemand::document &SettingsSystem::get() { return m_doc; }
+nlohmann::json *SettingsSystem::get() { return &m_doc; }
