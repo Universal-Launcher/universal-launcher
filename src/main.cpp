@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
   auto settings = appGlobal->settings()->get();
   bool alreadySetup = false;
   if (settings->contains("configured") &&
-      settings->at("configued").is_boolean()) {
+      settings->at("configured").is_boolean()) {
     alreadySetup = settings->at("configured").get<bool>();
   }
 
