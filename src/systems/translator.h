@@ -3,9 +3,9 @@
 #include <QGuiApplication>
 #include <QLocale>
 #include <QObject>
-#include <QPointer>
 #include <QQmlEngine>
 #include <QTranslator>
+#include <memory>
 
 class Translator : public QObject {
   Q_OBJECT

@@ -42,6 +42,17 @@ end
 
 add_requires("nlohmann_json")
 
+target("ul-secrets")
+    set_kind("static")
+    add_rules("qt.static")
+    add_frameworks("QtCore")
+
+    add_headerfiles("secrets/secrets.h")
+    add_files("secrets/secrets.cpp")
+    add_defines("EMBED_SECRETS")
+    add_includedirs("secrets", { public = true })
+
+
 target("universal-launcher")
     add_rules("install_bin")
     add_rules("qt.quickapp")
@@ -56,8 +67,9 @@ target("universal-launcher")
 
     add_defines("QT_QML_DEBUG_NO_WARNING")
 
-    add_frameworks("QtCore", "QtQml", "QtQuick", "QtNetworkAuth", "QtWebView")
+    add_frameworks("QtCore", "QtQml", "QtQuick", "QtNetworkAuth")
     add_packages("nlohmann_json")
+    add_deps("ul-secrets")
 
     on_load(function (target)
         import("detect.sdks.find_qt")

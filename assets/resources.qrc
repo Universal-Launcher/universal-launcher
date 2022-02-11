@@ -12,6 +12,7 @@
 
         <file>qml/main/components/CustomPage.qml</file>
         <file>qml/main/components/ModpackCard.qml</file>
+        <file>qml/main/components/AuthModal.qml</file>
         <file>qml/main/components/navigation/Sidebar.qml</file>
         <file>qml/main/components/navigation/SidebarItem.qml</file>
 
@@ -29,6 +30,8 @@
         <file>images/icons/box.svg</file>
         <file>images/icons/arrow-alt-circle-right.svg</file>
         <file>images/icons/arrow-alt-circle-left.svg</file>
+        <file>images/icons/user-circle.svg</file>
+        <file>images/icons/user-plus.svg</file>
 
         <file>images/logo.png</file>
 

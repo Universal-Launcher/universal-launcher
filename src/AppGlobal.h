@@ -2,8 +2,7 @@
 
 #include <QObject>
 #include <QQmlEngine>
-
-#include <QPointer>
+#include <memory>
 
 #include "systems/folders.h"
 #include "systems/router.h"
@@ -41,11 +40,11 @@ signals:
 private:
   AppGlobal();
 
-  QPointer<FolderSystem> m_folder_system;
-  QPointer<Router> m_router;
-  QPointer<Themes> m_themes;
-  QPointer<SettingsSystem> m_settings;
-  QPointer<Translator> m_translator;
+  std::unique_ptr<FolderSystem> m_folder_system;
+  std::unique_ptr<Router> m_router;
+  std::unique_ptr<Themes> m_themes;
+  std::unique_ptr<SettingsSystem> m_settings;
+  std::unique_ptr<Translator> m_translator;
 
   static AppGlobal *s_instance;
 };

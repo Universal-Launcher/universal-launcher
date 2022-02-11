@@ -1,11 +1,10 @@
 #pragma once
 
-#include <QMap>
 #include <QObject>
-#include <QPointer>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
+#include <map>
 #include <memory>
 #include <string>
 
@@ -65,7 +64,7 @@ signals:
 
 private:
   QString m_current = "default";
-  QMap<QString, QPointer<ThemeObject>> m_themes;
+  std::map<QString, std::unique_ptr<ThemeObject>> m_themes;
 
   void registerDefaultThemes();
 };

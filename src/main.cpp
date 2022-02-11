@@ -1,12 +1,12 @@
+#include <QDir>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
 #include <QQmlDebuggingEnabler>
 
 #include "AppGlobal.h"
-#include <QPointer>
-
-#include <QDir>
+#include "auth/accounts_manager.h"
+#include "auth/authentication.h"
+#include <QScopedPointer>
 
 int main(int argc, char *argv[]) {
   QQmlDebuggingEnabler enabler;
@@ -21,9 +21,16 @@ int main(int argc, char *argv[]) {
    */
   QQmlApplicationEngine engine;
 
-  QPointer<AppGlobal> appGlobal = AppGlobal::instance();
+  QScopedPointer<AppGlobal> appGlobal(AppGlobal::instance());
   appGlobal->registerType();
   appGlobal->translator()->registerLanguages(&app, &engine);
+
+  QScopedPointer<AccountsManager> accountsManager(AccountsManager::instance());
+  accountsManager->registerType();
+  accountsManager->set_engine(&engine);
+  accountsManager->loadAccounts(appGlobal.get());
+
+  Authentication::registerType();
 
   auto settings = appGlobal->settings()->get();
   bool alreadySetup = false;
@@ -46,7 +53,7 @@ int main(int argc, char *argv[]) {
 
     engine.load(QUrl("qrc:/qml/main/MainWindow.qml"));
   } else {
-    app.connect(appGlobal.data(), &AppGlobal::setupFinished, &app, [&engine]() {
+    app.connect(appGlobal.get(), &AppGlobal::setupFinished, &app, [&engine]() {
       engine.load(QUrl("qrc:/qml/main/MainWindow.qml"));
     });
     engine.load(QUrl("qrc:/qml/setup/SetupWindow.qml"));

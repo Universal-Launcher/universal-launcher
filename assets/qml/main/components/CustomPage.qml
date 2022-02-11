@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import UniversalLauncher 1.0
 
 Item {
     id: page
@@ -10,7 +11,7 @@ Item {
         id: title
         text: pageTitle
         font.pixelSize: 25
-        color: "#0F172A"
+        color: AppGlobal.themes.current.titleColor
         font.capitalization: Font.AllUppercase
     }
 

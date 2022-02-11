@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import "../components"
-import "../components/ui"
+import "qrc:/qml/common/ui"
 import UniversalLauncher 1.0
 
 CustomPage {
