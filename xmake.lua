@@ -40,7 +40,7 @@ if is_plat("linux") then
     set_toolchains("gcc")
 end
 
-add_requires("nlohmann_json")
+add_requires("nlohmann_json", "qt-mcauth")
 
 target("ul-secrets")
     set_kind("static")
@@ -68,7 +68,7 @@ target("universal-launcher")
     add_defines("QT_QML_DEBUG_NO_WARNING")
 
     add_frameworks("QtCore", "QtQml", "QtQuick", "QtNetworkAuth")
-    add_packages("nlohmann_json")
+    add_packages("nlohmann_json", "qt-mcauth")
     add_deps("ul-secrets")
 
     on_load(function (target)

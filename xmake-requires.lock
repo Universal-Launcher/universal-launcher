@@ -1,12 +1,10 @@
 {
     ["linux|x86_64"] = {
-        ["nlohmann_json#31fecfc4"] = {
+        ["qt-mcauth#31fecfc4"] = {
             repo = {
-                branch = "master",
-                commit = "b254ca3363bc7ba42616eb53c524c86e17f7bbef",
-                url = "https://github.com/xmake-io/xmake-repo.git"
+                url = "xmake/repos"
             },
-            version = "v3.10.0"
+            version = "v1.0.3"
         }
     },
     __meta__ = {

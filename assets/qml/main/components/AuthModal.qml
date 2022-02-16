@@ -9,7 +9,7 @@ Popup {
     parent: Overlay.overlay
 
     width: 400
-    height: 300
+    height: 150
 
     modal: true
     focus: true
@@ -24,32 +24,50 @@ Popup {
         centerIn: parent
     }
 
+    Text {
+        id: title
+        text: qsTr("Authenticating")
+        font.pixelSize: 20
+        color: AppGlobal.themes.current.textColor
+    }
+
+    Text {
+        id: messageTxt
+        color: AppGlobal.themes.current.textColor
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            margins: 20
+            top: title.bottom
+        }
+    }
+
     UButton {
         id: cancelBtn
         btnText: qsTr("Cancel")
         onClicked: function() {
-            auth.stop()
+            AccountsManager.cancelLogin()
             close()
         }
         anchors {
             horizontalCenter: parent.horizontalCenter
-        }
-    }
-
-    Authentication {
-        id: auth
-
-        onAuthFinished: function() {
-            close()
-        }
-        onAuthFailed: function() {
-            console.log("Auth failed")
-            close()
+            bottom: parent.bottom
+            bottomMargin: 10
         }
     }
 
     onOpened: function() {
-        console.log("lol")
-        auth.startProcess();
+        AccountsManager.addAccount()
+    }
+
+    Connections {
+        target: AccountsManager
+        function onAuthMessage(text) {
+            console.log(text)
+            messageTxt.text = text
+        }
+
+        function onAccountsListUpdated() {
+            close()
+        }
     }
 }

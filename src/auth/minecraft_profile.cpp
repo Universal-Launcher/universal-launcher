@@ -51,6 +51,52 @@ MinecraftProfile *MinecraftProfile::fromJson(QJsonDocument &obj) {
   return profile;
 }
 
+MinecraftProfile *MinecraftProfile::fromJson(nlohmann::json &obj) {
+  MinecraftProfile *profile = new MinecraftProfile();
+
+  profile->m_id = QString::fromStdString(obj["id"].get<std::string>());
+  profile->m_username = QString::fromStdString(obj["name"].get<std::string>());
+
+  for (const auto &value : obj["skins"].array()) {
+    MinecraftSkin skin{};
+    skin.id = QString::fromStdString(value["id"].get<std::string>());
+    skin.state = QString::fromStdString(value["state"].get<std::string>());
+    skin.url = QString::fromStdString(value["url"].get<std::string>());
+    skin.variant = QString::fromStdString(value["variant"].get<std::string>());
+    skin.alias = QString::fromStdString(value["alias"].get<std::string>());
+
+    profile->m_skins.push_back(skin);
+  }
+
+  return profile;
+}
+
+MinecraftProfile *MinecraftProfile::fromMCAuth(MCAccount &account) {
+  MinecraftProfile *profile = new MinecraftProfile();
+  profile->m_id = account.id;
+  profile->m_username = account.username;
+
+  profile->m_skins = account.skins;
+  profile->m_capes = account.capes;
+  profile->m_mc_access_token = account.accessToken;
+
+  qDebug() << account.currentSkin.has_value();
+
+  if (account.currentSkin.has_value()) {
+    auto avatar = account.currentSkin.value();
+    avatar = avatar.copy(8, 8, 8, 8);
+
+    QBuffer buffer;
+    buffer.open(QIODevice::WriteOnly);
+    avatar.save(&buffer, "PNG");
+
+    profile->m_avatar =
+        QUrl{"data:image/png;base64," + buffer.data().toBase64()};
+  }
+
+  return profile;
+}
+
 QUrl MinecraftProfile::currentSkin() const {
   QUrl url;
 
@@ -80,5 +126,13 @@ void MinecraftProfile::fetchAvatar() {
   buffer.open(QIODevice::WriteOnly);
   avatar.save(&buffer, "PNG");
 
-  m_avatar_data = QUrl{"data:image/png;base64," + buffer.data().toBase64()};
+  m_avatar = QUrl{"data:image/png;base64," + buffer.data().toBase64()};
 }
+
+void MinecraftProfile::setTokens(const QString &accessToken,
+                                 const QString &refreshToken) {
+  m_access_token = accessToken;
+  m_refresh_token = refreshToken;
+}
+
+void MinecraftProfile::setAvatar(const QString &avatar) { m_avatar = avatar; }

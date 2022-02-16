@@ -5,7 +5,6 @@
 
 #include "AppGlobal.h"
 #include "auth/accounts_manager.h"
-#include "auth/authentication.h"
 #include <QScopedPointer>
 
 int main(int argc, char *argv[]) {
@@ -29,8 +28,6 @@ int main(int argc, char *argv[]) {
   accountsManager->registerType();
   accountsManager->set_engine(&engine);
   accountsManager->loadAccounts(appGlobal.get());
-
-  Authentication::registerType();
 
   auto settings = appGlobal->settings()->get();
   bool alreadySetup = false;

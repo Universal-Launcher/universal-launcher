@@ -12,7 +12,7 @@ Button {
     property int iconWidth: 18
     property int iconHeight: 18
 
-    width: iconPath == "" ? 100 : 140
+    width: iconPath == "" ? label.width + 30 : label.width + icon.width + 50
     height: 35
 
     background: Rectangle {
@@ -104,15 +104,20 @@ Button {
             height: iconHeight
         }
 
-        Text {
-            id: label
-            color: AppGlobal.themes.current.textColor
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+        Item {
             anchors {
-                verticalCenter: parent.verticalCenter
                 margins: 10
-                left: iconPath != "" ? iconOverlay.right : undefined
+                left: iconPath == "" ? parent.left : iconOverlay.right
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+            }
+
+            Text {
+                id: label
+                color: AppGlobal.themes.current.textColor
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.centerIn: parent
             }
         }
     }

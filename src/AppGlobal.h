@@ -4,11 +4,14 @@
 #include <QQmlEngine>
 #include <memory>
 
+#include "memory.h"
 #include "systems/folders.h"
 #include "systems/router.h"
 #include "systems/settings.h"
 #include "systems/themes.h"
 #include "systems/translator.h"
+
+#include "QObjectMemory.h"
 
 class AppGlobal : public QObject {
   Q_OBJECT
@@ -40,11 +43,11 @@ signals:
 private:
   AppGlobal();
 
-  std::unique_ptr<FolderSystem> m_folder_system;
-  std::unique_ptr<Router> m_router;
-  std::unique_ptr<Themes> m_themes;
-  std::unique_ptr<SettingsSystem> m_settings;
-  std::unique_ptr<Translator> m_translator;
+  QMemory::unique_qobject_ptr<FolderSystem> m_folder_system;
+  QMemory::unique_qobject_ptr<Router> m_router;
+  QMemory::unique_qobject_ptr<Themes> m_themes;
+  QMemory::unique_qobject_ptr<SettingsSystem> m_settings;
+  QMemory::unique_qobject_ptr<Translator> m_translator;
 
   static AppGlobal *s_instance;
 };

@@ -1,16 +1,9 @@
 #pragma once
 
+#include <qt_mcauth/qt_mcauth.h>
+
 #include <QJsonDocument>
-
-struct MinecraftSkin {
-  QString id;
-  QString state;
-  QUrl url;
-  QString variant;
-  QString alias;
-};
-
-struct MinecraftCapes {};
+#include <nlohmann/json.hpp>
 
 class MinecraftProfile : public QObject {
   Q_OBJECT
@@ -23,7 +16,9 @@ public:
   MinecraftProfile();
   ~MinecraftProfile();
 
-  static MinecraftProfile *fromJson(QJsonDocument &doc);
+  static MinecraftProfile *fromJson(QJsonDocument &obj);
+  static MinecraftProfile *fromJson(nlohmann::json &obj);
+  static MinecraftProfile *fromMCAuth(MCAccount &account);
 
   QString id() const { return m_id; }
 
@@ -31,7 +26,13 @@ public:
 
   QUrl currentSkin() const;
 
-  QUrl avatar() const { return m_avatar_data; }
+  QUrl avatar() const { return m_avatar; }
+
+  QString accessToken() const { return m_access_token; }
+  QString refreshToken() const { return m_refresh_token; }
+
+  void setTokens(const QString &accessToken, const QString &refreshToken);
+  void setAvatar(const QString &avatar);
 
 public slots:
   void fetchAvatar();
@@ -41,5 +42,9 @@ private:
   QString m_username;
   QVector<MinecraftSkin> m_skins;
   QVector<MinecraftCapes> m_capes;
-  QUrl m_avatar_data;
+  QUrl m_avatar;
+  QString m_mc_access_token;
+
+  QString m_access_token;
+  QString m_refresh_token;
 };
