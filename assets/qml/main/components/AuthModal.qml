@@ -62,7 +62,6 @@ Popup {
     Connections {
         target: AccountsManager
         function onAuthMessage(text) {
-            console.log(text)
             messageTxt.text = text
         }
 

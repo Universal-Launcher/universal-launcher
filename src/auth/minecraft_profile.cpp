@@ -76,14 +76,11 @@ MinecraftProfile *MinecraftProfile::fromJson(nlohmann::json &obj) {
 MinecraftProfile *MinecraftProfile::fromMCAuth(MCAccount &account) {
   MinecraftProfile *profile = new MinecraftProfile();
   profile->m_id = account.id;
-  qDebug() << "id: " << profile->m_id;
   profile->m_username = account.username;
 
   profile->m_skins = account.skins;
   profile->m_capes = account.capes;
   profile->m_mc_access_token = account.accessToken;
-
-  qDebug() << account.currentSkin.has_value();
 
   if (account.currentSkin.has_value()) {
     auto avatar = account.currentSkin.value();
