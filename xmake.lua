@@ -80,3 +80,22 @@ target("universal-launcher")
             target:set("default", false)
         end
     end)
+
+    on_run(function(target)
+        import("core.base.option")
+        local args = option.get("arguments") or {}
+        local program = target:targetfile()
+        if is_mode("valgrind") then
+            import("lib.detect.find_program")
+
+            local p = find_program("valgrind")
+            if p ~= nil then
+                table.insert(args, 1, program)
+                os.execv(p, args)
+            else
+                print("Valgrind not found")
+            end
+        else
+            os.execv(program, args)
+        end
+    end)

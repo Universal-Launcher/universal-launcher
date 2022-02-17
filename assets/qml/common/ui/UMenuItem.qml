@@ -1,33 +1,28 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
 import UniversalLauncher 1.0
+import QtGraphicalEffects 1.15
 
-Button {
-    id: button
+MenuItem {
+    id: item
 
-    default property alias btnText: label.text
-
+    property color hoverColor: AppGlobal.themes.current.backgroundColor2
+    property color textHoverColor: AppGlobal.themes.current.accentColor
     property url iconPath: ""
-    property int iconWidth: 18
-    property int iconHeight: 18
-
-    width: iconPath == "" ? label.width + 30 : label.width + icon.width + 50
-    height: 35
 
     background: Rectangle {
         id: bg
-        anchors.fill: button
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        
-        
-        radius: 5
         color: "transparent"
+        implicitHeight: 40
+        implicitWidth: 150
+        radius: AppGlobal.themes.current.radius
+    }
 
-        border {
-            color: AppGlobal.themes.current.textColor
-            width: 1
+    onHoveredChanged: function() {
+        if (item.hovered) {
+            state = "HOVER"
+        } else {
+            state = "NORMAL"
         }
     }
 
@@ -40,9 +35,9 @@ Button {
         },
         State {
             name: "HOVER"
-            PropertyChanges { target: bg; color: AppGlobal.themes.current.textColor }
-            PropertyChanges { target: label; color: AppGlobal.themes.current.backgroundColor2 }
-            PropertyChanges { target: iconOverlay; color: AppGlobal.themes.current.backgroundColor2 }
+            PropertyChanges { target: bg;  color: hoverColor }
+            PropertyChanges { target: label; color: textHoverColor }
+            PropertyChanges { target: iconOverlay; color: textHoverColor }
         }
     ]
 
@@ -54,28 +49,13 @@ Button {
         },
         Transition {
             from: "*"
-            to: "NORMAL"
+            to: "HOVER"
             ColorAnimation { duration: 250; easing.type: Easing.InOutQuad }
         }
-
     ]
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        onPressed: function(mouse) { mouse.accepted = false }
-    }
-
-    onHoveredChanged: function() {
-        if (button.hovered) {
-            state = "HOVER"
-        } else {
-            state = "NORMAL"
-        }
-    }
-
     contentItem: Item {
+        anchors.fill: parent
         Image {
             id: icon
             source: iconPath
@@ -84,24 +64,15 @@ Button {
                 left: parent.left
                 verticalCenter: parent.verticalCenter
             }
-            sourceSize.width: iconWidth
-            sourceSize.height: iconHeight
-            width: iconWidth
-            height: iconHeight
-            fillMode: Image.PreserveAspectFit
             visible: false
             antialiasing: true
         }
 
         ColorOverlay {
-            visible: button.iconPath != ""
+            visible: item.iconPath != ""
             id: iconOverlay
             anchors.fill: icon
-            source: icon
             color: AppGlobal.themes.current.textColor
-            antialiasing: true
-            width: iconWidth
-            height: iconHeight
         }
 
         Item {
@@ -112,9 +83,12 @@ Button {
                 verticalCenter: parent.verticalCenter
             }
 
-            Text {
+            Label {
                 id: label
+                text: item.text
+                font: item.font
                 color: AppGlobal.themes.current.textColor
+
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.centerIn: parent

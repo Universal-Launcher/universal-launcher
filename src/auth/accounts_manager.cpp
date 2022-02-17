@@ -54,23 +54,34 @@ void AccountsManager::loadAccounts(AppGlobal *appGlobal) {
     profile->setAvatar(
         QString::fromStdString(val.at("avatar").get<std::string>()));
 
-    this->refreshAccount(profile);
-
     m_accounts.emplace(profile->id(), profile);
+
+    if (val.contains("current") && val.at("current").get<bool>()) {
+      switchAccount(profile->id());
+    }
   }
 }
-
-void AccountsManager::refreshAccount(MinecraftProfile *profile) {}
 
 void AccountsManager::addAccount() {
   m_flow = QMemory::unique_qobject_ptr<Flow>(m_mcAuth->loginAccount());
 
-  connect(m_flow.get(), &Flow::message,
+  processFlow(m_flow.get());
+}
+
+void AccountsManager::refreshAccount(MinecraftProfile *profile) {
+  m_flow = QMemory::unique_qobject_ptr<Flow>(m_mcAuth->refreshAccount(
+      profile->accessToken(), profile->refreshToken()));
+
+  processFlow(m_flow.get());
+}
+
+void AccountsManager::processFlow(Flow *flow) {
+  connect(flow, &Flow::message,
           [&](const FlowState &state, const QString &message) {
             emit authMessage(message);
           });
 
-  connect(m_flow.get(), &Flow::finished, [&](const FlowState &state) {
+  connect(flow, &Flow::finished, [&](const FlowState &state) {
     if (state == FlowState::Succeed) {
       emit authMessage(tr("Authentication finished"));
       auto account = m_mcAuth->getAccount();
@@ -79,13 +90,18 @@ void AccountsManager::addAccount() {
       mcAccount->setTokens(m_mcAuth->getAccessToken(),
                            m_mcAuth->getRefreshToken());
 
-      if (m_accounts.contains(mcAccount->id())) {
-        m_accounts[mcAccount->id()].reset(mcAccount);
+      auto id = mcAccount->id();
+
+      if (m_accounts.contains(id)) {
+        m_accounts[id].reset(mcAccount);
       } else {
-        m_accounts.emplace(mcAccount->id(), mcAccount);
+        m_accounts.emplace(id, mcAccount);
       }
 
+      m_currentAccount = m_accounts[id].get();
+
       saveAccounts();
+
     } else if (state == FlowState::Failed) {
       emit authMessage(tr("Authentication failed"));
     } else if (state == FlowState::Stopped) {
@@ -95,7 +111,7 @@ void AccountsManager::addAccount() {
     emit accountsListUpdated();
   });
 
-  m_flow->execute();
+  flow->execute();
 }
 
 void AccountsManager::removeAccount(QString id) {
@@ -118,6 +134,7 @@ QList<MinecraftProfile *> AccountsManager::listAccounts() {
 
 void AccountsManager::switchAccount(QString id) {
   if (m_accounts.contains(id)) {
+    this->refreshAccount(m_accounts[id].get());
     m_currentAccount = m_accounts[id].get();
 
     emit currentAccountChanged();
@@ -145,7 +162,8 @@ void AccountsManager::saveAccounts() {
              {"name", a->username().toStdString()},
              {"avatar", a->avatar().toString().toStdString()},
              {"access_token", a->accessToken().toStdString()},
-             {"refresh_token", a->refreshToken().toStdString()}};
+             {"refresh_token", a->refreshToken().toStdString()},
+             {"current", this->currentID() == a->id()}};
   }
 
   settings->save();
@@ -156,4 +174,11 @@ void AccountsManager::cancelLogin() {
     m_flow->stop();
     m_flow.reset();
   }
+}
+
+QString AccountsManager::currentID() {
+  if (m_currentAccount) {
+    return m_currentAccount->id();
+  }
+  return QString{};
 }

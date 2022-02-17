@@ -14,6 +14,7 @@ class AccountsManager : public QObject {
 
   Q_PROPERTY(MinecraftProfile *current READ currentAccount NOTIFY
                  currentAccountChanged)
+  Q_PROPERTY(QString currentID READ currentID NOTIFY currentAccountChanged)
 
 public:
   ~AccountsManager();
@@ -27,6 +28,7 @@ public:
   QList<MinecraftProfile *> listAccounts();
 
   MinecraftProfile *currentAccount() const;
+  QString currentID();
 
 public slots:
   void addAccount();
@@ -44,12 +46,13 @@ private:
 
   void saveAccounts();
   void refreshAccount(MinecraftProfile *profile);
+  void processFlow(Flow *flow);
 
   static AccountsManager *s_instance;
   AppGlobal *m_appGlobal;
   QQmlEngine *m_engine;
 
-  MinecraftProfile *m_currentAccount;
+  MinecraftProfile *m_currentAccount = nullptr;
   std::map<QString, QMemory::unique_qobject_ptr<MinecraftProfile>> m_accounts;
   QMemory::unique_qobject_ptr<MCAuth> m_mcAuth;
   QMemory::unique_qobject_ptr<Flow> m_flow;

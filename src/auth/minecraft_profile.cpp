@@ -68,12 +68,15 @@ MinecraftProfile *MinecraftProfile::fromJson(nlohmann::json &obj) {
     profile->m_skins.push_back(skin);
   }
 
+  emit profile->accountUpdated();
+
   return profile;
 }
 
 MinecraftProfile *MinecraftProfile::fromMCAuth(MCAccount &account) {
   MinecraftProfile *profile = new MinecraftProfile();
   profile->m_id = account.id;
+  qDebug() << "id: " << profile->m_id;
   profile->m_username = account.username;
 
   profile->m_skins = account.skins;
@@ -93,6 +96,8 @@ MinecraftProfile *MinecraftProfile::fromMCAuth(MCAccount &account) {
     profile->m_avatar =
         QUrl{"data:image/png;base64," + buffer.data().toBase64()};
   }
+
+  emit profile->accountUpdated();
 
   return profile;
 }

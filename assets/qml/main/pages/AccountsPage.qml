@@ -39,15 +39,17 @@ CustomPage {
 
         Component {
             id: card
-            Button {
+            Rectangle {
                 width: listAccounts.width
-                background: Rectangle {
-                    color: AppGlobal.themes.current.backgroundColor2
-                    radius: 10
 
-                    anchors.fill: parent
+                color: {
+                    if (AccountsManager.currentID == modelData.id) {
+                        AppGlobal.themes.current.accentColor
+                    } else {
+                        AppGlobal.themes.current.backgroundColor2
+                    }
                 }
-                onClicked: function () {}
+                radius: 10
 
                 height: 64
 
@@ -91,6 +93,55 @@ CustomPage {
                         topMargin: 10
                         left: avatar.right
                         leftMargin: 80
+                    }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    acceptedButtons: Qt.LeftButton | Qt.RightButton
+                    onClicked: {
+                        if (mouse.button === Qt.RightButton) {
+                            ctxMenu.popup()
+                        } else if (mouse.button === Qt.LeftButton) {
+                            AccountsManager.switchAccount(modelData.id)
+                        }
+                    }
+
+                    UMenu {
+                        id: ctxMenu
+
+                        UMenuItem {
+                            visible: AccountsManager.currentID != modelData.id
+                            text: qsTr("Select as current")
+                            onClicked: {
+                                AccountsManager.switchAccount(modelData.id)
+                            }
+                        }
+                        UMenuItem {
+                            text: qsTr("Remove Account")
+                            onClicked: {
+                                AccountsManager.removeAccount(modelData.id)
+                            }
+                        }
+                    }
+                }
+
+                UButtonIcon {
+                    id: contextBtn
+
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr("More Actions")
+                    ToolTip.delay: 750
+
+                    anchors {
+                        right: parent.right
+                        rightMargin: 20
+                        verticalCenter: parent.verticalCenter
+                    }
+                    onClicked: {
+                        ctxMenu.x = contextBtn.x - (ctxMenu.width - contextBtn.width)
+                        ctxMenu.y = contextBtn.y + contextBtn.height+5
+                        ctxMenu.open()
                     }
                 }
             }

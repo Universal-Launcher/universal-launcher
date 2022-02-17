@@ -8,9 +8,10 @@
 class MinecraftProfile : public QObject {
   Q_OBJECT
 
-  Q_PROPERTY(QString username READ username CONSTANT)
-  Q_PROPERTY(QUrl currentSkin READ currentSkin CONSTANT)
-  Q_PROPERTY(QUrl avatar READ avatar CONSTANT)
+  Q_PROPERTY(QString id READ id NOTIFY accountUpdated)
+  Q_PROPERTY(QString username READ username NOTIFY accountUpdated)
+  Q_PROPERTY(QUrl currentSkin READ currentSkin NOTIFY accountUpdated)
+  Q_PROPERTY(QUrl avatar READ avatar NOTIFY accountUpdated)
 
 public:
   MinecraftProfile();
@@ -34,6 +35,8 @@ public:
   void setTokens(const QString &accessToken, const QString &refreshToken);
   void setAvatar(const QString &avatar);
 
+signals:
+  void accountUpdated();
 public slots:
   void fetchAvatar();
 

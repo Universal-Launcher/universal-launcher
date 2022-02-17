@@ -6,13 +6,11 @@ import UniversalLauncher 1.0
 Button {
     id: button
 
-    default property alias btnText: label.text
-
-    property url iconPath: ""
+    default property url iconPath: "/images/icons/ellipsis-v.svg"
     property int iconWidth: 18
     property int iconHeight: 18
 
-    width: iconPath == "" ? label.width + 30 : label.width + icon.width + 50
+    width: 35
     height: 35
 
     background: Rectangle {
@@ -35,13 +33,11 @@ Button {
         State {
             name: "NORMAL"
             PropertyChanges { target: bg; color: "transparent" }
-            PropertyChanges { target: label; color: AppGlobal.themes.current.textColor }
             PropertyChanges { target: iconOverlay; color: AppGlobal.themes.current.textColor }
         },
         State {
             name: "HOVER"
             PropertyChanges { target: bg; color: AppGlobal.themes.current.textColor }
-            PropertyChanges { target: label; color: AppGlobal.themes.current.backgroundColor2 }
             PropertyChanges { target: iconOverlay; color: AppGlobal.themes.current.backgroundColor2 }
         }
     ]
@@ -80,8 +76,7 @@ Button {
             id: icon
             source: iconPath
             anchors {
-                leftMargin: 10
-                left: parent.left
+                horizontalCenter: parent.horizontalCenter
                 verticalCenter: parent.verticalCenter
             }
             sourceSize.width: iconWidth
@@ -94,7 +89,6 @@ Button {
         }
 
         ColorOverlay {
-            visible: button.iconPath != ""
             id: iconOverlay
             anchors.fill: icon
             source: icon
@@ -104,21 +98,5 @@ Button {
             height: iconHeight
         }
 
-        Item {
-            anchors {
-                margins: 10
-                left: iconPath == "" ? parent.left : iconOverlay.right
-                right: parent.right
-                verticalCenter: parent.verticalCenter
-            }
-
-            Text {
-                id: label
-                color: AppGlobal.themes.current.textColor
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                anchors.centerIn: parent
-            }
-        }
     }
 }
