@@ -91,6 +91,15 @@ Rectangle {
         }
 
         SidebarItem {
+            id: btnAccounts
+            text: qsTr("Accounts")
+            iconPath: "/images/icons/user-circle.svg"
+            isActive: AppGlobal.router.currentRouteName == "accounts"
+            onClicked: AppGlobal.router.goTo("accounts")
+            width: parent.width
+        }
+
+        SidebarItem {
             id: btnSettings
             text: qsTr("Settings")
             iconPath: "/images/icons/cog.svg"

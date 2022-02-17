@@ -12,12 +12,16 @@
 
         <file>qml/main/components/CustomPage.qml</file>
         <file>qml/main/components/ModpackCard.qml</file>
+        <file>qml/main/components/AuthModal.qml</file>
         <file>qml/main/components/navigation/Sidebar.qml</file>
         <file>qml/main/components/navigation/SidebarItem.qml</file>
 
         <file>qml/common/ui/UButton.qml</file>
+        <file>qml/common/ui/UButtonIcon.qml</file>
         <file>qml/common/ui/UScrollBar.qml</file>
         <file>qml/common/ui/UTheme.qml</file>
+        <file>qml/common/ui/UMenu.qml</file>
+        <file>qml/common/ui/UMenuItem.qml</file>
 
         <file>qml/main/pages/HomePage.qml</file>
         <file>qml/main/pages/ModpacksPage.qml</file>
@@ -29,6 +33,9 @@
         <file>images/icons/box.svg</file>
         <file>images/icons/arrow-alt-circle-right.svg</file>
         <file>images/icons/arrow-alt-circle-left.svg</file>
+        <file>images/icons/user-circle.svg</file>
+        <file>images/icons/user-plus.svg</file>
+        <file>images/icons/ellipsis-v.svg</file>
 
         <file>images/logo.png</file>
 

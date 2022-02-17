@@ -7,6 +7,12 @@
                 url = "https://github.com/xmake-io/xmake-repo.git"
             },
             version = "v3.10.0"
+        },
+        ["qt-mcauth#31fecfc4"] = {
+            repo = {
+                url = "xmake/repos"
+            },
+            version = "v1.0.4"
         }
     },
     __meta__ = {

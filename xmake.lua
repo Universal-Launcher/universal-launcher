@@ -40,7 +40,18 @@ if is_plat("linux") then
     set_toolchains("gcc")
 end
 
-add_requires("nlohmann_json")
+add_requires("nlohmann_json", "qt-mcauth")
+
+target("ul-secrets")
+    set_kind("static")
+    add_rules("qt.static")
+    add_frameworks("QtCore")
+
+    add_headerfiles("secrets/secrets.h")
+    add_files("secrets/secrets.cpp")
+    add_defines("EMBED_SECRETS")
+    add_includedirs("secrets", { public = true })
+
 
 target("universal-launcher")
     add_rules("install_bin")
@@ -56,8 +67,9 @@ target("universal-launcher")
 
     add_defines("QT_QML_DEBUG_NO_WARNING")
 
-    add_frameworks("QtCore", "QtQml", "QtQuick", "QtNetworkAuth", "QtWebView")
-    add_packages("nlohmann_json")
+    add_frameworks("QtCore", "QtQml", "QtQuick", "QtNetworkAuth")
+    add_packages("nlohmann_json", "qt-mcauth")
+    add_deps("ul-secrets")
 
     on_load(function (target)
         import("detect.sdks.find_qt")
@@ -66,5 +78,24 @@ target("universal-launcher")
         if (not qt) then
             -- Disable building by default if Qt is not found
             target:set("default", false)
+        end
+    end)
+
+    on_run(function(target)
+        import("core.base.option")
+        local args = option.get("arguments") or {}
+        local program = target:targetfile()
+        if is_mode("valgrind") then
+            import("lib.detect.find_program")
+
+            local p = find_program("valgrind")
+            if p ~= nil then
+                table.insert(args, 1, program)
+                os.execv(p, args)
+            else
+                print("Valgrind not found")
+            end
+        else
+            os.execv(program, args)
         end
     end)

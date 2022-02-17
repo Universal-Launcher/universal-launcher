@@ -1,12 +1,11 @@
 #pragma once
 
-#include <QMap>
+#include "../QObjectMemory.h"
 #include <QObject>
-#include <QPointer>
 #include <QString>
 #include <QStringList>
 #include <QVariant>
-#include <memory>
+#include <map>
 #include <string>
 
 class ThemeObject : public QObject {
@@ -32,7 +31,7 @@ public:
   uint16_t minRadius();
 
   ThemeObject();
-  ThemeObject(ThemeValues values);
+  ThemeObject(ThemeValues &values);
 
 private:
   ThemeValues m_values{};
@@ -65,7 +64,7 @@ signals:
 
 private:
   QString m_current = "default";
-  QMap<QString, QPointer<ThemeObject>> m_themes;
+  std::map<QString, QMemory::unique_qobject_ptr<ThemeObject>> m_themes;
 
   void registerDefaultThemes();
 };

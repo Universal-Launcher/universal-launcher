@@ -13,11 +13,7 @@ Themes::Themes(QObject *parent) : QObject(parent) {
 
   changeTheme(QString{"default"});
 }
-Themes::~Themes() {
-  for (const ThemeObject *obj : m_themes.values()) {
-    delete obj;
-  }
-}
+Themes::~Themes() {}
 
 void Themes::changeTheme(const QString &themeName) {
   if (!m_themes.contains(themeName))
@@ -32,16 +28,22 @@ void Themes::changeTheme(const std::string &themeName) {
   changeTheme(QString::fromStdString(themeName));
 }
 
-ThemeObject *Themes::currentTheme() { return m_themes[m_current]; }
+ThemeObject *Themes::currentTheme() { return m_themes[m_current].get(); }
 
 QString Themes::currentThemeName() { return m_current; }
 
-QStringList Themes::themesList() { return m_themes.keys(); }
+QStringList Themes::themesList() {
+  QStringList keys;
+  for (auto const &el : m_themes) {
+    keys.push_back(el.first);
+  }
+  return keys;
+}
 
 ThemeObject *Themes::getTheme(QString name) {
   if (!m_themes.contains(name))
     return nullptr;
-  return m_themes[name];
+  return m_themes[name].get();
 }
 
 void Themes::registerDefaultThemes() {
@@ -54,7 +56,8 @@ void Themes::registerDefaultThemes() {
   values.insert("accent_color", QVariant::fromValue<QString>("#F97316"));
   values.insert("radius", QVariant::fromValue<uint16_t>(10));
   values.insert("minRadius", QVariant::fromValue<uint16_t>(5));
-  m_themes.insert("default", new ThemeObject(values));
+  m_themes.emplace("default",
+                   QMemory::make_unique_qobject_ptr<ThemeObject>(values));
 
   values["background_color"] = QVariant::fromValue<QString>("#252525");
   values["background_color_2"] = QVariant::fromValue<QString>("#444444");
@@ -63,7 +66,8 @@ void Themes::registerDefaultThemes() {
   values["accent_color"] = QVariant::fromValue<QString>("#F97316");
   values["radius"] = QVariant::fromValue<uint16_t>(10);
   values["minRadius"] = QVariant::fromValue<uint16_t>(5);
-  m_themes.insert("dark", new ThemeObject(values));
+  m_themes.emplace("dark",
+                   QMemory::make_unique_qobject_ptr<ThemeObject>(values));
 
   values["background_color"] = QVariant::fromValue<QString>("#EAD09E");
   values["background_color_2"] = QVariant::fromValue<QString>("#D7A575");
@@ -72,7 +76,8 @@ void Themes::registerDefaultThemes() {
   values["accent_color"] = QVariant::fromValue<QString>("white");
   values["radius"] = QVariant::fromValue<uint16_t>(0);
   values["minRadius"] = QVariant::fromValue<uint16_t>(0);
-  m_themes.insert("sepia", new ThemeObject(values));
+  m_themes.emplace("sepia",
+                   QMemory::make_unique_qobject_ptr<ThemeObject>(values));
 
   emit themesListUpdated();
 }

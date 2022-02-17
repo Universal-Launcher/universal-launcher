@@ -41,7 +41,9 @@ void SettingsSystem::load() {
 
 void SettingsSystem::save() {
   QFile file(m_config_path);
-  if (file.open(QIODevice::ReadWrite) && !m_doc.empty()) {
+  if (file.open(QIODevice::ReadWrite | QIODevice::Truncate | QIODevice::Text) &&
+      !m_doc.empty()) {
+
     file.write(QByteArray::fromStdString(nlohmann::to_string(m_doc)));
     file.close();
   }
